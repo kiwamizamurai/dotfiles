@@ -1,0 +1,38 @@
+## rotate tree
+alt - r : yabai -m space --rotate 90
+
+# close focused window
+alt - w : yabai -m window --close
+
+# focus window
+alt - h : yabai -m window --focus west 
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# swap window
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+# move window
+shift + cmd - h : yabai -m window --warp west
+shift + cmd - j : yabai -m window --warp south
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - l : yabai -m window --warp east
+
+# toggle full-screen
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# fast focus desktop
+# lctrl - 1 : yabai -m window --space  1; yabai -m space --focus 1  
+# lctrl - 2 : yabai -m window --space  2; yabai -m space --focus 2
+
+# send window to desktop and focus
+lctrl - 1 : yabai -m window --space  1; yabai -m space --focus 1  
+lctrl - 2 : yabai -m window --space  2; yabai -m space --focus 2
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
