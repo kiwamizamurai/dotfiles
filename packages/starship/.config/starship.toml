@@ -1,0 +1,30 @@
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold blue"
+symbol = "🅰 "
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
+
+[golang]
+format = "[🏎💨 $version](bold cyan) "
+
+[dart]
+format = "[🔰 $version](bold red) "
+
+[lua]
+format = "[🌕 $version](bold blue) "
+
+[python]
+symbol = "👾 "
+pyenv_version_name = true
+python_binary = ["/Users/kiwamizamurai/.pyenv/shims/python"]
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
