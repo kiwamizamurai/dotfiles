@@ -19,7 +19,7 @@ fi
 
 if [ ! -d "$CLONE_PATH"/dotfiles ]; then
     cd "$CLONE_PATH"
-    git clone git@github.com:umasikate/dotfiles.git
+    git clone git@github.com:kiwamizamurai/dotfiles.git
 fi
 
 brew bundle -v --file "$CLONE_PATH"/dotfiles/Brewfile
