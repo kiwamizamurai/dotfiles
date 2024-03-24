@@ -28,3 +28,6 @@ stow (GNU Stow) version 2.3.1
 * [starship](https://starship.rs/) - Shell Prompt
 * [zsh](https://www.zsh.org/) - Shell
 * [neovim](https://neovim.io/) - As IDE
+
+## Repository Metrics
+![Alt](https://repobeats.axiom.co/api/embed/58623918fbc323ae6ced987e218c83fede9f243a.svg "Repobeats analytics image")
