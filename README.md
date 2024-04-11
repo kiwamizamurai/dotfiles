@@ -22,9 +22,8 @@ stow (GNU Stow) version 2.3.1
 
 ## misc
 
-* [iTerm2](https://iterm2.com/) - Main Terminal
-* [skhd](https://github.com/koekeishiya/skhd/) - Simple Hotkey Daemon
-* [yabai](https://github.com/xorpse/yabai/) - Window Manager
+* [wezterm](https://github.com/wez/wezterm) - Main Terminal
+* [AeroSpace](https://github.com/nikitabobko/AeroSpace) - Window Manager
 * [starship](https://starship.rs/) - Shell Prompt
 * [zsh](https://www.zsh.org/) - Shell
 * [neovim](https://neovim.io/) - As IDE
