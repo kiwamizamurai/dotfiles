@@ -14,9 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Execute install script
-      run: |
-        export HOMEBREW_BUNDLE_BREW_SKIP="awscli"
-
     - name: Run brew bundle
       run: brew bundle
+      env:
+        HOMEBREW_BUNDLE_BREW_SKIP: "awscli"
