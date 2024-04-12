@@ -1,6 +1,12 @@
+# Status
+
+[![macos](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml)
+
 ## Affiliation
 
-![pic](./src/pic.png)
+<p align="center">
+  <img  width="50%" src="./src/pic.png" />
+</p>
 
 ## Version
 
