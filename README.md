@@ -9,6 +9,7 @@
 ## Status
 
 [![macos](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml)
+[![Check shellscript](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shecllcheck.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shecllcheck.yml)
 
 ## misc
 
