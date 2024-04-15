@@ -5,7 +5,6 @@ set -e
 if [ "$(dscl . -read ~/ UserShell)" = "UserShell: /bin/bash" ]; then
     chsh -s /bin/zsh
     chmod -R 755 /usr/local/share/zsh
-    chown -R root:staff zsh
 fi
 
 if [ ! -f /usr/local/bin/brew ]; then
@@ -28,4 +27,5 @@ if [ ! -d ~/.config ]; then
     mkdir ~/.config/
 fi
 
-stow -v -d "$CLONE_PATH"/dotfiles/packages -t $HOME zsh starship
+# TODO replace stow with https://github.com/twpayne/chezmoi
+# stow -v -d 
