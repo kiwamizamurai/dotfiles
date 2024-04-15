@@ -14,3 +14,6 @@ jobs:
 
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
+      with:
+        ignore_paths: >-
+          packages
