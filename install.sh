@@ -21,6 +21,11 @@ if [ ! -d "$CLONE_PATH"/dotfiles ]; then
     git clone git@github.com:kiwamizamurai/dotfiles.git
 fi
 
+if [ "$(uname)" != "Darwin" ] ; then
+	echo "Not macOS!"
+	/bin/sh ./bin/defaults.sh
+fi
+
 brew bundle -v --file "$CLONE_PATH"/dotfiles/Brewfile
 
 if [ ! -d ~/.config ]; then
