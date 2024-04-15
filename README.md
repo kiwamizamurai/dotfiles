@@ -3,7 +3,7 @@
 ## Affiliation
 
 <p align="center">
-  <img  width="50%" src="./src/pic.png" />
+  <img  width="50%" src="./pic.png" />
 </p>
 
 ## Status
