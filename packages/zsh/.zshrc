@@ -1,17 +1,18 @@
-# starship
+autoload -U compinit
+compinit
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+eval "$(zoxide init zsh)"
+
 eval "$(starship init zsh)"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-fi
-
-# pipenv
-export PIPENV_VENV_IN_PROJECT=1
-
-# alias
 alias vim="nvim"
-alias vimdiff="nvim -d"
-alias ls="lsd"
+
+eval "$(mise activate zsh)"
+
+alias k=kubectl
+compdef __start_kubectl k
+
+eval "$(atuin init zsh)"
