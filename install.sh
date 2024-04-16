@@ -1,36 +1,46 @@
 #!/bin/sh
-
 set -e
 
-if [ "$(dscl . -read ~/ UserShell)" = "UserShell: /bin/bash" ]; then
+DOTFILES_DIR="$HOME/dotfiles"
+ARTIFACT_LINK="https://github.com/kiwamizamurai/dotfiles/archive/refs/heads/main.tar.gz"
+
+
+if [ "$(dscl . -read "$HOME"/ UserShell)" != "UserShell: /bin/zsh" ]; then
+    echo "Setting up zsh..."
     chsh -s /bin/zsh
     chmod -R 755 /usr/local/share/zsh
 fi
 
-if [ ! -f /usr/local/bin/brew ]; then
+if [ "$(command -v brew)" = "" ]; then
+    echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-CLONE_PATH=~/omoya
-if [ ! -d "$CLONE_PATH" ]; then
-    mkdir -p "$CLONE_PATH"
+if [ -d "$DOTFILES_DIR" ]; then
+    echo "$DOTFILES_DIR already exists..."
+    exit 0
 fi
 
-if [ ! -d "$CLONE_PATH"/dotfiles ]; then
-    cd "$CLONE_PATH"
-    git clone git@github.com:kiwamizamurai/dotfiles.git
+if [ ! -d "$HOME/.config" ]; then
+    echo "Creating ~/.config directory..."
+    mkdir "$HOME/.config/"
 fi
 
-if [ "$(uname)" != "Darwin" ] ; then
-	echo "Not macOS!"
-	/bin/sh ./bin/defaults.sh
+if [ "$(command -v curl)" = "" ]; then
+    echo "Fetching dotfiles by curl..."
+    cd "$HOME"
+    curl -s -L $ARTIFACT_LINK | tar zx
+    echo "Extracting dotfiles..."
+    mv dotfiles-main dotfiles
 fi
 
-brew bundle -v --file "$CLONE_PATH"/dotfiles/Brewfile
-
-if [ ! -d ~/.config ]; then
-    mkdir ~/.config/
+if [ "$(uname)" = "Darwin" ] ; then
+    echo "Setting up mac configuration..."
+	/bin/sh "$DOTFILES_DIR/bin/defaults.sh"
 fi
 
-# TODO replace stow with https://github.com/twpayne/chezmoi
-# stow -v -d 
+echo "Installing some software & library..."
+brew bundle -v --file "$DOTFILES_DIR/Brewfile"
+
+echo "Symlinking dotfiles..."
+stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" ./*
