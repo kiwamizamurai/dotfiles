@@ -14,8 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Upgrade Homebrew
-      run: brew update && brew upgrade
+      # https://github.com/actions/setup-python/issues/577
+    - name: Deal with bug
+      run: rm /usr/local/bin/2to3
         
     - name: Run brew bundle
       run: brew bundle
