@@ -40,6 +40,7 @@ brew "tbls"
 brew "vhs"
 brew "zoxide"
 brew "charmbracelet/tap/freeze"
+brew "glances"
 
 cask "google-cloud-sdk"
 cask "aerospace"
