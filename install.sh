@@ -26,7 +26,7 @@ if [ ! -d "$HOME/.config" ]; then
     mkdir "$HOME/.config/"
 fi
 
-if [ "$(command -v curl)" = "" ]; then
+if [ "$(command -v curl)" != "" ]; then
     echo "Fetching dotfiles by curl..."
     cd "$HOME"
     curl -s -L $ARTIFACT_LINK | tar zx
