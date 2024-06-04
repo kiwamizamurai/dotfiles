@@ -43,4 +43,4 @@ echo "Installing some software & library..."
 brew bundle -v --file "$DOTFILES_DIR/Brewfile"
 
 echo "Symlinking dotfiles..."
-stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" ./*
+stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" .
