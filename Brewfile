@@ -97,7 +97,7 @@ vscode "irongeek.vscode-env"
 vscode "kamikillerto.vscode-colorize"
 vscode "kevinrose.vsc-python-indent"
 vscode "kukushi.pasteurl"
-# vscode "leodevbro.blockman"
+# vscode "leodevbro.blockman" # https://github.com/leodevbro/vscode-blockman/issues/141
 vscode "mechatroner.rainbow-csv"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
