@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# https://macos-defaults.com
+
 # ===================
 #                Dock
 # ===================
