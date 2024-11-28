@@ -57,6 +57,7 @@ cask "notion"
 cask "applite"
 cask "zen-browser"
 cask "cursor"
+cask "cloudflare-warp"
 
 vscode "4ops.terraform"
 vscode "aaron-bond.better-comments"
