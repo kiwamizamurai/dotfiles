@@ -16,23 +16,23 @@ if [ "$(command -v brew)" = "" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-if [ -d "$DOTFILES_DIR" ]; then
-    echo "$DOTFILES_DIR already exists..."
-    exit 0
-fi
+# if [ -d "$DOTFILES_DIR" ]; then
+#     echo "$DOTFILES_DIR already exists..."
+#     exit 0
+# fi
 
 if [ ! -d "$HOME/.config" ]; then
     echo "Creating ~/.config directory..."
     mkdir "$HOME/.config/"
 fi
 
-if [ "$(command -v curl)" != "" ]; then
-    echo "Fetching dotfiles by curl..."
-    cd "$HOME"
-    curl -s -L $ARTIFACT_LINK | tar zx
-    echo "Extracting dotfiles..."
-    mv dotfiles-main dotfiles
-fi
+# if [ "$(command -v curl)" != "" ]; then
+#     echo "Fetching dotfiles by curl..."
+#     cd "$HOME"
+#     curl -s -L $ARTIFACT_LINK | tar zx
+#     echo "Extracting dotfiles..."
+#     mv dotfiles-main dotfiles
+# fi
 
 if [ "$(uname)" = "Darwin" ] ; then
     echo "Setting up mac configuration..."
