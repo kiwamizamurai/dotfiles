@@ -39,6 +39,7 @@ brew "vhs"
 brew "zoxide"
 brew "charmbracelet/tap/freeze"
 brew "glances"
+brew "neofetch"
 
 cask "google-cloud-sdk"
 cask "aerospace"
