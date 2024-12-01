@@ -40,6 +40,7 @@ brew "charmbracelet/tap/freeze"
 brew "glances"
 brew "neofetch"
 brew "tailscale"
+brew "pearcleaner"
 
 cask "google-cloud-sdk"
 cask "aerospace"
