@@ -59,6 +59,7 @@ cask "cursor"
 cask "cloudflare-warp"
 cask "xcodes"
 cask "flux"
+cask "pronotes"
 
 vscode "4ops.terraform"
 vscode "aaron-bond.better-comments"
