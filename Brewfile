@@ -61,6 +61,7 @@ cask "xcodes"
 cask "flux"
 cask "pronotes"
 cask "the-unarchiver"
+cask "slack"
 
 vscode "4ops.terraform"
 vscode "aaron-bond.better-comments"
