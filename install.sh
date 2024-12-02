@@ -13,7 +13,7 @@ fi
 
 if [ "$(command -v brew)" = "" ]; then
     echo "Installing Homebrew...\n\n"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 if [ -d "$DOTFILES_DIR" ]; then
