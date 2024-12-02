@@ -49,4 +49,5 @@ stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" wezterm
 stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" atuin
 stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" github
 stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" neofetch
+stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" zsh
 # stow -v -d "$DOTFILES_DIR/packages" -t "$HOME" nvim
