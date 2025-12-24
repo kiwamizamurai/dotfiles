@@ -1,0 +1,35 @@
+rules:
+  # ===== Disabled Rules (not applicable for this repo) =====
+
+  # Not using self-hosted runners
+  self-hosted-runner:
+    disable: true
+
+  # Not a package publishing repo (PyPI, npm, etc.)
+  use-trusted-publishing:
+    disable: true
+
+  # Not using reusable workflows with secrets inheritance
+  secrets-inherit:
+    disable: true
+
+  # Not a release workflow repo (cache poisoning is for release pipelines)
+  cache-poisoning:
+    disable: true
+
+  # ===== Configured Rules =====
+
+  # Allow unpinned actions from trusted sources (GitHub official actions)
+  # Other actions should be pinned to SHA
+  unpinned-uses:
+    config:
+      policies:
+        - pattern: "actions/*"
+          policy: "allow-any"
+
+  # ===== Ignored Findings =====
+
+  # shellcheck action uses master branch reference in comment (intentional)
+  ref-confusion:
+    ignore:
+      - shellcheck.yml
