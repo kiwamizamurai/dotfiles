@@ -1,0 +1,85 @@
+# =============================================================================
+# Atuin Configuration
+# https://docs.atuin.sh/configuration/config/
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Search
+# -----------------------------------------------------------------------------
+# Search mode: prefix, fulltext, fuzzy, skim
+search_mode = "fuzzy"
+
+# Filter mode: global, host, session, directory
+filter_mode = "global"
+
+# Use directory filter when using up arrow key
+filter_mode_shell_up_key_binding = "directory"
+
+# -----------------------------------------------------------------------------
+# UI
+# -----------------------------------------------------------------------------
+# Style: auto, full, compact
+style = "compact"
+
+# Maximum lines for the interface (0 = full screen)
+inline_height = 20
+
+# Show preview of selected command
+show_preview = true
+
+# Put search bar at the top
+invert = true
+
+# Execute command immediately on Enter (Tab to edit)
+enter_accept = true
+
+# Show help row with version and keymap hints
+show_help = true
+
+# -----------------------------------------------------------------------------
+# Privacy
+# -----------------------------------------------------------------------------
+# Filter out secrets (AWS keys, GitHub tokens, etc.)
+secrets_filter = true
+
+# Commands to exclude from history
+history_filter = [
+  "^export ",
+  "^set ",
+  "^env ",
+]
+
+# -----------------------------------------------------------------------------
+# Sync (disabled by default)
+# -----------------------------------------------------------------------------
+# auto_sync = false
+# sync_address = "https://api.atuin.sh"
+# sync_frequency = "10m"
+
+# -----------------------------------------------------------------------------
+# Stats
+# -----------------------------------------------------------------------------
+[stats]
+# Commands where subcommands matter for statistics
+common_subcommands = [
+  "cargo",
+  "docker",
+  "git",
+  "go",
+  "kubectl",
+  "npm",
+  "pnpm",
+  "yarn",
+]
+
+# Prefix to strip from stats
+common_prefix = ["sudo"]
+
+# Commands to ignore from stats
+ignored_commands = [
+  "cd",
+  "ls",
+  "ll",
+  "clear",
+  "exit",
+]
