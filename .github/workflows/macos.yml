@@ -1,10 +1,13 @@
-name: Check macos
+name: macOS Install Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   macos-test:
@@ -12,15 +15,35 @@ jobs:
     runs-on: macos-14
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # https://github.com/actions/setup-python/issues/577
-    - name: Deal with bug
-      run: |
-        rm /usr/local/bin/2to3
-        rm /usr/local/bin/2to3-3.12
-        
-    - name: Run brew bundle
-      run: brew bundle
-      env:
-        HOMEBREW_BUNDLE_BREW_SKIP: "awscli"
+      - name: Deal with Python symlink bug
+        run: |
+          rm -f /usr/local/bin/2to3 || true
+          rm -f /usr/local/bin/2to3-3.12 || true
+
+      - name: Run brew bundle
+        run: brew bundle --verbose
+        env:
+          HOMEBREW_BUNDLE_BREW_SKIP: "awscli"
+
+      - name: Create ~/.config directory
+        run: mkdir -p "$HOME/.config"
+
+      - name: Test stow symlinks
+        run: |
+          for pkg in starship wezterm atuin github neofetch zsh nvim; do
+            echo "Stowing $pkg..."
+            stow --verbose -d packages -t "$HOME" "$pkg"
+          done
+
+      - name: Verify symlinks created
+        run: |
+          echo "Checking symlinks..."
+          ls -la "$HOME/.config/" || true
+          ls -la "$HOME/.zshrc" || true
+          ls -la "$HOME/.gitconfig" || true
+          ls -la "$HOME/.wezterm.lua" || true
