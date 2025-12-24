@@ -61,19 +61,19 @@ alias cat="bat"
 # Tools
 # -----------------------------------------------------------------------------
 if command -v mise &>/dev/null; then
-  eval "$(mise activate zsh)"
+eval "$(mise activate zsh)"
 fi
 
 if command -v atuin &>/dev/null; then
-  eval "$(atuin init zsh)"
+eval "$(atuin init zsh)"
 fi
 
 if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 fi
 
 if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 fi
 
 # -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ if type brew &>/dev/null; then
   if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
     source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   fi
-  
+
   if [ -f "$(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]; then
     source "$(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
   fi
