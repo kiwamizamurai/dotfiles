@@ -9,13 +9,13 @@
 ## Usage
 
 ```bash
-❯ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"
 ```
 
 ## Status
 
 [![macos](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/macos.yml)
-[![Check shellscript](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shecllcheck.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shecllcheck.yml)
+[![Check shellscript](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/kiwamizamurai/dotfiles/actions/workflows/shellcheck.yml)
 
 ## misc
 
