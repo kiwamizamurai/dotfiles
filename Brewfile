@@ -65,6 +65,7 @@ brew "mise"                        # Polyglot runtime version manager (asdf succ
 # AI & LLM
 brew "ollama"                      # Run large language models locally
 brew "gemini-cli"                  # Google Gemini CLI
+brew "opencode"                    # AI-powered CLI tool for software engineering
 
 # Policy & Security
 brew "conftest"                    # Test configuration files using OPA
