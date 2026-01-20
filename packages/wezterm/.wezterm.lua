@@ -103,10 +103,10 @@ config.keys = {
 }
 
 -- Navigate panes with Vim keys (Ctrl)
-table.insert(config.keys, { key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") })
-table.insert(config.keys, { key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") })
-table.insert(config.keys, { key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") })
-table.insert(config.keys, { key = "l", mods = "CTRL", action = act.ActivatePaneDirection("Right") })
+-- table.insert(config.keys, { key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") })
+-- table.insert(config.keys, { key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") })
+-- table.insert(config.keys, { key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") })
+-- table.insert(config.keys, { key = "l", mods = "CTRL", action = act.ActivatePaneDirection("Right") })
 
 -- Navigate panes with Vim keys (Ctrl+Shift)
 table.insert(config.keys, { key = "h", mods = "CTRL|SHIFT", action = act.ActivatePaneDirection("Left") })

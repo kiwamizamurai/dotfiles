@@ -1,0 +1,149 @@
+# AeroSpace - i3-like tiling window manager for macOS
+# Config version for compatibility
+config-version = 2
+
+# Start at login (set to false as requested)
+start-at-login = false
+
+# After startup commands (can add later if needed)
+after-startup-command = []
+
+# Normalizations for better window management
+# Set to false to make 'split' commands work properly
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Default layout settings
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Keep macOS hide feature enabled
+automatically-unhide-macos-hidden-apps = false
+
+# Keyboard layout
+[key-mapping]
+preset = 'qwerty'
+
+# Window gaps (5px as requested)
+[gaps]
+inner.horizontal = 5
+inner.vertical = 5
+outer.left = 5
+outer.bottom = 5
+outer.top = 5
+outer.right = 5
+
+# ============================================================================
+# Main Mode Keybindings (i3-like configuration)
+# ============================================================================
+[mode.main.binding]
+
+# Terminal launch (Alt+Enter)
+# Using WezTerm which is already in your dotfiles
+alt-enter = '''exec-and-forget open -n /Applications/WezTerm.app'''
+
+# Focus windows (Alt + hjkl for vim-like navigation)
+alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+
+# Move windows (Alt+Shift + hjkl)
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Layout changes (instead of split for now)
+alt-b = 'layout tiles horizontal'  # Horizontal tile layout
+alt-v = 'layout tiles vertical'    # Vertical tile layout
+
+# Layout management
+alt-f = 'fullscreen'
+alt-s = 'layout v_accordion'  # Stacking layout
+alt-w = 'layout h_accordion'  # Tabbed layout
+alt-e = 'layout tiles horizontal vertical'  # Toggle split
+alt-shift-space = 'layout floating tiling'  # Toggle floating
+
+# Resize mode
+alt-r = 'mode resize'
+
+# Workspace navigation (1-9 as requested)
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+# Move window to workspace
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# Config reload
+alt-shift-c = 'reload-config'
+
+# Close focused window
+alt-shift-q = 'close'
+
+# Balance windows (make them equal size)
+alt-shift-b = 'balance-sizes'
+
+# ============================================================================
+# Resize Mode
+# ============================================================================
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+
+# Finer control with Shift
+shift-h = 'resize width -10'
+shift-j = 'resize height +10'
+shift-k = 'resize height -10'
+shift-l = 'resize width +10'
+
+# Exit resize mode
+enter = 'mode main'
+esc = 'mode main'
+
+# ============================================================================
+# App-specific Rules (Optional)
+# ============================================================================
+
+# Example: Always float certain apps
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = ['layout floating']
+
+# Development apps go to specific workspaces
+# [[on-window-detected]]
+# if.app-id = 'com.microsoft.VSCode'
+# run = ['move-node-to-workspace 2']
+
+# [[on-window-detected]]
+# if.app-id = 'com.github.wez.wezterm'
+# run = ['move-node-to-workspace 1']

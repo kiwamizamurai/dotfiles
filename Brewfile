@@ -79,9 +79,11 @@ brew "tectonic"                    # Modernized LaTeX engine
 brew "tbls"                        # Database documentation generator
 
 # Media & Recording
+brew "imagemagick"                 # Image manipulation library (for image.nvim)
 brew "vhs"                         # CLI tool for recording terminal GIFs
 brew "charmbracelet/tap/freeze"    # Generate images of code and terminal output
 brew "handbrake"                   # Video transcoder
+brew "asciinema"                   # Terminal session recorder
 
 # Utilities
 brew "unzip"                       # Extraction utility for .zip files
@@ -135,6 +137,7 @@ cask "jordanbaird-ice"             # Menu bar manager
 cask "sol"                         # Launcher app
 
 # System
+cask "aerospace"                   # i3-like tiling window manager for macOS
 cask "cloudflare-warp"             # Cloudflare VPN client
 cask "flux"                        # Screen color temperature adjuster
 cask "pronotes"                    # Note-taking app
