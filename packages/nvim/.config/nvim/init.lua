@@ -1,3 +1,40 @@
-require('plugins')
-require('keybindings')
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Load options before plugins
 require('options')
+
+-- Setup lazy.nvim and load plugins
+require("lazy").setup("plugins", {
+  defaults = {
+    lazy = false, -- plugins are not lazy-loaded by default
+  },
+  install = {
+    colorscheme = { "tokyodark" },
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+})
+
+-- Load keybindings after plugins
+require('keybindings')

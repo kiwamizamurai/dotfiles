@@ -1,19 +1,49 @@
 [user]
-    name = kiwamizamurai
-    email = 24860100+kiwamizamurai@users.noreply.github.com
+	name = kiwamizamurai
+	signingkey = 3E22A8C0DD4E4A85
 [alias]
     lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg = lg1
+    s = status -s
+    co = checkout
+    amend = commit --amend --reuse-message=HEAD
+    dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 [core]
     pager = delta
+    untrackedCache = true
 [interactive]
     diffFilter = delta --color-only
 [delta]
     navigate = true
     line-numbers = true
     side-by-side = true
+    hyperlinks = true
+    syntax-theme = base16
 [merge]
     conflictstyle = diff3
 [diff]
     colorMoved = default
+    algorithm = histogram
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[commit]
+	gpgsign = true
+[fetch]
+    prune = true
+[pull]
+    ff = only
+[rebase]
+    autosquash = true
+[rerere]
+    enabled = true
+[log]
+    date = human
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[include]
+    path = ~/.gitconfig.local

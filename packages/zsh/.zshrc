@@ -48,6 +48,12 @@ setopt hist_verify
 # Remove extra blanks
 setopt hist_reduce_blanks
 
+# Share history across terminals
+setopt SHARE_HISTORY
+
+# Add commands to history immediately
+setopt INC_APPEND_HISTORY
+
 # -----------------------------------------------------------------------------
 # Aliases
 # -----------------------------------------------------------------------------

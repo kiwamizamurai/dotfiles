@@ -1,56 +1,72 @@
 local wk = require("which-key")
 
 wk.setup {
-   plugins = {
-     marks = false,
-     registers = false,
-     spelling = {enabled = false, suggestions = 20},
-     presets = {operators = false, motions = false, text_objects = false, windows = false, nav = false, z = false, g = false}
-   }
- }
+  plugins = {
+    marks = false,
+    registers = false,
+    spelling = {enabled = false, suggestions = 20},
+    presets = {operators = false, motions = false, text_objects = false, windows = false, nav = false, z = false, g = false}
+  }
+}
 
 local Terminal = require('toggleterm.terminal').Terminal
 local toggle_float = function()
   local float = Terminal:new({direction = "float"})
   return float:toggle()
 end
+local toggle_vertical = function()
+  local vertical = Terminal:new({direction = "vertical", size = 80})
+  return vertical:toggle()
+end
 local toggle_lazygit = function()
   local lazygit = Terminal:new({cmd = 'lazygit', direction = "float"})
   return lazygit:toggle()
 end
 
-local mappings = {
-  q = {":q<cr>", "Quit"},
-  Q = {":wq<cr>", "Save & Quit"},
-  w = {":w<cr>", "Save"},
-  x = {":bdelete<cr>", "Close"},
-  E = {":e ~/.config/nvim/init.lua<cr>", "Edit config"},
-  f = {":Telescope find_files<cr>", "Telescope Find Files"},
-  r = {":Telescope live_grep<cr>", "Telescope Live Grep"},
-  t = {t = {":ToggleTerm<cr>", "Split Below"}, f = {toggle_float, "Floating Terminal"}, l = {toggle_lazygit, "LazyGit"}},
-  l = {
-    name = "LSP",
-    i = {":LspInfo<cr>", "Connected Language Servers"},
-    k = {"<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help"},
-    K = {"<cmd>Lspsaga hover_doc<cr>", "Hover Commands"},
-    w = {'<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', "Add Workspace Folder"},
-    W = {'<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', "Remove Workspace Folder"},
-    l = {'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', "List Workspace Folders"},
-    t = {'<cmd>lua vim.lsp.buf.type_definition()<cr>', "Type Definition"},
-    d = {'<cmd>lua vim.lsp.buf.definition()<cr>', "Go To Definition"},
-    D = {'<cmd>lua vim.lsp.buf.declaration()<cr>', "Go To Declaration"},
-    r = {'<cmd>lua vim.lsp.buf.references()<cr>', "References"},
-    --- R = {'<cmd>Lspsaga rename<cr>', "Rename"},
-    --- a = {'<cmd>Lspsaga code_action<cr>', "Code Action"},
-    --- e = {'<cmd>Lspsaga show_line_diagnostics<cr>', "Show Line Diagnostics"},
-    --- n = {'<cmd>Lspsaga diagnostic_jump_next<cr>', "Go To Next Diagnostic"},
-    --- N = {'<cmd>Lspsaga diagnostic_jump_prev<cr>', "Go To Previous Diagnostic"},
-    z = {
-      name = "Focus",
-      z = {":ZenMode<cr>", "Toggle Zen Mode"},
-      t = {":Twilight<cr>", "Toggle Twilight"}
-    }
-  },
-}
-local opts = {prefix = '<leader>'}
-wk.register(mappings, opts)
+wk.add({
+  -- Basic commands
+  { "<leader>q", ":q<cr>", desc = "Quit" },
+  { "<leader>Q", ":wq<cr>", desc = "Save & Quit" },
+  { "<leader>w", ":w<cr>", desc = "Save" },
+  { "<leader>x", ":bdelete<cr>", desc = "Close" },
+  { "<leader>E", ":e ~/.config/nvim/init.lua<cr>", desc = "Edit config" },
+
+  -- Find group
+  { "<leader>f", group = "Find" },
+  { "<leader>ff", ":Telescope find_files<cr>", desc = "Find Files" },
+  { "<leader>fg", ":Telescope live_grep<cr>", desc = "Live Grep" },
+  { "<leader>fb", ":Telescope buffers<cr>", desc = "Buffers" },
+  { "<leader>fh", ":Telescope help_tags<cr>", desc = "Help Tags" },
+  { "<leader>fr", ":Telescope oldfiles<cr>", desc = "Recent Files" },
+  { "<leader>fd", ":Telescope diagnostics<cr>", desc = "Diagnostics" },
+  { "<leader>fs", ":Telescope git_status<cr>", desc = "Git Status" },
+  { "<leader>fc", ":Telescope git_commits<cr>", desc = "Git Commits" },
+
+  -- Quick live grep
+  { "<leader>r", ":Telescope live_grep<cr>", desc = "Live Grep (quick)" },
+
+  -- Terminal group
+  { "<leader>t", group = "Terminal" },
+  { "<leader>th", ":ToggleTerm<cr>", desc = "Horizontal (bottom)" },
+  { "<leader>tv", toggle_vertical, desc = "Vertical (right)" },
+  { "<leader>tf", toggle_float, desc = "Floating (center)" },
+  { "<leader>tl", toggle_lazygit, desc = "LazyGit" },
+
+  -- LSP group
+  { "<leader>l", group = "LSP" },
+  { "<leader>li", ":LspInfo<cr>", desc = "Connected Language Servers" },
+  { "<leader>lk", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature Help" },
+  { "<leader>lK", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Commands" },
+  { "<leader>lw", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", desc = "Add Workspace Folder" },
+  { "<leader>lW", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", desc = "Remove Workspace Folder" },
+  { "<leader>ll", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", desc = "List Workspace Folders" },
+  { "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type Definition" },
+  { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go To Definition" },
+  { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Go To Declaration" },
+  { "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "References" },
+
+  -- Zen mode (nested under LSP for now)
+  { "<leader>lz", group = "Focus" },
+  { "<leader>lzz", ":ZenMode<cr>", desc = "Toggle Zen Mode" },
+  { "<leader>lzt", ":Twilight<cr>", desc = "Toggle Twilight" },
+})
