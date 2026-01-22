@@ -69,5 +69,6 @@ stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" github
 stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" neofetch
 stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" zsh
 stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" nvim
+stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" opencode
 
 echo "Done! Please restart your terminal."
