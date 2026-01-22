@@ -65,7 +65,6 @@ brew "mise"                        # Polyglot runtime version manager (asdf succ
 # AI & LLM
 brew "ollama"                      # Run large language models locally
 brew "gemini-cli"                  # Google Gemini CLI
-brew "opencode"                    # AI-powered CLI tool for software engineering
 
 # Policy & Security
 brew "conftest"                    # Test configuration files using OPA
@@ -119,6 +118,7 @@ cask "meetingbar"                  # Calendar meetings in menu bar
 cask "tandem"                      # Virtual office for remote teams
 
 # Browsers
+cask "helium-browser"              # Privacy-focused Chromium fork (ungoogled-chromium based)
 cask "zen-browser"                 # Privacy-focused Firefox fork
 cask "zen"                         # Minimal browser
 
@@ -148,6 +148,11 @@ cask "font-hack-nerd-font"         # Nerd Font patched Hack font
 
 # AI
 cask "claude-code"                 # Claude Code CLI by Anthropic
+
+# Security & Privacy
+cask "lulu"                        # Free open-source macOS firewall (Objective-See)
+cask "signal"                      # E2E encrypted messaging
+cask "standard-notes"              # E2E encrypted notes
 
 # =============================================================================
 # VS Code Extensions
