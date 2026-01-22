@@ -7,7 +7,7 @@ local config = wezterm.config_builder()
 -- Appearance
 -- =============================================================================
 config.color_scheme = "Catppuccin Mocha"
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.97
 config.window_decorations = "RESIZE" -- Hide title bar, keep resize handles
 
 -- Window size and padding

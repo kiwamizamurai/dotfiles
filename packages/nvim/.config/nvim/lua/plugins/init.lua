@@ -487,8 +487,18 @@ return {
     version = false, -- set this if you want to always pull the latest change
     opts = {
       -- add any opts here
-      provider = 'claude', -- default provider
+      provider = 'claude-code', -- ACP provider
       auto_suggestions_provider = 'claude',
+      acp_providers = {
+        ['claude-code'] = {
+          command = 'npx',
+          args = { '@zed-industries/claude-code-acp' },
+          env = {
+            NODE_NO_WARNINGS = '1',
+            ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY'),
+          },
+        },
+      },
       providers = {
         claude = {
           endpoint = 'https://api.anthropic.com',
