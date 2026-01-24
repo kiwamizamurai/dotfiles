@@ -1246,14 +1246,152 @@ footer {
         padding: 4rem 1.25rem;
     }
 
+    /* Features controls - wrap on mobile */
+    .features-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .controls-group.display-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .layout-toggle,
+    .layout-action {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.75rem;
+    }
+
+    /* Preview ASCII - scale down for mobile */
+    .preview-content {
+        padding: 1rem;
+        font-size: 0.55rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .preview-ascii {
+        transform-origin: top left;
+        min-width: max-content;
+    }
+
+    /* Stack section - force grid layout on mobile */
+    .stack-controls {
+        display: none;
+    }
+
+    .stack-scene {
+        height: auto;
+        min-height: 0;
+        perspective: none;
+    }
+
+    .stack-grid,
+    .stack-grid[data-layout="sphere"],
+    .stack-grid[data-layout="helix"] {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        position: relative !important;
+        height: auto !important;
+        transform: none !important;
+    }
+
+    .stack-grid .stack-item,
+    .stack-grid[data-layout="sphere"] .stack-item,
+    .stack-grid[data-layout="helix"] .stack-item {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        margin: 0 !important;
+        width: auto !important;
+        height: auto !important;
+        transform: none !important;
+    }
+
+    .stack-item {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .stack-icon {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 0.35rem;
+    }
+
+    .stack-icon img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .stack-name {
+        font-size: 0.7rem;
+    }
+
+    .stack-category {
+        font-size: 0.6rem;
+    }
+
+    /* Quickstart - fix long command overflow */
     .quickstart-step {
         flex-direction: column;
         gap: 0.75rem;
     }
 
+    .step-code {
+        font-size: 0.65rem;
+        word-break: break-all;
+        white-space: normal;
+        line-height: 1.6;
+        padding-right: 3.5rem;
+    }
+
+    .copy-btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.6rem;
+    }
+
     .footer-content {
         flex-direction: column;
         text-align: center;
+    }
+
+    /* Carousel navigation */
+    .carousel-nav {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .carousel-label {
+        order: 3;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .stack-grid,
+    .stack-grid[data-layout="sphere"],
+    .stack-grid[data-layout="helix"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .preview-content {
+        font-size: 0.45rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 }
 
