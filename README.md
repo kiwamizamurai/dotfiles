@@ -22,7 +22,7 @@
 * [Wezterm](https://github.com/wez/wezterm) - Terminal
 * [Starship](https://starship.rs/) - Shell Prompt
 * [Zen-browser](https://zen-browser.app) - Browser
-* [AeroSpace](https://github.com/nikitabobko/AeroSpace) - i3-like tiling window manager for macOS
+* [AeroSpace](https://github.com/nikitabobko/AeroSpace) - Tiling wm
 
 ## Why Not Nix?
 
