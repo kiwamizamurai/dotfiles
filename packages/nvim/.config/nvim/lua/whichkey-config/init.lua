@@ -56,7 +56,7 @@ wk.add({
   { "<leader>l", group = "LSP" },
   { "<leader>li", ":LspInfo<cr>", desc = "Connected Language Servers" },
   { "<leader>lk", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature Help" },
-  { "<leader>lK", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Commands" },
+  { "<leader>lK", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover Commands" },
   { "<leader>lw", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", desc = "Add Workspace Folder" },
   { "<leader>lW", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", desc = "Remove Workspace Folder" },
   { "<leader>ll", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", desc = "List Workspace Folders" },
