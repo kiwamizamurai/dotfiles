@@ -119,8 +119,6 @@ cask "tandem"                      # Virtual office for remote teams
 
 # Browsers
 cask "helium-browser"              # Privacy-focused Chromium fork (ungoogled-chromium based)
-cask "zen-browser"                 # Privacy-focused Firefox fork
-cask "zen"                         # Minimal browser
 
 # Media
 cask "iina"                        # Modern media player for macOS

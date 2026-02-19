@@ -21,7 +21,7 @@
 
 * [Wezterm](https://github.com/wez/wezterm) - Terminal
 * [Starship](https://starship.rs/) - Shell Prompt
-* [Zen-browser](https://zen-browser.app) - Browser
+* [Helium-browser](https://helium.computer/) - Browser
 * [AeroSpace](https://github.com/nikitabobko/AeroSpace) - Tiling wm
 
 ## Why Not Nix?
