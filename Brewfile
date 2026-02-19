@@ -63,7 +63,7 @@ brew "neovim"                      # Hyperextensible Vim-based text editor
 brew "mise"                        # Polyglot runtime version manager (asdf successor)
 
 # AI & LLM
-brew "ollama"                      # Run large language models locally
+brew "llama.cpp"                   # LLM inference in C/C++
 brew "gemini-cli"                  # Google Gemini CLI
 
 # Policy & Security
