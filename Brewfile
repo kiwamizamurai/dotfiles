@@ -151,114 +151,114 @@ cask "lulu"                        # Free open-source macOS firewall (Objective-
 cask "signal"                      # E2E encrypted messaging
 cask "standard-notes"              # E2E encrypted notes
 
-# =============================================================================
-# VS Code Extensions
-# =============================================================================
+# # =============================================================================
+# # VS Code Extensions
+# # =============================================================================
 
-# Terraform & Infrastructure
-vscode "4ops.terraform"
-vscode "hashicorp.terraform"
+# # Terraform & Infrastructure
+# vscode "4ops.terraform"
+# vscode "hashicorp.terraform"
 
-# Git & GitHub
-vscode "donjayamanne.githistory"
-vscode "eamodio.gitlens"
-vscode "github.copilot"
-vscode "github.copilot-chat"
-vscode "github.vscode-github-actions"
-vscode "github.vscode-pull-request-github"
+# # Git & GitHub
+# vscode "donjayamanne.githistory"
+# vscode "eamodio.gitlens"
+# vscode "github.copilot"
+# vscode "github.copilot-chat"
+# vscode "github.vscode-github-actions"
+# vscode "github.vscode-pull-request-github"
 
-# Python
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "kevinrose.vsc-python-indent"
-vscode "njpwerner.autodocstring"
+# # Python
+# vscode "ms-python.python"
+# vscode "ms-python.vscode-pylance"
+# vscode "kevinrose.vsc-python-indent"
+# vscode "njpwerner.autodocstring"
 
-# Web Development
-vscode "esbenp.prettier-vscode"
-vscode "formulahendry.auto-close-tag"
-vscode "formulahendry.auto-complete-tag"
-vscode "formulahendry.auto-rename-tag"
-vscode "pranaygp.vscode-css-peek"
-vscode "vincaslt.highlight-matching-tag"
-vscode "zignd.html-css-class-completion"
-vscode "ritwickdey.liveserver"
-vscode "ms-vscode.live-server"
+# # Web Development
+# vscode "esbenp.prettier-vscode"
+# vscode "formulahendry.auto-close-tag"
+# vscode "formulahendry.auto-complete-tag"
+# vscode "formulahendry.auto-rename-tag"
+# vscode "pranaygp.vscode-css-peek"
+# vscode "vincaslt.highlight-matching-tag"
+# vscode "zignd.html-css-class-completion"
+# vscode "ritwickdey.liveserver"
+# vscode "ms-vscode.live-server"
 
-# Database & SQL
-vscode "alexcvzz.vscode-sqlite"
-vscode "bajdzis.vscode-database"
-vscode "mtxr.sqltools"
-vscode "qwtel.sqlite-viewer"
-vscode "shinichi-takii.sql-bigquery"
+# # Database & SQL
+# vscode "alexcvzz.vscode-sqlite"
+# vscode "bajdzis.vscode-database"
+# vscode "mtxr.sqltools"
+# vscode "qwtel.sqlite-viewer"
+# vscode "shinichi-takii.sql-bigquery"
 
-# Docker & Kubernetes
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
+# # Docker & Kubernetes
+# vscode "ms-azuretools.vscode-docker"
+# vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
 
-# API & REST
-vscode "arjun.swagger-viewer"
-vscode "rangav.vscode-thunder-client"
+# # API & REST
+# vscode "arjun.swagger-viewer"
+# vscode "rangav.vscode-thunder-client"
 
-# Markdown & Documentation
-vscode "bierner.markdown-mermaid"
-vscode "foam.foam-vscode"
-vscode "gera2ld.markmap-vscode"
+# # Markdown & Documentation
+# vscode "bierner.markdown-mermaid"
+# vscode "foam.foam-vscode"
+# vscode "gera2ld.markmap-vscode"
 
-# Data Formats
-vscode "be5invis.toml"
-vscode "redhat.vscode-yaml"
-vscode "mechatroner.rainbow-csv"
-vscode "irongeek.vscode-env"
-vscode "samuelcolvin.jinjahtml"
+# # Data Formats
+# vscode "be5invis.toml"
+# vscode "redhat.vscode-yaml"
+# vscode "mechatroner.rainbow-csv"
+# vscode "irongeek.vscode-env"
+# vscode "samuelcolvin.jinjahtml"
 
-# Code Quality & Visualization
-vscode "aaron-bond.better-comments"
-vscode "usernamehw.errorlens"
-vscode "gruntfuggly.todo-tree"
-vscode "wayou.vscode-todo-highlight"
-vscode "oderwat.indent-rainbow"
-vscode "shardulm94.trailing-spaces"
-vscode "davidhouchin.whitespace-plus"
+# # Code Quality & Visualization
+# vscode "aaron-bond.better-comments"
+# vscode "usernamehw.errorlens"
+# vscode "gruntfuggly.todo-tree"
+# vscode "wayou.vscode-todo-highlight"
+# vscode "oderwat.indent-rainbow"
+# vscode "shardulm94.trailing-spaces"
+# vscode "davidhouchin.whitespace-plus"
 
-# Color & Theme
-vscode "equinusocio.vsc-material-theme-icons"
-vscode "kamikillerto.vscode-colorize"
-vscode "naumovs.color-highlight"
-vscode "wicked-labs.wvsc-serendipity"
+# # Color & Theme
+# vscode "equinusocio.vsc-material-theme-icons"
+# vscode "kamikillerto.vscode-colorize"
+# vscode "naumovs.color-highlight"
+# vscode "wicked-labs.wvsc-serendipity"
 
-# File & Path
-vscode "christian-kohler.path-intellisense"
-vscode "ionutvmi.path-autocomplete"
+# # File & Path
+# vscode "christian-kohler.path-intellisense"
+# vscode "ionutvmi.path-autocomplete"
 
-# Utilities
-vscode "albymor.increment-selection"
-vscode "amodio.restore-editors"
-vscode "chrmarti.regex"
-vscode "emeraldwalk.runonsave"
-vscode "emilast.logfilehighlighter"
-vscode "foxundermoon.shell-format"
-vscode "ibm.output-colorizer"
-vscode "kukushi.pasteurl"
-vscode "mushan.vscode-paste-image"
+# # Utilities
+# vscode "albymor.increment-selection"
+# vscode "amodio.restore-editors"
+# vscode "chrmarti.regex"
+# vscode "emeraldwalk.runonsave"
+# vscode "emilast.logfilehighlighter"
+# vscode "foxundermoon.shell-format"
+# vscode "ibm.output-colorizer"
+# vscode "kukushi.pasteurl"
+# vscode "mushan.vscode-paste-image"
 
-# Cloud & AWS
-vscode "amazonwebservices.aws-toolkit-vscode"
+# # Cloud & AWS
+# vscode "amazonwebservices.aws-toolkit-vscode"
 
-# dbt
-vscode "innoverio.vscode-dbt-power-user"
+# # dbt
+# vscode "innoverio.vscode-dbt-power-user"
 
-# Icons & Fonts
-vscode "idleberg.icon-fonts"
+# # Icons & Fonts
+# vscode "idleberg.icon-fonts"
 
-# Drawing & Diagrams
-vscode "pomdtr.excalidraw-editor"
-vscode "simonsiefke.svg-preview"
-vscode "tldraw-org.tldraw-vscode"
+# # Drawing & Diagrams
+# vscode "pomdtr.excalidraw-editor"
+# vscode "simonsiefke.svg-preview"
+# vscode "tldraw-org.tldraw-vscode"
 
-# C/C++ & Embedded
-vscode "ms-vscode.cpptools"
-vscode "ms-vscode.vscode-serial-monitor"
-vscode "platformio.platformio-ide"
+# # C/C++ & Embedded
+# vscode "ms-vscode.cpptools"
+# vscode "ms-vscode.vscode-serial-monitor"
+# vscode "platformio.platformio-ide"
 
-# Disabled
-# vscode "leodevbro.blockman" # https://github.com/leodevbro/vscode-blockman/issues/141
+# # Disabled
+# # vscode "leodevbro.blockman" # https://github.com/leodevbro/vscode-blockman/issues/141
