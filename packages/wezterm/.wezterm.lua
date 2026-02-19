@@ -23,7 +23,7 @@ config.window_padding = {
 -- =============================================================================
 -- Font
 -- =============================================================================
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font("Maple Mono NF")
 config.font_size = 14.0
 config.line_height = 1.2
 
