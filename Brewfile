@@ -69,7 +69,6 @@ brew "gemini-cli"                  # Google Gemini CLI
 # Policy & Security
 brew "conftest"                    # Test configuration files using OPA
 brew "opa"                         # Open Policy Agent - policy engine
-brew "zizmor"                      # GitHub Actions security linter
 
 # Document & Typesetting
 brew "typst"                       # Modern markup-based typesetting system
@@ -111,7 +110,6 @@ cask "xcodes"                      # Xcode version manager
 cask "google-cloud-sdk"            # Google Cloud CLI and tools
 
 # Productivity
-cask "raycast"                     # Launcher and productivity tool
 cask "notion"                      # All-in-one workspace
 cask "slack"                       # Team communication
 cask "meetingbar"                  # Calendar meetings in menu bar
@@ -143,6 +141,7 @@ cask "pronotes"                    # Note-taking app
 
 # Fonts
 cask "font-hack-nerd-font"         # Nerd Font patched Hack font
+cask "font-maple-mono-nf"          # Maple Mono Nerd Font
 
 # AI
 cask "claude-code"                 # Claude Code CLI by Anthropic
@@ -260,9 +259,6 @@ vscode "tldraw-org.tldraw-vscode"
 vscode "ms-vscode.cpptools"
 vscode "ms-vscode.vscode-serial-monitor"
 vscode "platformio.platformio-ide"
-
-# Collaboration
-vscode "ms-vsliveshare.vsliveshare"
 
 # Disabled
 # vscode "leodevbro.blockman" # https://github.com/leodevbro/vscode-blockman/issues/141
