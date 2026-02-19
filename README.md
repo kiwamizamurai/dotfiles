@@ -23,6 +23,7 @@
 * [Starship](https://starship.rs/) - Shell Prompt
 * [Helium-browser](https://helium.computer/) - Browser
 * [AeroSpace](https://github.com/nikitabobko/AeroSpace) - Tiling wm
+* [Maple Mono NF](https://github.com/subframe7536/maple-font) - Font
 
 ## Why Not Nix?
 
