@@ -52,5 +52,6 @@
       }
     ]
   },
-  "cleanupPeriodDays": 30
+  "cleanupPeriodDays": 30,
+  "plansDirectory": "~/.claude/plans"
 }
