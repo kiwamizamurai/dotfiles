@@ -71,4 +71,8 @@ stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" zsh
 stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" nvim
 stow --restow --adopt -v -d "$DOTFILES_DIR/packages" -t "$HOME" opencode
 
+# Install Neovim plugins headlessly
+echo "Installing Neovim plugins..."
+nvim --headless -c "lua require('lazy').sync({wait=true})" -c "qa" 2>&1
+
 echo "Done! Please restart your terminal."

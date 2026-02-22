@@ -115,7 +115,6 @@ return {
       -- Setup mason-lspconfig first
       require('mason-lspconfig').setup({
         ensure_installed = { 'lua_ls', 'pyright', 'ts_ls' },
-        automatic_installation = true,
       })
 
       -- Then load LSP configuration which will setup the servers

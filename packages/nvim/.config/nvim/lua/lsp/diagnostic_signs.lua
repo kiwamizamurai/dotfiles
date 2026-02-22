@@ -17,7 +17,6 @@ vim.diagnostic.config({
     source = "always",
     border = "rounded",
   },
-  signs = false, -- handled above via signs.text
   underline = true,
   update_in_insert = false,
   severity_sort = true,
