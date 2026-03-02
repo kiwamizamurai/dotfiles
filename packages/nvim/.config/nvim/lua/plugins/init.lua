@@ -147,23 +147,15 @@ return {
     event = 'BufRead',
     config = function()
       require('colorizer').setup({
-        filetypes = { "*" },
-        user_default_options = {
-          RGB = true,
-          RRGGBB = true,
-          names = true,
-          RRGGBBAA = false,
-          AARRGGBB = false,
-          rgb_fn = false,
-          hsl_fn = false,
-          css = false,
-          css_fn = false,
-          mode = "background",
-          tailwind = false,
-          sass = { enable = false, parsers = { "css" } },
-          virtualtext = "■",
+        filetypes = { '*' },
+        options = {
+          parsers = {
+            names = { enable = true },
+          },
+          display = {
+            mode = 'background',
+          },
         },
-        buftypes = {},
       })
     end,
   },
@@ -513,57 +505,5 @@ return {
       -- Keymaps
       vim.keymap.set('n', '<leader>mp', '<cmd>MarkdownPreviewToggle<CR>', { desc = 'Toggle Markdown Preview' })
     end,
-  },
-
-  -- Image preview support in Neovim
-  {
-    '3rd/image.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
-    opts = {
-      backend = 'sixel', -- Best for WezTerm (also supports kitty, ueberzug)
-      processor = 'magick_cli', -- Use ImageMagick CLI (magick_rock for better performance)
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = true, -- Better performance for WezTerm
-          only_render_image_at_cursor_mode = 'popup',
-          filetypes = { 'markdown', 'vimwiki', 'mdx' },
-        },
-        neorg = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = false,
-          filetypes = { 'norg' },
-        },
-        typst = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = false,
-          filetypes = { 'typst' },
-        },
-        html = {
-          enabled = false, -- Set to true if you want HTML support
-        },
-        css = {
-          enabled = false, -- Set to true if you want CSS support
-        },
-      },
-      max_width = nil, -- nil means no limit
-      max_height = nil, -- nil means no limit
-      max_width_window_percentage = nil,
-      max_height_window_percentage = 50, -- 50% of window height max
-      window_overlap_clear_enabled = false, -- Clear images when windows overlap
-      window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
-      editor_only_render_when_focused = false, -- Only render in focused editor
-      tmux_show_only_in_active_window = false, -- For tmux users
-      hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.svg', '*.ico' }, -- Render these files as images
-    },
   },
 }

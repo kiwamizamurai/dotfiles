@@ -4,9 +4,13 @@
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Apply capabilities to all servers globally
+-- Apply capabilities and handlers to all servers globally (Neovim 0.11+ API)
 vim.lsp.config('*', {
   capabilities = capabilities,
+  handlers = {
+    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
+    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+  },
 })
 
 -- Server-specific configurations

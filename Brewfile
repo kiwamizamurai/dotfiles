@@ -60,6 +60,7 @@ brew "sniffnet"                    # Network traffic monitor
 
 # Development Tools
 brew "neovim"                      # Hyperextensible Vim-based text editor
+brew "tree-sitter-cli"             # Tree-sitter CLI (required for nvim-treesitter parser compilation)
 brew "mise"                        # Polyglot runtime version manager (asdf successor)
 
 # AI & LLM
@@ -78,7 +79,7 @@ brew "tectonic"                    # Modernized LaTeX engine
 brew "tbls"                        # Database documentation generator
 
 # Media & Recording
-brew "imagemagick"                 # Image manipulation library (for image.nvim)
+brew "imagemagick"                 # Image manipulation library
 brew "vhs"                         # CLI tool for recording terminal GIFs
 brew "charmbracelet/tap/freeze"    # Generate images of code and terminal output
 brew "handbrake"                   # Video transcoder
