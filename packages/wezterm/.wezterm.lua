@@ -56,8 +56,13 @@ config.audible_bell = "Disabled"
 
 -- Dim inactive panes
 config.inactive_pane_hsb = {
-	saturation = 0.5,
-	brightness = 0.6,
+	saturation = 0.3,
+	brightness = 0.4,
+}
+
+-- Pane split border colors
+config.colors = {
+	split = "#ffffff",
 }
 
 -- =============================================================================
