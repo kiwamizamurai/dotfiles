@@ -750,7 +750,7 @@ Works automatically - no configuration needed!
 │                      ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝     │
 │                                                              │
 │                         Welcome back, User!                 │
-│                     Neovim v0.11.5 | 22 plugins            │
+│                     Neovim v0.11.5 | 31 plugins            │
 │                                                              │
 │                    [f] Find File        [SPC f f]          │
 │                    [r] Recent Files     [SPC f r]          │
@@ -1325,37 +1325,11 @@ Remember: The more you use it, the more natural it becomes. Don't try to learn e
 
 ---
 
-## Automated Updates
+## Plugin Updates
 
-This configuration includes automated update systems to keep your plugins and dependencies current.
+### Updating Plugins
 
-### Plugin Update Automation
-
-#### Automatic Weekly Updates
-The repository has GitHub Actions configured to automatically check for plugin updates:
-
-- **Schedule**: Every Sunday at 2:00 AM UTC
-- **Process**: Creates a Pull Request with updates
-- **Safety**: All updates require manual review before merging
-
-#### Manual Update Methods
-
-**1. Using the Update Script**
-```bash
-# Update all plugins (creates backup)
-./scripts/update-plugins.sh update
-
-# Check for updates without installing
-./scripts/update-plugins.sh check
-
-# Run health check
-./scripts/update-plugins.sh health
-
-# Restore from backup if something breaks
-./scripts/update-plugins.sh restore
-```
-
-**2. Using Neovim Commands**
+**Using Neovim Commands**
 ```vim
 :Lazy update    " Update all plugins
 :Lazy sync      " Sync plugins with lock file
@@ -1363,247 +1337,35 @@ The repository has GitHub Actions configured to automatically check for plugin u
 :Lazy check     " Check for updates
 ```
 
-### Dependency Management
+**Using headless mode (from terminal)**
+```bash
+nvim --headless -c "lua require('lazy').sync({wait=true})" -c "qa"
+```
 
-#### Dependabot
-Automatically updates:
-- GitHub Actions versions (weekly)
-- Homebrew packages (monthly)
-
-Pull requests are created automatically with:
-- Clear description of changes
-- Labels for easy filtering
-- Grouped updates for better organization
-
-#### Lock File (`lazy-lock.json`)
+### Lock File (`lazy-lock.json`)
 - Tracks exact versions of all plugins
 - Ensures reproducible installations
 - Committed to git for version control
 - Allows rollback to previous states
 
-### Backup System
-
-**Automatic Backups**
-- Created before every update
-- Stored in `~/.config/nvim/backups/`
-- Named with timestamp for easy identification
-
-**Restoring from Backup**
+**Restoring to a previous state**
 ```bash
-# Using the script
-./scripts/update-plugins.sh restore
-
-# Manually
-cp ~/.config/nvim/backups/lazy-lock.YYYYMMDD_HHMMSS.json \
-   packages/nvim/.config/nvim/lazy-lock.json
-nvim +Lazy restore
+# Restore a specific lock file from git history, then:
+nvim --headless -c "Lazy restore" -c "qa"
 ```
-
-### Monitoring Updates
-
-**GitHub Actions Status**
-- Check Actions tab on GitHub repository
-- Email notifications for failed updates
-- Pull request notifications for available updates
-
-**Local Checking**
-```vim
-:Lazy check    " In Neovim
-```
-
-### Update Workflow
-
-1. **Automated Process** (GitHub Actions)
-   - Runs weekly on Sunday
-   - Updates plugins via lazy.nvim
-   - Runs health checks
-   - Creates PR if changes found
-   - Assigns to you for review
-
-2. **Manual Process** (Local)
-   - Run update script
-   - Review changes
-   - Test functionality
-   - Commit if satisfied
 
 ### Troubleshooting Updates
 
 **If plugins break after update:**
-1. Don't panic! Backups are available
-2. Run: `./scripts/update-plugins.sh restore`
-3. Or manually restore from `~/.config/nvim/backups/`
-4. Report issues on plugin repositories
-
-**If automated updates fail:**
-1. Check GitHub Actions logs
-2. Run manually: `./scripts/update-plugins.sh`
-3. Review error messages
-4. Fix conflicts if any
+1. Revert `lazy-lock.json` via git: `git checkout packages/nvim/.config/nvim/lazy-lock.json`
+2. Run `:Lazy restore` in Neovim
+3. Report issues on plugin repositories
 
 **Common Issues:**
 - **Breaking changes**: Review plugin changelogs
-- **Compatibility**: Ensure Neovim version meets requirements
 - **API changes**: Update configuration as needed
+- **Compatibility**: Ensure Neovim version meets requirements
 
-### Best Practices
-
-1. **Review PRs before merging** - Don't blindly accept updates
-2. **Test locally first** - Pull PR branch and test
-3. **Keep backups** - Script creates them automatically
-4. **Read changelogs** - Especially for major version updates
-5. **Pin versions if needed** - Use `tag` or `commit` in plugin spec
-
-### Disabling Automation
-
-If you prefer manual control:
-
-**Disable GitHub Actions:**
-1. Go to Settings → Actions → General
-2. Disable workflows
-
-**Disable Dependabot:**
-1. Delete `.github/dependabot.yml`
-2. Or comment out configurations
-
-**Disable in Neovim:**
-```lua
--- In plugins config
-require("lazy").setup({
-  checker = {
-    enabled = false  -- Disable automatic checking
-  }
-})
-```
-
-## 🤖 Avante.nvim - AI-Powered Coding Assistant
-
-### Overview
-Avante.nvim provides a Cursor AI-like experience directly in Neovim, offering intelligent code suggestions, refactoring, and explanations powered by Claude, OpenAI, or other AI providers.
-
-### API Key Setup (REQUIRED)
-
-#### Option 1: Claude (Recommended)
-```bash
-# Add to ~/.zshrc or ~/.bashrc
-export ANTHROPIC_API_KEY="your-claude-api-key-here"
-```
-Get your API key from: https://console.anthropic.com/settings/keys
-
-#### Option 2: OpenAI
-```bash
-# Add to ~/.zshrc or ~/.bashrc
-export OPENAI_API_KEY="your-openai-api-key-here"
-```
-Get your API key from: https://platform.openai.com/api-keys
-
-#### Option 3: Scoped Keys (Isolated for Avante only)
-```bash
-# Avante-specific keys (won't affect other applications)
-export AVANTE_ANTHROPIC_API_KEY="your-claude-api-key-here"
-export AVANTE_OPENAI_API_KEY="your-openai-api-key-here"
-```
-
-**After adding keys, reload your shell:**
-```bash
-source ~/.zshrc  # or source ~/.bashrc
-```
-
-### Keybindings
-
-| Keybinding | Description | Usage |
-|------------|-------------|-------|
-| `<leader>aa` | Ask AI | Ask questions about current code |
-| `<leader>ae` | Edit with AI | Edit selected code with AI help |
-| `<leader>ar` | Refresh | Refresh AI context |
-| `<leader>at` | Toggle sidebar | Show/hide AI sidebar |
-| `<leader>ac` | Clear chat | Clear conversation history |
-| `<leader>af` | Focus sidebar | Focus on AI sidebar |
-| `<leader>as` | Show cursor | Show cursor in sidebar |
-| `<leader>an` | New chat | Start new conversation |
-| `<leader>ah` | Switch provider | Switch between Claude/OpenAI |
-| `<leader>a?` | Show providers | List available AI providers |
-
-### AI Suggestions
-| Keybinding | Description |
-|------------|-------------|
-| `Alt+l` | Accept suggestion |
-| `Alt+]` | Next suggestion |
-| `Alt+[` | Previous suggestion |
-| `Ctrl+]` | Dismiss suggestion |
-
-### Sidebar Controls
-| Keybinding | Mode | Description |
-|------------|------|-------------|
-| `Enter` | Normal | Submit message |
-| `Ctrl+s` | Insert | Submit message (while typing) |
-| `Tab` | Any | Switch to next window in sidebar |
-| `Shift+Tab` | Any | Switch to previous window in sidebar |
-| `]]` | Any | Jump to next section |
-| `[[` | Any | Jump to previous section |
-
-### Basic Usage Examples
-
-#### Ask AI About Code
-1. Open any code file
-2. Press `<leader>aa`
-3. Type your question in the sidebar
-4. Press `Ctrl+s` to submit (Insert mode) or `Esc` then `Enter` (Normal mode)
-
-#### Edit Code with AI
-1. Select code in visual mode (`v` + motion)
-2. Press `<leader>ae`
-3. Describe what changes you want
-4. AI will suggest modifications
-
-#### Apply AI Suggestions
-- Press `a` to apply at cursor position
-- Press `A` to apply all suggestions
-- Use `]x` and `[x` to navigate between diff hunks
-
-#### Switch AI Providers
-```vim
-:AvanteSwitchProvider openai  " Switch to OpenAI
-:AvanteSwitchProvider claude  " Switch to Claude
-```
-
-### Zen Mode (Claude Code-like CLI)
-```bash
-# Add to ~/.zshrc for quick AI-focused Neovim
-alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
-```
-
-### Project-Specific Instructions
-Create an `avante.md` file in your project root:
-```markdown
-# Project Instructions for AI
-
-## Your Role
-You are an expert developer working on [project name].
-
-## Project Context
-This is a [description] built with [technologies].
-
-## Coding Standards
-- Follow existing patterns
-- Write comprehensive tests
-```
-
-### Integration with Claude Code CLI
-- **Claude Code**: Project-wide refactoring, file creation
-- **Avante.nvim**: In-editor assistance, quick edits
-
-### Troubleshooting
-
-#### API Key not found
-1. Ensure API key is added to shell config
-2. Run `source ~/.zshrc` or restart terminal
-3. Restart Neovim
-
-#### Build errors
-```bash
-cd ~/.local/share/nvim/lazy/avante.nvim
-make clean && make
-```
 
 ## 📝 Markdown Preview - Live Browser Preview
 
@@ -1673,7 +1435,7 @@ brew install --cask nikitabobko/tap/aerospace
 
 # Configuration is already symlinked if using dotfiles
 # Manual symlink:
-cd ~/hobby/dotfiles/packages
+cd ~/dotfiles/packages
 stow -t ~ aerospace
 ```
 
@@ -1769,4 +1531,4 @@ aerospace config-test
 
 ---
 
-*Last updated: January 2025 | Neovim v0.11.5 | Automation v1.0*
+*Last updated: March 2026 | Neovim v0.11.5*
