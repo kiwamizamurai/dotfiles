@@ -40,7 +40,7 @@ if [ -n "$BRANCH" ]; then
     GIT_MODIFIED=""
     [ "$STAGED" -gt 0 ] && GIT_STAGED="${GREEN}+${STAGED}${RESET}"
     [ "$MODIFIED" -gt 0 ] && GIT_MODIFIED="${YELLOW}~${MODIFIED}${RESET}"
-    GIT_INFO=" | 🌿 ${BRANCH} ${GIT_STAGED}${GIT_MODIFIED}"
+    GIT_INFO=" | ${BRANCH} ${GIT_STAGED}${GIT_MODIFIED}"
 fi
 if [ "$PCT" -ge 90 ]; then BAR_COLOR="$RED"
 elif [ "$PCT" -ge 70 ]; then BAR_COLOR="$YELLOW"
@@ -51,4 +51,4 @@ SECS=$(( (DURATION_MS % 60000) / 1000 ))
 COST_FMT=$(printf '$%.4f' "$COST")
 
 GIT_PART="$(printf '%b' "$GIT_INFO")"
-echo -e "${CYAN}[${MODEL}]${RESET} 📁 ${DIR##*/}${GIT_PART} | ${BAR_COLOR}${PCT}%${RESET} | ${YELLOW}${COST_FMT}${RESET} | ⏱️ ${MINS}m ${SECS}s"
+echo -e "${CYAN}[${MODEL}]${RESET} ${DIR##*/}${GIT_PART} | ${BAR_COLOR}${PCT}%${RESET} | ${YELLOW}${COST_FMT}${RESET} | ${MINS}m ${SECS}s"
