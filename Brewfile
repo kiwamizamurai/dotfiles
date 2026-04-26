@@ -3,6 +3,7 @@ tap "nikitabobko/tap"
 tap "charmbracelet/tap"
 tap "productdevbook/tap"
 tap "tw93/tap"
+tap "supabase/tap"
 
 # =============================================================================
 # CLI Tools
@@ -31,6 +32,7 @@ brew "gh"                          # GitHub CLI
 brew "git-delta"                   # Syntax-highlighting pager for git/diff
 brew "difftastic"                  # Structural diff tool
 brew "onefetch"                    # Git repository summary in terminal
+brew "git-lfs"                     # Git Large File Storage
 
 # Network & HTTP
 brew "curl"                        # HTTP client
@@ -46,6 +48,7 @@ brew "kubernetes-cli"              # Kubernetes command-line tool (kubectl)
 
 # Cloud
 brew "awscli"                      # AWS command-line interface
+brew "supabase/tap/supabase"       # Supabase CLI
 
 # System Monitoring
 brew "bottom"                      # Cross-platform graphical process/system monitor
@@ -57,6 +60,8 @@ brew "sniffnet"                    # Network traffic monitor
 brew "neovim"                      # Hyperextensible Vim-based text editor
 brew "tree-sitter-cli"             # Tree-sitter CLI (required for nvim-treesitter parser compilation)
 brew "mise"                        # Polyglot runtime version manager (asdf successor)
+brew "uv"                          # Fast Python package & project manager
+brew "pipx"                        # Install/run Python CLI tools in isolated envs
 
 # AI & LLM
 brew "llama.cpp"                   # LLM inference in C/C++
@@ -69,6 +74,7 @@ brew "opa"                         # Open Policy Agent - policy engine
 # Document & Typesetting
 brew "typst"                       # Modern markup-based typesetting system
 brew "tectonic"                    # Modernized LaTeX engine
+brew "pandoc"                      # Universal document converter
 
 # Database Tools
 brew "tbls"                        # Database documentation generator
@@ -98,19 +104,22 @@ brew "tailscale"                   # Zero-config VPN
 cask "wezterm"                     # GPU-accelerated terminal emulator
 cask "orbstack"                    # Fast Docker & Linux VM for macOS
 cask "tableplus"                   # Database management GUI
-cask "xcodes"                      # Xcode version manager
+cask "xcodes-app"                  # Xcode version manager
 
 # Cloud & DevOps
-cask "google-cloud-sdk"            # Google Cloud CLI and tools
+cask "gcloud-cli"                  # Google Cloud CLI and tools
 
 # Productivity
 cask "notion"                      # All-in-one workspace
 cask "slack"                       # Team communication
 cask "meetingbar"                  # Calendar meetings in menu bar
 cask "tandem"                      # Virtual office for remote teams
+cask "zoom"                        # Video conferencing
+cask "discord"                     # Voice/text chat for communities
 
 # Browsers
 cask "helium-browser"              # Privacy-focused Chromium fork (ungoogled-chromium based)
+cask "google-chrome"               # Google Chrome browser
 
 # Media
 cask "iina"                        # Modern media player for macOS
@@ -130,17 +139,21 @@ cask "sol"                         # Launcher app
 # System
 cask "nikitabobko/tap/aerospace"   # i3-like tiling window manager for macOS
 cask "cloudflare-warp"             # Cloudflare VPN client
-cask "flux"                        # Screen color temperature adjuster
+cask "flux-app"                    # Screen color temperature adjuster
 cask "pronotes"                    # Note-taking app
 
 # Fonts
 cask "font-hack-nerd-font"         # Nerd Font patched Hack font
 cask "font-maple-mono-nf"          # Maple Mono Nerd Font
+cask "font-hackgen"                # HackGen font (Japanese-friendly coding font)
+cask "font-hackgen-nerd"           # HackGen Nerd Font (with icons)
 
 # AI
 cask "claude-code"                 # Claude Code CLI by Anthropic
+cask "chatgpt"                     # ChatGPT desktop app
 
 # Security & Privacy
 cask "lulu"                        # Free open-source macOS firewall (Objective-See)
 cask "signal"                      # E2E encrypted messaging
 cask "standard-notes"              # E2E encrypted notes
+cask "protonvpn"                   # Proton VPN client
