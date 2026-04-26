@@ -1,7 +1,3 @@
-# =============================================================================
-# Homebrew Bundle - Brewfile
-# =============================================================================
-
 # Taps
 tap "nikitabobko/tap"
 tap "charmbracelet/tap"
@@ -28,7 +24,6 @@ brew "fd"                          # Simple, fast alternative to find
 brew "ripgrep"                     # Fast recursive grep alternative
 brew "tree"                        # Display directory tree structure
 brew "zoxide"                      # Smarter cd command with frecency
-brew "xan"                         # CSV manipulation tool
 
 # Git & Version Control
 brew "git"                         # Distributed version control system
@@ -100,8 +95,6 @@ brew "tailscale"                   # Zero-config VPN
 # =============================================================================
 
 # Development
-cask "cursor"                      # AI-powered code editor
-cask "visual-studio-code"          # Microsoft code editor
 cask "wezterm"                     # GPU-accelerated terminal emulator
 cask "orbstack"                    # Fast Docker & Linux VM for macOS
 cask "tableplus"                   # Database management GUI
