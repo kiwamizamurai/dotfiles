@@ -88,7 +88,7 @@ brew "asciinema"                   # Terminal session recorder
 # Utilities
 brew "unzip"                       # Extraction utility for .zip files
 brew "mas"                         # Mac App Store CLI
-brew "mole"                        # macOS cleanup and optimization tool
+brew "tw93/tap/mole"               # macOS cleanup and optimization tool
 brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
 brew "tty-clock"                   # Terminal clock
@@ -135,7 +135,7 @@ cask "jordanbaird-ice"             # Menu bar manager
 cask "sol"                         # Launcher app
 
 # System
-cask "aerospace"                   # i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace"   # i3-like tiling window manager for macOS
 cask "cloudflare-warp"             # Cloudflare VPN client
 cask "flux"                        # Screen color temperature adjuster
 cask "pronotes"                    # Note-taking app
