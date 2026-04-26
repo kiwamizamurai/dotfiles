@@ -126,7 +126,7 @@ cask "kap"                         # Screen recorder with GIF export
 
 # Utilities
 cask "keyclu"                      # Keyboard shortcut cheatsheet
-cask "portkiller"                  # Menu bar app to kill processes on ports
+cask "productdevbook/tap/portkiller" # Menu bar app to kill processes on ports
 cask "shottr"                      # Screenshot tool with annotations
 cask "the-unarchiver"              # Archive extraction tool
 cask "applite"                     # Homebrew GUI for casks
