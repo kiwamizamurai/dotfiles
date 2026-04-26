@@ -82,12 +82,6 @@ require('nvim-tree').setup({
     update_root = true,
   },
 
-  -- System open command
-  system_open = {
-    cmd = nil,
-    args = {},
-  },
-
   -- Diagnostics
   diagnostics = {
     enable = true,

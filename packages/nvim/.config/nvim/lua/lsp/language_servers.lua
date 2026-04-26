@@ -4,13 +4,17 @@
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Apply capabilities and handlers to all servers globally (Neovim 0.11+ API)
 vim.lsp.config('*', {
   capabilities = capabilities,
-  handlers = {
-    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
-    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
-  },
+})
+
+-- Rounded borders for hover / signature_help (Neovim 0.11+: pass border via opts; vim.lsp.with removed)
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local opts = { buffer = args.buf }
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = 'rounded' }) end, opts)
+    vim.keymap.set({ 'n', 'i' }, '<C-k>', function() vim.lsp.buf.signature_help({ border = 'rounded' }) end, opts)
+  end,
 })
 
 -- Server-specific configurations
