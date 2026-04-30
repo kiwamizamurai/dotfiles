@@ -6,15 +6,12 @@
     <title>kiwamizamurai/dotfiles - macOS Development Environment</title>
     <meta name="description" content="A modern, opinionated macOS development environment with Neovim, Wezterm, Starship, and more.">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Anime.js v4 -->
     <script src="https://cdn.jsdelivr.net/npm/animejs@4.3.0/dist/bundles/anime.umd.min.js"></script>
 
-    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,7 +20,12 @@
             <span class="logo-icon">.</span>
             dotfiles
         </a>
-        <ul class="nav-links">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-links" id="nav-menu">
             <li><a href="#features">Features</a></li>
             <li><a href="#preview">Preview</a></li>
             <li><a href="#stack">Stack</a></li>
@@ -32,7 +34,6 @@
         </ul>
     </nav>
 
-    <!-- Morphing Background -->
     <div class="morphing-bg">
         <div class="morph-blob" id="blob-1" style="background: var(--accent-sakura); top: 20%; left: 60%;"></div>
         <div class="morph-blob" id="blob-2" style="background: var(--accent-indigo); top: 60%; left: 20%;"></div>
@@ -40,7 +41,6 @@
     </div>
 
     <section class="hero">
-        <!-- Floating Shapes -->
         <div class="floating-shapes">
             <div class="floating-shape shape-1"></div>
             <div class="floating-shape shape-2"></div>
@@ -89,7 +89,6 @@
             </a>
         </div>
 
-        <!-- Scroll Indicator -->
         <div class="scroll-indicator" id="scroll-indicator">
             <span class="scroll-indicator-text">SCROLL</span>
             <div class="scroll-indicator-line">
@@ -108,7 +107,6 @@
             </p>
         </div>
 
-        <!-- Layout Controls -->
         <div class="features-controls">
             <div class="controls-group display-controls">
                 <button class="layout-toggle is-active" data-layout="grid">Grid</button>
@@ -122,7 +120,6 @@
             </div>
         </div>
 
-        <!-- Features Container -->
         <div class="features-container" id="features-root" data-layout="grid">
             <div class="feature-card" data-color="1">
                 <div class="feature-card-image">
@@ -132,7 +129,7 @@
                 <div class="feature-card-text">
                     <h3 class="feature-card-title">Neovim</h3>
                     <span class="feature-card-type">Editor</span>
-                    <p class="feature-card-intro">Hyperextensible text editor with LSP, Treesitter, and 30+ plugins.</p>
+                    <p class="feature-card-intro">Hyperextensible text editor with LSP, Treesitter, and 40+ plugins.</p>
                     <div class="feature-card-details">
                         <ul><li>lazy.nvim</li><li>Mason LSP</li><li>Telescope</li><li>nvim-cmp</li></ul>
                     </div>
@@ -215,7 +212,6 @@
             </div>
         </div>
 
-        <!-- Overlay for expanded card -->
         <dialog id="feature-overlay" class="feature-overlay" aria-label="Feature details"></dialog>
     </section>
 
@@ -233,7 +229,6 @@
             <div class="preview-particles" id="preview-particles"></div>
             <div class="carousel-wrapper">
                 <div class="carousel-slides" id="carousel-slides">
-                    <!-- Slide 1: Neovim -->
                     <div class="carousel-slide active" data-title="nvim ~/.config/nvim/init.lua" data-name="Neovim">
                         <div class="preview-window" id="preview-window">
                             <div class="preview-titlebar">
@@ -265,7 +260,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 2: Wezterm -->
                     <div class="carousel-slide" data-title="wezterm :: Catppuccin Mocha" data-name="Wezterm">
                         <div class="preview-window">
                             <div class="preview-titlebar">
@@ -297,7 +291,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 3: Starship -->
                     <div class="carousel-slide" data-title="starship prompt :: gruvbox" data-name="Starship">
                         <div class="preview-window">
                             <div class="preview-titlebar">
@@ -328,7 +321,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 4: AeroSpace -->
                     <div class="carousel-slide" data-title="aerospace :: tiling WM" data-name="AeroSpace">
                         <div class="preview-window">
                             <div class="preview-titlebar">
@@ -359,7 +351,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 5: Zsh -->
                     <div class="carousel-slide" data-title="zsh :: shell config" data-name="Zsh">
                         <div class="preview-window">
                             <div class="preview-titlebar">
@@ -392,7 +383,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 6: Atuin -->
                     <div class="carousel-slide" data-title="atuin :: shell history" data-name="Atuin">
                         <div class="preview-window">
                             <div class="preview-titlebar">
@@ -424,7 +414,6 @@
                     </div>
                 </div>
 
-                <!-- Carousel Navigation -->
                 <div class="carousel-nav">
                     <button class="carousel-btn" id="carousel-prev" aria-label="Previous slide">‹</button>
                     <div class="carousel-dots" id="carousel-dots"></div>
@@ -445,7 +434,6 @@
             </p>
         </div>
 
-        <!-- Layout toggle controls -->
         <div class="stack-controls">
             <button class="stack-toggle is-active" data-layout="grid">Grid</button>
             <button class="stack-toggle" data-layout="sphere">Sphere</button>
@@ -454,7 +442,6 @@
 
         <div class="stack-scene" id="stack-scene">
             <div class="stack-grid" id="stack-grid" data-layout="grid">
-                <!-- Modern CLI Replacements -->
                 <div class="stack-item">
                     <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/folder-tree.svg" alt="eza"></div>
                     <div class="stack-name">eza</div>
@@ -480,7 +467,6 @@
                     <div class="stack-name">fd</div>
                     <div class="stack-category">find replacement</div>
                 </div>
-                <!-- Dev Tools -->
                 <div class="stack-item">
                     <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/blocks.svg" alt="mise"></div>
                     <div class="stack-name">mise</div>
@@ -506,16 +492,15 @@
                     <div class="stack-name">OrbStack</div>
                     <div class="stack-category">Docker & VM</div>
                 </div>
-                <!-- macOS Apps -->
                 <div class="stack-item">
                     <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/search.svg" alt="Sol"></div>
                     <div class="stack-name">Sol</div>
                     <div class="stack-category">Launcher</div>
                 </div>
                 <div class="stack-item">
-                    <div class="stack-icon"><img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Helium Browser"></div>
+                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/globe.svg" alt="Helium Browser"></div>
                     <div class="stack-name">Helium Browser</div>
-                    <div class="stack-category">Chromium Fork</div>
+                    <div class="stack-category">Privacy Browser</div>
                 </div>
                 <div class="stack-item">
                     <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/database.svg" alt="TablePlus"></div>
@@ -527,7 +512,6 @@
                     <div class="stack-name">Shottr</div>
                     <div class="stack-category">Screenshot</div>
                 </div>
-                <!-- CLI Tools -->
                 <div class="stack-item">
                     <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/activity.svg" alt="btop"></div>
                     <div class="stack-name">btop</div>
@@ -642,7 +626,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>

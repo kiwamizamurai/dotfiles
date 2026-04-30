@@ -750,7 +750,7 @@ Works automatically - no configuration needed!
 │                      ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝     │
 │                                                              │
 │                         Welcome back, User!                 │
-│                     Neovim v0.11.5 | 31 plugins            │
+│                     Neovim v0.12.2 | 44 plugins            │
 │                                                              │
 │                    [f] Find File        [SPC f f]          │
 │                    [r] Recent Files     [SPC f r]          │
@@ -1531,4 +1531,4 @@ aerospace config-test
 
 ---
 
-*Last updated: March 2026 | Neovim v0.11.5*
+*Last updated: May 2026 | Neovim v0.12.2*

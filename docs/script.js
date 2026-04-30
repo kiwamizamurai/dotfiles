@@ -1,15 +1,6 @@
-// ============================================
-// Anime.js v4 - Beautiful Animations
-// ============================================
-
 const { animate, stagger, createTimeline, utils, eases } = anime;
 
-// ============================================
-// Hero Section - Spectacular Entrance
-// ============================================
-
 function initHeroAnimations() {
-    // Floating shapes continuous animation
     animate('.floating-shape', {
         opacity: [0, 0.6],
         scale: [0.8, 1],
@@ -17,7 +8,6 @@ function initHeroAnimations() {
         ease: 'outExpo',
     });
 
-    // Continuous floating motion for shapes
     animate('.floating-shape.shape-1', {
         translateY: [-20, 20],
         translateX: [-10, 10],
@@ -45,7 +35,6 @@ function initHeroAnimations() {
         direction: 'alternate',
     });
 
-    // Morphing background blobs
     animate('#blob-1', {
         translateX: [0, 100, -50, 0],
         translateY: [0, -80, 60, 0],
@@ -73,14 +62,12 @@ function initHeroAnimations() {
         loop: true,
     });
 
-    // Hero content entrance timeline
     const heroTimeline = createTimeline({
         defaults: {
             ease: 'outExpo',
         }
     });
 
-    // Badge entrance
     heroTimeline.add('#hero-badge', {
         opacity: [0, 1],
         translateY: [30, 0],
@@ -88,14 +75,12 @@ function initHeroAnimations() {
         duration: 800,
     }, 100);
 
-    // Title entrance with split text effect
     heroTimeline.add('#hero-title', {
         opacity: [0, 1],
         translateY: [50, 0],
         duration: 1000,
     }, 200);
 
-    // Animated gradient for title accent
     animate('.animated-gradient', {
         backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         duration: 5000,
@@ -103,14 +88,12 @@ function initHeroAnimations() {
         loop: true,
     });
 
-    // Description entrance
     heroTimeline.add('#hero-description', {
         opacity: [0, 1],
         translateY: [40, 0],
         duration: 800,
     }, 400);
 
-    // Terminal box entrance with bounce
     heroTimeline.add('#terminal-box', {
         opacity: [0, 1],
         translateY: [60, 0],
@@ -119,21 +102,18 @@ function initHeroAnimations() {
         ease: 'outBack(1.2)',
     }, 500);
 
-    // CTA buttons entrance
     heroTimeline.add('#cta-group', {
         opacity: [0, 1],
         translateY: [30, 0],
         duration: 800,
     }, 700);
 
-    // Scroll indicator entrance
     heroTimeline.add('#scroll-indicator', {
         opacity: [0, 1],
         translateY: [20, 0],
         duration: 600,
     }, 1200);
 
-    // Scroll indicator continuous animation
     setTimeout(() => {
         animate('.scroll-indicator-dot', {
             translateY: [0, 36],
@@ -144,10 +124,6 @@ function initHeroAnimations() {
         });
     }, 1500);
 }
-
-// ============================================
-// Typing Animation
-// ============================================
 
 function initTypingAnimation() {
     const command = '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"';
@@ -164,10 +140,6 @@ function initTypingAnimation() {
 
     setTimeout(typeCommand, 1200);
 }
-
-// ============================================
-// Magnetic Button Effect
-// ============================================
 
 function initMagneticButtons() {
     document.querySelectorAll('.btn-magnetic').forEach(button => {
@@ -213,7 +185,6 @@ function initMagneticButtons() {
             }
         });
 
-        // Ripple effect on click
         button.addEventListener('click', (e) => {
             const rect = button.getBoundingClientRect();
             const ripple = document.createElement('span');
@@ -233,10 +204,6 @@ function initMagneticButtons() {
     });
 }
 
-// ============================================
-// Feature Cards - Layout Animation
-// ============================================
-
 function initFeatureCards() {
     const featuresRoot = document.getElementById('features-root');
     const featureOverlay = document.getElementById('feature-overlay');
@@ -248,22 +215,18 @@ function initFeatureCards() {
 
     let currentLayout = 'grid';
 
-    // Apply layout transforms
     const applyLayout = (layout) => {
         const cards = document.querySelectorAll('#features-root .feature-card');
 
-        // First animate out
         animate(cards, {
             opacity: [1, 0],
             scale: [1, 0.8],
             duration: 300,
             ease: 'inQuad',
             onComplete: () => {
-                // Change layout
                 featuresRoot.dataset.layout = layout;
                 currentLayout = layout;
 
-                // Apply 3D transforms for stack/chaos
                 cards.forEach((card, i) => {
                     if (layout === 'stack') {
                         const offset = (cards.length - 1 - i) * 8;
@@ -283,7 +246,6 @@ function initFeatureCards() {
                     }
                 });
 
-                // Animate in
                 animate(cards, {
                     opacity: [0, 1],
                     scale: [0.8, 1],
@@ -295,7 +257,6 @@ function initFeatureCards() {
         });
     };
 
-    // Layout toggle click handlers
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -309,14 +270,12 @@ function initFeatureCards() {
         });
     });
 
-    // Shuffle action
     actionButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             if (btn.dataset.action === 'shuffle') {
                 const cards = [...document.querySelectorAll('#features-root .feature-card')];
 
-                // Animate out
                 animate(cards, {
                     opacity: [1, 0],
                     rotateZ: (el, i) => (i % 2 ? 15 : -15),
@@ -324,11 +283,9 @@ function initFeatureCards() {
                     duration: 300,
                     ease: 'inQuad',
                     onComplete: () => {
-                        // Shuffle DOM
                         const shuffled = cards.sort(() => Math.random() - 0.5);
                         shuffled.forEach(card => featuresRoot.appendChild(card));
 
-                        // Reset and animate in
                         shuffled.forEach(card => {
                             card.style.transform = '';
                         });
@@ -347,7 +304,6 @@ function initFeatureCards() {
         });
     });
 
-    // Card click - open overlay
     featureCards.forEach(card => {
         card.addEventListener('click', (e) => {
             e.preventDefault();
@@ -358,7 +314,6 @@ function initFeatureCards() {
             $clone.className = card.className;
             $clone.dataset.color = card.dataset.color;
 
-            // Add close button
             const closeBtn = document.createElement('button');
             closeBtn.className = 'close-overlay';
             closeBtn.innerHTML = '×';
@@ -368,11 +323,9 @@ function initFeatureCards() {
             featureOverlay.innerHTML = '';
             featureOverlay.appendChild($clone);
 
-            // Show modal
             featureOverlay.showModal();
             card.classList.add('is-open');
 
-            // Animate in
             animate($clone, {
                 opacity: [0, 1],
                 scale: [0.9, 1],
@@ -383,7 +336,6 @@ function initFeatureCards() {
         });
     });
 
-    // Close modal
     const closeModal = () => {
         const $card = featureOverlay.querySelector('.feature-card');
         if ($card) {
@@ -413,19 +365,16 @@ function initFeatureCards() {
         closeModal();
     });
 
-    // Initial entrance animation
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const cards = entry.target.querySelectorAll('.feature-card');
 
-                // Initial state
                 cards.forEach(card => {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(80px) translateZ(-100px) rotateX(15deg) scale(0.8)';
                 });
 
-                // Cascade animation
                 animate(cards, {
                     opacity: [0, 1],
                     translateY: [80, 0],
@@ -437,7 +386,6 @@ function initFeatureCards() {
                     delay: stagger(100, { from: 0 }),
                 });
 
-                // Bounce icons
                 const icons = entry.target.querySelectorAll('.feature-card-icon');
                 animate(icons, {
                     scale: [0.5, 1.2, 1],
@@ -455,10 +403,6 @@ function initFeatureCards() {
     observer.observe(featuresRoot);
 }
 
-// ============================================
-// Carousel Animation
-// ============================================
-
 function initCarousel() {
     const slides = document.querySelectorAll('.carousel-slide');
     const dotsContainer = document.getElementById('carousel-dots');
@@ -469,7 +413,6 @@ function initCarousel() {
     let isAnimating = false;
     let autoplayInterval = null;
 
-    // Create dots
     slides.forEach((_, index) => {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
@@ -526,7 +469,6 @@ function initCarousel() {
         const xOut = direction === 'next' ? -80 : 80;
         const xIn = direction === 'next' ? 80 : -80;
 
-        // Animate out
         animate(currentWindow, {
             opacity: [1, 0],
             translateX: [0, xOut],
@@ -541,7 +483,6 @@ function initCarousel() {
                 nextEl.style.display = 'block';
                 nextEl.classList.add('active');
 
-                // Reset
                 nextWindow.style.opacity = '0';
                 nextWindow.style.transform = `translateX(${xIn}px) scale(0.9) rotate(${direction === 'next' ? '3deg' : '-3deg'})`;
                 nextLines.forEach(line => {
@@ -549,7 +490,6 @@ function initCarousel() {
                     line.style.transform = 'translateX(-20px)';
                 });
 
-                // Animate in with shine effect
                 nextWindow.classList.add('shine');
                 setTimeout(() => nextWindow.classList.remove('shine'), 1500);
 
@@ -619,7 +559,6 @@ function initCarousel() {
         startAutoplay();
     }
 
-    // Initial animation
     let previewAnimated = false;
     const previewObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -637,7 +576,6 @@ function initCarousel() {
         const previewWindow = slides[0].querySelector('.preview-window');
         const previewLines = slides[0].querySelectorAll('.preview-line');
 
-        // Create particles
         const particlesContainer = document.getElementById('preview-particles');
         for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
@@ -653,7 +591,6 @@ function initCarousel() {
             particlesContainer.appendChild(particle);
         }
 
-        // Window entrance
         animate(previewWindow, {
             opacity: [0, 1],
             translateY: [80, 0],
@@ -663,7 +600,6 @@ function initCarousel() {
             ease: 'outExpo',
         });
 
-        // Particles burst
         animate('.particle', {
             opacity: [0, 0.8, 0],
             scale: [0, 2],
@@ -674,7 +610,6 @@ function initCarousel() {
             delay: stagger(50, { from: 'center', start: 300 }),
         });
 
-        // Lines cascade
         animate(previewLines, {
             opacity: [0, 1],
             translateX: [-30, 0],
@@ -683,17 +618,12 @@ function initCarousel() {
             delay: stagger(60, { start: 500 }),
         });
 
-        // Add shine effect
         setTimeout(() => {
             previewWindow.classList.add('shine');
             setTimeout(() => previewWindow.classList.remove('shine'), 1500);
         }, 800);
     }
 }
-
-// ============================================
-// Stack Grid - 3D Layout Animation (Periodic Table style)
-// ============================================
 
 function initStackGrid() {
     const stackScene = document.getElementById('stack-scene');
@@ -703,7 +633,6 @@ function initStackGrid() {
 
     if (!stackScene || !stackGrid || stackItems.length === 0) return;
 
-    // Pointer tracking state
     const pointer = {
         x: 0,
         y: 0,
@@ -713,7 +642,6 @@ function initStackGrid() {
         ry: 0
     };
 
-    // Layout transform functions
     const transformLayout = {
         grid: () => {
             pointer.rotateX = 8;
@@ -733,7 +661,6 @@ function initStackGrid() {
             pointer.rotateX = 25;
             pointer.rotateY = 180;
             stackItems.forEach((item, i) => {
-                // Set absolute positioning first
                 item.style.position = 'absolute';
                 item.style.left = '50%';
                 item.style.top = '50%';
@@ -760,7 +687,6 @@ function initStackGrid() {
             pointer.rotateX = 20;
             pointer.rotateY = 120;
             stackItems.forEach((item, i) => {
-                // Set absolute positioning first
                 item.style.position = 'absolute';
                 item.style.left = '50%';
                 item.style.top = '50%';
@@ -778,10 +704,8 @@ function initStackGrid() {
         }
     };
 
-    // Lerp utility
     const lerp = (start, end, factor) => start + (end - start) * factor;
 
-    // Animation loop for smooth pointer tracking
     let animationId;
     const updateSceneRotation = () => {
         pointer.rx = lerp(pointer.rx, pointer.rotateX, 0.05);
@@ -790,7 +714,6 @@ function initStackGrid() {
         animationId = requestAnimationFrame(updateSceneRotation);
     };
 
-    // Pointer move handler
     const handlePointerMove = (e) => {
         const rect = stackScene.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -799,16 +722,13 @@ function initStackGrid() {
         pointer.y = (e.clientY - centerY) / (rect.height / 2);
     };
 
-    // Toggle layout handler
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const layout = btn.dataset.layout;
 
-            // Update active state
             toggleButtons.forEach(b => b.classList.remove('is-active'));
             btn.classList.add('is-active');
 
-            // Animate transition
             animate(stackItems, {
                 opacity: [1, 0],
                 scale: [1, 0.5],
@@ -831,15 +751,12 @@ function initStackGrid() {
         });
     });
 
-    // Intersection observer for initial animation
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Start pointer tracking
                 stackScene.addEventListener('mousemove', handlePointerMove);
                 updateSceneRotation();
 
-                // Initial state - scattered randomly
                 stackItems.forEach(item => {
                     item.style.opacity = '0';
                     const randomX = (Math.random() - 0.5) * 600;
@@ -849,7 +766,6 @@ function initStackGrid() {
                     item.style.transform = `translate3d(${randomX}px, ${randomY}px, ${randomZ}px) rotate(${randomRotate}deg) scale(0.3)`;
                 });
 
-                // Animate to grid layout
                 setTimeout(() => {
                     transformLayout.grid();
                     animate(stackItems, {
@@ -860,7 +776,6 @@ function initStackGrid() {
                         delay: stagger(50, { from: 'center' }),
                     });
 
-                    // Bounce icons
                     const icons = document.querySelectorAll('.stack-item .stack-icon');
                     animate(icons, {
                         scale: [0, 1.3, 1],
@@ -878,7 +793,6 @@ function initStackGrid() {
 
     observer.observe(stackScene);
 
-    // Hover effects
     stackItems.forEach(item => {
         const icon = item.querySelector('.stack-icon');
 
@@ -926,17 +840,12 @@ function initStackGrid() {
         });
     });
 
-    // Cleanup on page hide
     document.addEventListener('visibilitychange', () => {
         if (document.hidden && animationId) {
             cancelAnimationFrame(animationId);
         }
     });
 }
-
-// ============================================
-// Quickstart Steps - Slide In Animation
-// ============================================
 
 function initQuickstartSteps() {
     const steps = document.querySelectorAll('.quickstart-step');
@@ -953,7 +862,6 @@ function initQuickstartSteps() {
                     delay: stagger(150),
                 });
 
-                // Animate step numbers with bounce
                 const stepNumbers = document.querySelectorAll('.step-number');
                 animate(stepNumbers, {
                     scale: [0, 1],
@@ -973,10 +881,6 @@ function initQuickstartSteps() {
         observer.observe(quickstartContainer);
     }
 }
-
-// ============================================
-// Section Headers Animation
-// ============================================
 
 function initSectionHeaders() {
     const headers = document.querySelectorAll('.section-header');
@@ -1034,10 +938,6 @@ function initSectionHeaders() {
     });
 }
 
-// ============================================
-// Copy to Clipboard with Animation
-// ============================================
-
 function copyToClipboard(button) {
     const codeBlock = button.parentElement;
     const text = codeBlock.textContent.replace('Copy', '').replace('$', '').trim();
@@ -1064,10 +964,6 @@ function copyToClipboard(button) {
     });
 }
 
-// ============================================
-// Smooth Scroll
-// ============================================
-
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -1083,10 +979,6 @@ function initSmoothScroll() {
     });
 }
 
-// ============================================
-// Nav Animation on Scroll
-// ============================================
-
 function initNavAnimation() {
     let lastScroll = 0;
     const nav = document.querySelector('nav');
@@ -1100,7 +992,6 @@ function initNavAnimation() {
             nav.style.boxShadow = 'none';
         }
 
-        // Hide scroll indicator after scrolling
         if (currentScroll > 50) {
             const scrollIndicator = document.getElementById('scroll-indicator');
             if (scrollIndicator && scrollIndicator.style.opacity !== '0') {
@@ -1117,9 +1008,27 @@ function initNavAnimation() {
     });
 }
 
-// ============================================
-// Initialize All Animations
-// ============================================
+function initMobileNav() {
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (!toggle || !menu) return;
+
+    const close = () => {
+        toggle.classList.remove('is-open');
+        menu.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    toggle.addEventListener('click', () => {
+        const open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', close);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroAnimations();
@@ -1132,4 +1041,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initSectionHeaders();
     initSmoothScroll();
     initNavAnimation();
+    initMobileNav();
 });
