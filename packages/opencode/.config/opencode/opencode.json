@@ -1,8 +1,29 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "llama-local/qwen3-coder",
-  "theme": "night-owl",
+  "model": "omlx/qwen3-coder",
   "provider": {
+    "omlx": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "oMLX (local)",
+      "env": [],
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1",
+        "apiKey": "omlx"
+      },
+      "models": {
+        "qwen3-coder": {
+          "id": "Qwen2.5-Coder-14B-Instruct-4bit",
+          "name": "Qwen2.5 Coder 14B",
+          "tool_call": true,
+          "attachment": false,
+          "temperature": true,
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          }
+        }
+      }
+    },
     "llama-local": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama-server (local)",
@@ -30,8 +51,5 @@
     "edit": "allow",
     "read": "allow",
     "write": "allow"
-  },
-  "keybinds": {
-    "leader": "ctrl+a"
   }
 }
