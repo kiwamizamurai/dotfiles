@@ -29,6 +29,7 @@ jobs:
         run: brew bundle --verbose
         env:
           HOMEBREW_BUNDLE_BREW_SKIP: "awscli"
+          HOMEBREW_BUNDLE_CASK_SKIP: "makemkv"
 
       - name: Create ~/.config directory
         run: mkdir -p "$HOME/.config"
