@@ -45,7 +45,7 @@ jobs:
 
       - name: Test stow symlinks
         run: |
-          for pkg in starship wezterm atuin github neofetch zsh nvim; do
+          for pkg in starship wezterm atuin github zsh nvim; do
             echo "Stowing $pkg..."
             stow --verbose -d packages -t "$HOME" "$pkg"
           done

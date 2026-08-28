@@ -93,7 +93,6 @@ brew "tw93/tap/mole"               # macOS cleanup and optimization tool
 brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
 brew "tty-clock"                   # Terminal clock
-brew "neofetch"                    # System info display
 brew "tailscale"                   # Zero-config VPN
 
 # =============================================================================
