@@ -25,13 +25,14 @@ jobs:
           rm -f /usr/local/bin/2to3 || true
           rm -f /usr/local/bin/2to3-3.12 || true
 
-      - name: Trust non-official taps used in Brewfile
+      - name: Trust non-official taps
         run: |
           brew trust --tap nikitabobko/tap
           brew trust --tap charmbracelet/tap
           brew trust --tap productdevbook/tap
           brew trust --tap tw93/tap
           brew trust --tap supabase/tap
+          brew trust --tap aws/tap
 
       - name: Run brew bundle
         run: brew bundle --verbose
