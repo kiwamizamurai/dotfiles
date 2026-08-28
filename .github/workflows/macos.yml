@@ -43,6 +43,9 @@ jobs:
       - name: Create ~/.config directory
         run: mkdir -p "$HOME/.config"
 
+      - name: Remove pre-existing runner config that would conflict with stow
+        run: rm -f "$HOME/.gitconfig"
+
       - name: Test stow symlinks
         run: |
           for pkg in starship wezterm atuin github zsh nvim; do
