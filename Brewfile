@@ -77,7 +77,7 @@ brew "llama.cpp"                   # LLM inference in C/C++
 brew "gemini-cli"                  # Google Gemini CLI
 brew "llm"                         # Access large language models from the command-line
 brew "whisper-cpp"                 # Port of OpenAI's Whisper model in C/C++
-brew "jundot/omlx/omlx"            # LLM inference server optimized for Apple Silicon
+brew "jundot/omlx/omlx", trusted: true # LLM inference server optimized for Apple Silicon
 
 # Policy & Security
 brew "conftest"                    # Test configuration files using OPA
