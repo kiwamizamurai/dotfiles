@@ -34,6 +34,9 @@ jobs:
           brew trust --tap supabase/tap
           brew trust --tap aws/tap
 
+      - name: Update Homebrew
+        run: brew update
+
       - name: Run brew bundle
         run: brew bundle --verbose
         env:
