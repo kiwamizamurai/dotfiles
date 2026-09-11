@@ -50,7 +50,6 @@ brew "kubernetes-cli"              # Kubernetes command-line tool (kubectl)
 brew "awscli"                      # AWS command-line interface
 brew "cloudflare-wrangler"         # CLI tool for Cloudflare Workers
 brew "cloudflared"                 # Cloudflare Tunnel client
-brew "stripe-cli"                  # Command-line tool for Stripe
 
 # System Monitoring
 brew "bottom"                      # Cross-platform graphical process/system monitor
@@ -79,7 +78,6 @@ brew "gemini-cli"                  # Google Gemini CLI
 brew "llm"                         # Access large language models from the command-line
 brew "whisper-cpp"                 # Port of OpenAI's Whisper model in C/C++
 brew "jundot/omlx/omlx"            # LLM inference server optimized for Apple Silicon
-brew "espeak-ng"                   # Speech synthesizer supporting 100+ languages
 
 # Policy & Security
 brew "conftest"                    # Test configuration files using OPA
@@ -89,9 +87,6 @@ brew "opa"                         # Open Policy Agent - policy engine
 brew "typst"                       # Modern markup-based typesetting system
 brew "tectonic"                    # Modernized LaTeX engine
 brew "pandoc"                      # Universal document converter
-brew "weasyprint"                  # Convert HTML to PDF
-brew "poppler"                     # PDF rendering library
-brew "ghostscript"                 # Interpreter for PostScript and PDF
 
 # Database Tools
 brew "tbls"                        # Database documentation generator
