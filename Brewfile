@@ -2,7 +2,7 @@
 tap "charmbracelet/tap"
 tap "productdevbook/tap"
 tap "tw93/tap"
-tap "jundot/omlx"
+tap "jundot/omlx", "https://github.com/jundot/omlx"
 
 # =============================================================================
 # CLI Tools
