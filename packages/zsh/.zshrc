@@ -99,3 +99,6 @@ fi
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+# Added for pipx-installed CLI tools (e.g. platformio)
+export PATH="$HOME/.local/bin:$PATH"

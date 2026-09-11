@@ -48,7 +48,7 @@ brew "kubernetes-cli"              # Kubernetes command-line tool (kubectl)
 
 # Cloud
 brew "awscli"                      # AWS command-line interface
-brew "supabase/tap/supabase"       # Supabase CLI
+brew "supabase/tap/supabase", trusted: true # Supabase CLI
 
 # System Monitoring
 brew "bottom"                      # Cross-platform graphical process/system monitor
@@ -82,14 +82,14 @@ brew "tbls"                        # Database documentation generator
 # Media & Recording
 brew "imagemagick"                 # Image manipulation library
 brew "vhs"                         # CLI tool for recording terminal GIFs
-brew "charmbracelet/tap/freeze"    # Generate images of code and terminal output
+brew "charmbracelet/tap/freeze", trusted: true # Generate images of code and terminal output
 brew "handbrake"                   # Video transcoder
 brew "asciinema"                   # Terminal session recorder
 
 # Utilities
 brew "unzip"                       # Extraction utility for .zip files
 brew "mas"                         # Mac App Store CLI
-brew "tw93/tap/mole"               # macOS cleanup and optimization tool
+brew "tw93/tap/mole", trusted: true # macOS cleanup and optimization tool
 brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
 brew "tty-clock"                   # Terminal clock
@@ -127,22 +127,24 @@ cask "kap"                         # Screen recorder with GIF export
 
 # Utilities
 cask "keyclu"                      # Keyboard shortcut cheatsheet
-cask "productdevbook/tap/portkiller" # Menu bar app to kill processes on ports
+cask "productdevbook/tap/portkiller", trusted: true # Menu bar app to kill processes on ports
 cask "shottr"                      # Screenshot tool with annotations
 cask "the-unarchiver"              # Archive extraction tool
 cask "applite"                     # Homebrew GUI for casks
+cask "homebrew-app"                # Homebrew's official macOS GUI
 cask "pearcleaner"                 # App uninstaller with cleanup
 cask "jordanbaird-ice"             # Menu bar manager
 cask "sol"                         # Launcher app
 
 # System
-cask "nikitabobko/tap/aerospace"   # i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace", trusted: true # i3-like tiling window manager for macOS
 cask "cloudflare-warp"             # Cloudflare VPN client
 cask "flux-app"                    # Screen color temperature adjuster
 cask "pronotes"                    # Note-taking app
 
 # Fonts
 cask "font-hack-nerd-font"         # Nerd Font patched Hack font
+cask "font-dotgothic16"            # DotGothic16 Japanese dot-matrix style font
 cask "font-maple-mono-nf"          # Maple Mono Nerd Font
 cask "font-hackgen"                # HackGen font (Japanese-friendly coding font)
 cask "font-hackgen-nerd"           # HackGen Nerd Font (with icons)
