@@ -97,7 +97,6 @@ brew "vhs"                         # CLI tool for recording terminal GIFs
 brew "charmbracelet/tap/freeze", trusted: true # Generate images of code and terminal output
 brew "handbrake"                   # Video transcoder
 brew "gifsicle"                    # GIF image/animation creator/editor
-brew "exiftool"                    # Perl lib for reading and writing EXIF metadata
 brew "portaudio"                   # Cross-platform library for audio I/O
 brew "libxmp"                      # C library for playback of module music
 brew "molten-vk"                   # Vulkan graphics/compute API on top of Metal
@@ -110,14 +109,9 @@ brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
 brew "tty-clock"                   # Terminal clock
 brew "tailscale"                   # Zero-config VPN
-brew "coreutils"                   # GNU File, Shell, and Text utilities
-brew "pinentry-mac"                # Pinentry for GPG on Mac
-brew "nasm"                        # Netwide Assembler
-brew "yasm"                        # Modular BSD reimplementation of NASM
 brew "changie"                     # Automated changelog tool for preparing releases
 brew "hey"                         # HTTP load generator, ApacheBench (ab) replacement
 brew "oha"                         # HTTP load generator with tui animation
-brew "zizmor"                      # Find security issues in GitHub Actions setups
 
 # =============================================================================
 # GUI Applications (Casks)
