@@ -2,10 +2,10 @@ local M = {}
 
 function M.setup(opts)
   -- Setup avante with the provided options
-  require('avante').setup(opts)
+  require("avante").setup(opts)
 
   -- Setup which-key integration for better discoverability
-  local ok, wk = pcall(require, 'which-key')
+  local ok, wk = pcall(require, "which-key")
   if ok then
     wk.add({
       -- AI Assistant group
@@ -41,7 +41,11 @@ function M.setup(opts)
   end
 
   -- Print setup confirmation
-  vim.notify("Avante.nvim configured successfully! Use <leader>a to access AI features", vim.log.levels.INFO, { title = "Avante" })
+  vim.notify(
+    "Avante.nvim configured successfully! Use <leader>a to access AI features",
+    vim.log.levels.INFO,
+    { title = "Avante" }
+  )
 
   -- Show reminder about API keys if not set
   local function check_api_keys()
@@ -50,9 +54,9 @@ function M.setup(opts)
 
     if not claude_key and opts.provider == "claude" then
       vim.notify(
-        "Claude API key not found!\n" ..
-        "Please set ANTHROPIC_API_KEY or AVANTE_ANTHROPIC_API_KEY in your environment.\n" ..
-        "Add to ~/.zshrc: export ANTHROPIC_API_KEY='your-key-here'",
+        "Claude API key not found!\n"
+          .. "Please set ANTHROPIC_API_KEY or AVANTE_ANTHROPIC_API_KEY in your environment.\n"
+          .. "Add to ~/.zshrc: export ANTHROPIC_API_KEY='your-key-here'",
         vim.log.levels.WARN,
         { title = "Avante" }
       )
@@ -60,9 +64,9 @@ function M.setup(opts)
 
     if not openai_key and opts.provider == "openai" then
       vim.notify(
-        "OpenAI API key not found!\n" ..
-        "Please set OPENAI_API_KEY or AVANTE_OPENAI_API_KEY in your environment.\n" ..
-        "Add to ~/.zshrc: export OPENAI_API_KEY='your-key-here'",
+        "OpenAI API key not found!\n"
+          .. "Please set OPENAI_API_KEY or AVANTE_OPENAI_API_KEY in your environment.\n"
+          .. "Add to ~/.zshrc: export OPENAI_API_KEY='your-key-here'",
         vim.log.levels.WARN,
         { title = "Avante" }
       )
