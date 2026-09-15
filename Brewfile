@@ -71,6 +71,8 @@ brew "go-task"                     # Task runner/build tool
 brew "hugo"                        # Configurable static site generator
 brew "d2"                          # Modern diagram scripting language that turns text to diagrams
 brew "opencode"                    # AI coding agent, built for the terminal
+brew "shfmt"                       # Shell script formatter
+brew "stylua"                      # Lua code formatter
 
 # AI & LLM
 brew "llama.cpp"                   # LLM inference in C/C++
@@ -104,6 +106,7 @@ brew "molten-vk"                   # Vulkan graphics/compute API on top of Metal
 # Utilities
 brew "unzip"                       # Extraction utility for .zip files
 brew "mas"                         # Mac App Store CLI
+brew "topgrade"                    # Upgrade everything (brew, mise, nvim plugins, etc.) with one command
 brew "tw93/tap/mole", trusted: true # macOS cleanup and optimization tool
 brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
