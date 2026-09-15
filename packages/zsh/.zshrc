@@ -67,19 +67,19 @@ alias cat="bat"
 # Tools
 # -----------------------------------------------------------------------------
 if command -v mise &>/dev/null; then
-eval "$(mise activate zsh)"
+  eval "$(mise activate zsh)"
 fi
 
 if command -v atuin &>/dev/null; then
-eval "$(atuin init zsh)"
+  eval "$(atuin init zsh)"
 fi
 
 if command -v zoxide &>/dev/null; then
-eval "$(zoxide init zsh)"
+  eval "$(zoxide init zsh)"
 fi
 
 if command -v starship &>/dev/null; then
-eval "$(starship init zsh)"
+  eval "$(starship init zsh)"
 fi
 
 # -----------------------------------------------------------------------------
@@ -98,7 +98,6 @@ fi
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
-
 
 # Added for pipx-installed CLI tools (e.g. platformio)
 export PATH="$HOME/.local/bin:$PATH"

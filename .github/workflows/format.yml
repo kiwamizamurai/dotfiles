@@ -1,0 +1,44 @@
+name: Check formatting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  shfmt:
+    name: shfmt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Install shfmt
+        run: |
+          go install mvdan.cc/sh/v3/cmd/shfmt@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Check shell script formatting
+        run: shfmt -d bin/defaults.sh packages/zsh/.zshrc
+
+  stylua:
+    name: stylua
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Check Lua formatting
+        uses: JohnnyMorganz/stylua-action@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: 2.5.2
+          args: --check packages/nvim/.config/nvim

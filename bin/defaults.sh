@@ -23,7 +23,6 @@ if [ ! -d "$HOME/Pictures/Screenshots" ]; then
 fi
 defaults write com.apple.screencapture "location" -string "$HOME/Pictures/Screenshots"
 
-
 # ===================
 #           .DS_Store
 # ===================
@@ -40,12 +39,10 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # ===================
 defaults write -g com.apple.trackpad.scaling 3
 
-
 # ===================
 #               Mouse
 # ===================
 defaults write -g com.apple.mouse.scaling 3
-
 
 # ===================
 #            Keyboard

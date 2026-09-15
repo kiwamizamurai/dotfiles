@@ -1,0 +1,9 @@
+root = true
+
+[bin/defaults.sh]
+indent_style = space
+indent_size = 4
+
+[packages/zsh/.zshrc]
+indent_style = space
+indent_size = 2

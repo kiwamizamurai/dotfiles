@@ -6,12 +6,12 @@ local has_words_before = function()
 end
 
 -- Setup nvim-cmp
-local cmp = require('cmp')
-local lspkind = require('lspkind')
-local luasnip = require('luasnip')
+local cmp = require("cmp")
+local lspkind = require("lspkind")
+local luasnip = require("luasnip")
 
 -- Load friendly-snippets
-require('luasnip.loaders.from_vscode').lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
@@ -20,11 +20,11 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
     -- Tab navigation with LuaSnip support
     ["<Tab>"] = cmp.mapping(function(fallback)
@@ -51,24 +51,24 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "path" },
   }, {
-    { name = 'buffer' },
+    { name = "buffer" },
   }),
 
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol_text',
+      mode = "symbol_text",
       maxwidth = 50,
-      ellipsis_char = '...',
+      ellipsis_char = "...",
       show_labelDetails = true,
 
       before = function(entry, vim_item)
         return vim_item
-      end
-    })
+      end,
+    }),
   },
 
   window = {

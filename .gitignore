@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Claude Code local overrides (per-machine, not for sharing)
+.claude/settings.local.json
+
+# Editor
+.vscode/
+.idea/
+*.swp

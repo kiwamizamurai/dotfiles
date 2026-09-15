@@ -1,25 +1,33 @@
 local wk = require("which-key")
 
-wk.setup {
+wk.setup({
   plugins = {
     marks = false,
     registers = false,
-    spelling = {enabled = false, suggestions = 20},
-    presets = {operators = false, motions = false, text_objects = false, windows = false, nav = false, z = false, g = false}
-  }
-}
+    spelling = { enabled = false, suggestions = 20 },
+    presets = {
+      operators = false,
+      motions = false,
+      text_objects = false,
+      windows = false,
+      nav = false,
+      z = false,
+      g = false,
+    },
+  },
+})
 
-local Terminal = require('toggleterm.terminal').Terminal
+local Terminal = require("toggleterm.terminal").Terminal
 local toggle_float = function()
-  local float = Terminal:new({direction = "float"})
+  local float = Terminal:new({ direction = "float" })
   return float:toggle()
 end
 local toggle_vertical = function()
-  local vertical = Terminal:new({direction = "vertical", size = 80})
+  local vertical = Terminal:new({ direction = "vertical", size = 80 })
   return vertical:toggle()
 end
 local toggle_lazygit = function()
-  local lazygit = Terminal:new({cmd = 'lazygit', direction = "float"})
+  local lazygit = Terminal:new({ cmd = "lazygit", direction = "float" })
   return lazygit:toggle()
 end
 
@@ -59,7 +67,11 @@ wk.add({
   { "<leader>lK", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover Commands" },
   { "<leader>lw", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", desc = "Add Workspace Folder" },
   { "<leader>lW", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", desc = "Remove Workspace Folder" },
-  { "<leader>ll", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", desc = "List Workspace Folders" },
+  {
+    "<leader>ll",
+    "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>",
+    desc = "List Workspace Folders",
+  },
   { "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type Definition" },
   { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Go To Definition" },
   { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Go To Declaration" },

@@ -1,5 +1,5 @@
 -- Modern nvim-tree configuration
-require('nvim-tree').setup({
+require("nvim-tree").setup({
   -- Window settings
   view = {
     width = 30,
@@ -56,7 +56,7 @@ require('nvim-tree').setup({
   -- Filtering
   filters = {
     dotfiles = false,
-    git_ignored = true,  -- This replaces the old 'gitignore' option
+    git_ignored = true, -- This replaces the old 'gitignore' option
     custom = { ".git", "node_modules", ".cache" },
   },
 
