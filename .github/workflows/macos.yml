@@ -27,12 +27,10 @@ jobs:
 
       - name: Trust non-official taps
         run: |
-          brew trust --tap nikitabobko/tap
-          brew trust --tap charmbracelet/tap
-          brew trust --tap productdevbook/tap
-          brew trust --tap tw93/tap
-          brew trust --tap supabase/tap
-          brew trust --tap aws/tap
+          grep -oE '^tap "[^"]+"' Brewfile | sed -E 's/^tap "([^"]+)"/\1/' | while read -r tap; do
+            echo "Trusting $tap..."
+            brew trust --tap "$tap"
+          done
 
       - name: Update Homebrew
         run: brew update
