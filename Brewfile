@@ -173,7 +173,7 @@ cask "font-hackgen"                # HackGen font (Japanese-friendly coding font
 cask "font-hackgen-nerd"           # HackGen Nerd Font (with icons)
 
 # AI
-cask "claude-code"                 # Claude Code CLI by Anthropic
+cask "claude-code@latest"          # Claude Code CLI by Anthropic
 cask "chatgpt"                     # ChatGPT desktop app
 cask "copilot-cli"                 # GitHub Copilot CLI
 
