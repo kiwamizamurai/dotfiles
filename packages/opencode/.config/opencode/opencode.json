@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "omlx/qwen3-coder",
+  "model": "omlx/qwen2.5-coder-14b",
   "provider": {
     "omlx": {
       "npm": "@ai-sdk/openai-compatible",
@@ -11,7 +11,7 @@
         "apiKey": "omlx"
       },
       "models": {
-        "qwen3-coder": {
+        "qwen2.5-coder-14b": {
           "id": "Qwen2.5-Coder-14B-Instruct-4bit",
           "name": "Qwen2.5 Coder 14B",
           "tool_call": true,
@@ -49,7 +49,6 @@
   "permission": {
     "bash": "ask",
     "edit": "allow",
-    "read": "allow",
-    "write": "allow"
+    "read": "allow"
   }
 }
