@@ -1,29 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "omlx/qwen2.5-coder-14b",
+  "model": "opencode/mimo-v2.6-flash-free",
   "provider": {
-    "omlx": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "oMLX (local)",
-      "env": [],
-      "options": {
-        "baseURL": "http://127.0.0.1:8000/v1",
-        "apiKey": "omlx"
-      },
-      "models": {
-        "qwen2.5-coder-14b": {
-          "id": "Qwen2.5-Coder-14B-Instruct-4bit",
-          "name": "Qwen2.5 Coder 14B",
-          "tool_call": true,
-          "attachment": false,
-          "temperature": true,
-          "limit": {
-            "context": 16384,
-            "output": 4096
-          }
-        }
-      }
-    },
     "llama-local": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama-server (local)",
