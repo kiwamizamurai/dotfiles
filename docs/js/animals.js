@@ -237,6 +237,13 @@ export function initBow() {
     drawShadow(ctx, W * .68, gy, 24 * k * .6); drawOps(ctx, rabbitOps(0, { run: false, bow, t }), W * .68, gy, k);
   }
   if (!reduceMotion) requestAnimationFrame(frame);
+  else {
+    // 動きを減らす設定: 静止した二匹を、一度だけ描く
+    const still = () => { if (!W) return; ctx.clearRect(0, 0, W, H); const k = W / 190, gy = H - 8;
+      drawShadow(ctx, W * .3, gy, 20 * k * .6); drawOps(ctx, frogOps(0, { t: 0, bow: 0 }), W * .3, gy, k * 1.15, true);
+      drawShadow(ctx, W * .68, gy, 24 * k * .6); drawOps(ctx, rabbitOps(0, { run: false, bow: 0, t: 0 }), W * .68, gy, k); };
+    new ResizeObserver(() => { fit(); still(); }).observe(host);
+  }
 }
 
 // ---- 庭の蛙のために ----
