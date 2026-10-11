@@ -5,6 +5,7 @@ import { initAmbient } from "./ambient.js";
 import "./tenarai.js";
 import "./niwa.js";
 import { initRoad, initBow } from "./animals.js";
+import { initKasa } from "./kasa.js";
 import { initKake } from "./kake.js";
 
 initToki();
@@ -14,3 +15,4 @@ initAmbient();
 initKake();
 initRoad();
 initBow();
+initKasa();

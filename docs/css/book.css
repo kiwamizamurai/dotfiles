@@ -39,7 +39,7 @@
 .nav{display:none}
 .tabs{top:52px;left:0;right:0;flex-direction:row;overflow-x:auto;padding:8px 14px 6px;background:var(--table2);box-shadow:0 2px 10px var(--shadow)}
 .tabs a{writing-mode:horizontal-tb;white-space:nowrap;letter-spacing:.2em;padding:6px 12px}
-.musubi{margin-top:2cqw}
+.kasa{margin-top:1cqw}
 
 /* ---- 見開きの本（広い画面だけ） ---- */
 html.book-mode body{height:100vh;overflow:hidden}
