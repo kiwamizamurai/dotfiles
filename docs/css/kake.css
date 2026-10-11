@@ -52,8 +52,8 @@ html[data-toki="yoru"]{--k-ink:#0a1020;--k-fline:#aebadb;--k-cfill:#8e9bbd;--k-s
 @keyframes k-up{from{opacity:0;transform:translateY(16px);filter:blur(4px)}}
 .k-mizu path{stroke-dasharray:1;stroke-dashoffset:0;animation:k-draw 2.2s cubic-bezier(.4,.1,.2,1) 4s backwards}
 @keyframes k-draw{from{stroke-dashoffset:1}}
-.k-mizu .k-knot{animation:k-pop .6s ease-out 5.6s backwards}
-@keyframes k-pop{from{opacity:0;transform:scale(.3)}}
+.k-mizu .k-knot{opacity:0;animation:k-pop .6s ease-out 5.6s forwards}
+@keyframes k-pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
 
 /* 飛ばす */
 .kake-skip{position:absolute;right:clamp(22px,4vw,48px);bottom:clamp(20px,4vh,40px);z-index:2;color:#fff;font-size:14px;letter-spacing:.35em;padding:8px 12px;

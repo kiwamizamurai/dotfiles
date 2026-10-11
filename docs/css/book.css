@@ -106,3 +106,9 @@ html.book-mode{scroll-behavior:auto}
 /* 下の操作表示: 富士の麓の墨点に重ならないよう、空の色で薄く受ける */
 html.book-mode .nav::before{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:-1;pointer-events:none;
   background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--k-sky3) 86%,transparent) 62%)}
+
+/* 縦に読むとき: 上の帯と栞の列に、空の色の地を付ける（頁が下を通っても、文字が重ならない） */
+.top{background:var(--k-sky1);box-shadow:0 1px 8px #0000001f}
+.tabs{background:var(--k-sky2)}
+html.book-mode .top{background:none;box-shadow:none}
+html.book-mode .tabs{background:none}
