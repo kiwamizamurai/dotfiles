@@ -71,3 +71,15 @@ html:not(.js) #kake{display:none}
 #sansui .k-fuji,#sansui .k-sun,#sansui .k-star{animation:none}
 #sansui .k-band{animation:none}
 #sansui .k-star{opacity:calc(var(--k-star)*.8)}
+
+
+/* 行列: 富士の麓を、うさぎと蛙が、右から左へ横切る（姿勢を二つ、交互に見せる） */
+.k-parade{transform:translateX(1500px);animation:k-walk 10s linear 3.4s forwards}
+@keyframes k-walk{to{transform:translateX(-620px)}}
+.k-walker .k-pose-a{animation:k-pa .38s steps(1) infinite}
+.k-walker .k-pose-b{animation:k-pb .38s steps(1) infinite}
+@keyframes k-pa{0%{opacity:1}50%{opacity:0}}
+@keyframes k-pb{0%{opacity:0}50%{opacity:1}}
+.k-walker{animation:k-hop .38s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+.k-walker-frog{animation-duration:.76s}
+@keyframes k-hop{from{transform:translateY(0)}to{transform:translateY(-7px)}}

@@ -2,6 +2,7 @@
 // 景色（空・日・富士・霞）は、紙が消えたあとも背景（#sansui）に残る。
 // 動きを減らす設定のとき、または特定の頁へ直接来たときは、掛け紙は出さず、背景だけ置く。
 import { paintScene } from "./sumie.js";
+import { paintParade, flyBirds } from "./animals.js";
 
 export function initKake() {
   const el = document.getElementById("kake");
@@ -13,8 +14,9 @@ export function initKake() {
     const src = el.querySelector("svg");
     if (src) {
       paintScene(src);
+      paintParade(src);
       const c = src.cloneNode(true);
-      c.querySelectorAll(".k-puff,.k-mizu").forEach(n => n.remove());
+      c.querySelectorAll(".k-puff,.k-mizu,.k-parade-place").forEach(n => n.remove());
       bg.append(c);
     }
     // ポインタに合わせて、背景がわずかに動く（奥行き）
@@ -34,6 +36,7 @@ export function initKake() {
     if (done) return;
     done = true;
     clearTimeout(auto);
+    flyBirds();
     el.classList.add("out");                       // 雲と題が溶け、本が現れる（景色は背景に残る）
     setTimeout(() => { el.remove(); html.classList.remove("kake-on"); }, 2300);
   };

@@ -63,6 +63,7 @@ function paint(animate) {
   tabs.forEach((a, i) => { const t = spreadOf(a.hash.slice(1)); if (t != null && t <= s) cur = i; });
   tabs.forEach((a, i) => a.setAttribute("aria-current", i === cur ? "true" : "false"));
   countEl.textContent = s === 0 ? "表紙" : s === N ? "裏表紙" : `見開き ${K(s)}／${K(N - 1)}`;
+  document.dispatchEvent(new CustomEvent("washo:spread", { detail: { s, N } }));   // 進み具合の動物へ
   nextBtn.disabled = s >= N;
   prevBtn.disabled = s <= 0;
 }
@@ -158,6 +159,12 @@ export function initBook() {
     history.replaceState(null, "", "#" + id);
   });
   addEventListener("hashchange", () => { if (wide) goToId(location.hash.slice(1)); });
+  // 庭の石など、ほかの部品から「この頁へ」と頼まれたとき
+  document.addEventListener("washo:go", e => {
+    const id = e.detail;
+    if (wide) { if (goToId(id)) history.replaceState(null, "", "#" + id); }
+    else document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   // 縦に読むときは、見えた頁から順に「開いた」印をつける
   if ("IntersectionObserver" in window) {

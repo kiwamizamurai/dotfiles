@@ -112,3 +112,9 @@ html.book-mode .nav::before{content:"";position:absolute;left:0;right:0;bottom:0
 .tabs{background:var(--k-sky2)}
 html.book-mode .top{background:none;box-shadow:none}
 html.book-mode .tabs{background:none}
+
+
+/* 下の操作帯: 進み具合の道（うさぎと蛙）と、見開きの表示 */
+.nav .progress{display:flex;flex-direction:column;align-items:center;gap:0;min-width:300px}
+.nav #road{width:300px;height:46px;display:block}
+.nav .count{min-width:0;font-size:12px;letter-spacing:.2em}

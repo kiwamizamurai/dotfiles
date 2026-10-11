@@ -16,7 +16,7 @@ function el(tag, attrs, parent) {
 
 // ---- 曲線 ----
 const cr = (a, b, c, d, t) => .5 * ((2 * b) + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t * t + (-a + 3 * b - 3 * c + d) * t * t * t);
-function spline(pts, n = 56) {            // 通る点から、なめらかな曲線を取る
+export function spline(pts, n = 56) {            // 通る点から、なめらかな曲線を取る
   const P = [pts[0], ...pts, pts[pts.length - 1]], seg = pts.length - 1, per = Math.max(2, Math.round(n / seg)), out = [];
   for (let i = 0; i < seg; i++) for (let j = 0; j < per; j++) {
     const t = j / per, [p0, p1, p2, p3] = [P[i], P[i + 1], P[i + 2], P[i + 3]];
@@ -28,7 +28,7 @@ function spline(pts, n = 56) {            // 通る点から、なめらかな�
 
 // ---- 筆の一画 ----
 // w: いちばん太いところ / start, end: 入りと払いの長さ（0〜1）/ wob: 太さの揺れ / bow: 筆が横へ流れる量
-function stroke(pts, { w = 10, start = .22, end = .3, wob = .1, bow = 0 } = {}) {
+export function stroke(pts, { w = 10, start = .22, end = .3, wob = .1, bow = 0 } = {}) {
   const s = spline(pts), L = [], Rr = [], n = s.length;
   for (let i = 0; i < n; i++) {
     const t = i / (n - 1), a = s[Math.max(0, i - 1)], b = s[Math.min(n - 1, i + 1)];
@@ -49,7 +49,7 @@ const poly = pts => "M" + pts.map(p => f1(p[0]) + " " + f1(p[1])).join("L") + "Z
 
 
 // 濃い芯と、流れに沿った毛の筋。毛ごとに入りと払いの位置が違い、端がほぐれる。
-function bristles(parent, pts, o = {}) {
+export function bristles(parent, pts, o = {}) {
   const w = o.w || 12, n = o.n || 7, s = spline(pts, 64), m = s.length;
   const g = el("g", { fill: o.fill || "var(--k-ink)" }, parent);
   el("path", { d: stroke(pts, { w: w * .6, start: o.start ?? .1, end: o.end ?? .4, wob: .1, bow: o.bow || 0 }), opacity: o.op ?? .9 }, g);

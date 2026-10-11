@@ -134,7 +134,7 @@
 </header>
 
 <nav class="tabs" id="tabs" aria-label="巻の目次">
-  <a href="#jo">序</a><a href="#irekata">入れ方</a><a href="#tabane">束</a><a href="#dogu">道具</a><a href="#tebiki">手引き</a><a href="#toi">問い</a><a href="#batsu">跋</a>
+  <a href="#jo">序</a><a href="#irekata">入れ方</a><a href="#tabane">束</a><a href="#niwa">庭</a><a href="#dogu">道具</a><a href="#tebiki">手引き</a><a href="#toi">問い</a><a href="#batsu">跋</a>
 </nav>
 
 <main class="stage">
@@ -194,11 +194,12 @@
         <h2 class="hd">目次</h2>
         <div class="prose">
           <p><a href="#jo">序</a><span class="pg">一</span></p>
-          <p><a href="#irekata">巻之一　入れ方</a><span class="pg">五</span></p>
-          <p><a href="#tabane">巻之二　束</a><span class="pg">七</span></p>
-          <p><a href="#dogu">巻之三　道具</a><span class="pg">十五</span></p>
-          <p><a href="#tebiki">巻之四　手引き</a><span class="pg">十七</span></p>
-          <p><a href="#toi">問い</a><span class="pg">十九</span></p>
+          <p><a href="#irekata">巻之一　入れ方</a><span class="pg">三</span></p>
+          <p><a href="#tabane">巻之二　束</a><span class="pg">五</span></p>
+          <p><a href="#niwa">庭</a><span class="pg">七</span></p>
+          <p><a href="#dogu">巻之三　道具</a><span class="pg">十六</span></p>
+          <p><a href="#tebiki">巻之四　手引き</a><span class="pg">十八</span></p>
+          <p><a href="#toi">問い</a><span class="pg">二十</span></p>
           <p><a href="#batsu">跋・奥付</a><span class="pg">二十一</span></p>
         </div>
       </div>
@@ -306,8 +307,46 @@
   </div>
 </section>
 
-<!-- ===== 四 nvim | wezterm ===== -->
+<!-- ===== 庭（枯山水） | 庭の読み方 ===== -->
 <section class="sheet" data-i="4">
+  <div class="face front">
+    <article class="leaf niwa" id="niwa" data-title="庭">
+      <div class="kyo"></div>
+      <h2 class="hd niwa-hd">庭</h2>
+      <div class="garden" id="garden">
+        <canvas id="niwa-canvas" role="img" aria-label="枯山水の庭。七つの石は七つの束。指を動かすと、熊手のように砂に筋が付く"></canvas>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>庭</span><b>七</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="niwa-yomi" data-title="庭の読み方">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">庭の読み方</h2>
+        <div class="prose">
+          <p>七つの石は、七つの束<span class="maru">。</span></p>
+          <p>大きいほど、設定が多い<span class="maru">。</span></p>
+          <p>指を動かせば、砂に筋が付く<span class="maru">。</span>石を押せば、その束へ<span class="maru">。</span></p>
+        </div>
+        <div class="plates"><div class="fuda"><h3>石と束</h3><table>
+          <tr><th>石</th><th>束</th><th>設定</th></tr>
+          <tr><td>筆</td><td><a href="#nvim">nvim</a></td><td>25</td></tr>
+          <tr><td>智</td><td><a href="#opencode">opencode</a></td><td>5</td></tr>
+          <tr><td>窓</td><td><a href="#wezterm">wezterm</a></td><td>1</td></tr>
+          <tr><td>殻</td><td><a href="#zsh">zsh</a></td><td>1</td></tr>
+          <tr><td>標</td><td><a href="#starship">starship</a></td><td>1</td></tr>
+          <tr><td>記</td><td><a href="#atuin">atuin</a></td><td>1</td></tr>
+          <tr><td>縁</td><td><a href="#github">github</a></td><td>1</td></tr>
+        </table></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>庭</span><b>八</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 四 nvim | wezterm ===== -->
+<section class="sheet" data-i="5">
   <div class="face front">
     <article class="leaf" id="nvim" data-title="束 nvim">
       <div class="kyo"></div>
@@ -326,7 +365,7 @@ lua/
  └ lualine bufferline zen-mode …</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>七</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>九</b></div>
     </article>
   </div>
   <div class="face back">
@@ -341,13 +380,13 @@ lua/
           <div class="fuda tree"><pre>.wezterm.lua</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>八</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 五 zsh | starship ===== -->
-<section class="sheet" data-i="5">
+<section class="sheet" data-i="6">
   <div class="face front">
     <article class="leaf" id="zsh" data-title="束 zsh">
       <div class="kyo"></div>
@@ -360,7 +399,7 @@ lua/
           <div class="fuda tree"><pre>.zshrc</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>九</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十一</b></div>
     </article>
   </div>
   <div class="face back">
@@ -375,13 +414,13 @@ lua/
           <div class="fuda tree"><pre>.config/starship.toml</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十二</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 六 atuin | opencode ===== -->
-<section class="sheet" data-i="6">
+<section class="sheet" data-i="7">
   <div class="face front">
     <article class="leaf" id="atuin" data-title="束 atuin">
       <div class="kyo"></div>
@@ -394,7 +433,7 @@ lua/
           <div class="fuda tree"><pre>.config/atuin/config.toml</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十一</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十三</b></div>
     </article>
   </div>
   <div class="face back">
@@ -412,13 +451,13 @@ lua/
  └ commands/commit.md test.md</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十二</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十四</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 七 github | 道具(一) ===== -->
-<section class="sheet" data-i="7">
+<section class="sheet" data-i="8">
   <div class="face front">
     <article class="leaf" id="github" data-title="束 github">
       <div class="kyo"></div>
@@ -431,7 +470,7 @@ lua/
           <div class="fuda tree"><pre>.gitconfig</pre></div>
         </div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十三</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十五</b></div>
     </article>
   </div>
   <div class="face back">
@@ -447,13 +486,13 @@ lua/
           <dt>監視</dt><dd>bottom btop glances sniffnet</dd>
           <dt>開発</dt><dd>neovim mise uv cmake rust go-task hugo d2 stylua shfmt</dd></dl></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十四</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十六</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 八 道具(二) | 手引き ===== -->
-<section class="sheet" data-i="8">
+<section class="sheet" data-i="9">
   <div class="face front">
     <article class="leaf" id="dogu2" data-title="道具の目録（続き）">
       <div class="kyo"></div>
@@ -467,7 +506,7 @@ lua/
           <dt>書体</dt><dd>hack-nerd dotgothic16 maple-mono-nf hackgen hackgen-nerd</dd></dl>
           <p class="sub" style="margin-top:1.4cqw"><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/Brewfile" target="_blank" rel="noopener">Brewfile を開く</a></p></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十五</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十七</b></div>
     </article>
   </div>
   <div class="face back">
@@ -488,13 +527,13 @@ lua/
           <tr><td><code>Ctrl-h j k l</code></td><td>窓の間を移る</td></tr>
         </table></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十六</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十八</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 九 手引き(章) | 問い ===== -->
-<section class="sheet" data-i="9">
+<section class="sheet" data-i="10">
   <div class="face front">
     <article class="leaf" id="tebiki-sho" data-title="手引きの章">
       <div class="kyo"></div>
@@ -509,7 +548,7 @@ lua/
           <li><b>五</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#common-workflows" target="_blank" rel="noopener">よくある流れ</a></li>
           <li><b>六</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#troubleshooting" target="_blank" rel="noopener">困ったとき</a></li></ul></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十七</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十九</b></div>
     </article>
   </div>
   <div class="face back">
@@ -520,13 +559,13 @@ lua/
         <div class="prose"><p>単純で、手入れがしやすいから<span class="maru">。</span></p><p>道具は Homebrew、結ぶのは Stow<span class="maru">。</span>覚えることを、少なくしておく<span class="maru">。</span></p></div>
         <div class="plates"><div class="fuda"><h3>参考</h3><p><a href="https://jade.fyi/blog/use-nix-less/" target="_blank" rel="noopener">You don't have to use nix to manage your dotfiles</a></p></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>問い</span><b>十八</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>問い</span><b>二十</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 十 跋 | 奥付 ===== -->
-<section class="sheet" data-i="10">
+<section class="sheet" data-i="11">
   <div class="face front">
     <article class="leaf" id="batsu" data-title="跋">
       <div class="kyo"></div>
@@ -540,7 +579,7 @@ lua/
           <dt>依存</dt><dd>dependabot が見守る</dd></dl>
           <p class="sub" style="margin-top:1.4cqw">docs や文書だけの変更では、動かさない。</p></div></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>跋</span><b>十九</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>跋</span><b>二十一</b></div>
     </article>
   </div>
   <div class="face back">
@@ -551,15 +590,15 @@ lua/
         <div class="prose"><p>庵の手引<br>macOS の開発環境</p></div>
         <div class="plates"><div class="fuda"><dl>
           <dt>著</dt><dd>kiwamizamurai</dd><dt>初版</dt><dd>2022 年 3 月</dd><dt>最終更新</dt><dd>2026 年 10 月</dd>
-          <dt>言語</dt><dd>Lua ほか</dd><dt>置き場</dt><dd><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github.com/kiwamizamurai/dotfiles</a></dd></dl></div></div>
+          <dt>言語</dt><dd>Lua ほか</dd><dt>置き場</dt><dd><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github.com/kiwamizamurai/dotfiles</a></dd></dl></div><canvas class="bow" id="bow" aria-hidden="true"></canvas></div>
       </div>
-      <div class="hanshin"><i></i><span>庵の手引</span><span>奥付</span><b>二十</b></div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>奥付</span><b>二十二</b></div>
     </article>
   </div>
 </section>
 
 <!-- ===== 十一 裏見返し | 裏表紙 ===== -->
-<section class="sheet" data-i="11">
+<section class="sheet" data-i="12">
   <div class="face front">
     <div class="endpaper" id="owari" data-title="了">
       <svg class="waves" aria-hidden="true"><rect width="100%" height="100%" fill="url(#sg-paper)"/></svg>
@@ -583,7 +622,7 @@ lua/
 
 <div class="nav" id="nav">
   <button type="button" id="next" aria-label="次の丁へ（左へ進む）">← 次へ</button>
-  <span class="count" id="count">表紙</span>
+  <div class="progress"><canvas id="road" width="440" height="68" aria-hidden="true"></canvas><span class="count" id="count">表紙</span></div>
   <button type="button" id="prev" aria-label="前の丁へ">前へ →</button>
 </div>
 <script>setTimeout(function(){var k=document.getElementById("kake");if(k)k.classList.add("out")},12000)</script>
