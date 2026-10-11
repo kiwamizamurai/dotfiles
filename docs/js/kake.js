@@ -30,6 +30,7 @@ export function initKake() {
   const deep = location.hash && location.hash !== "#hyoshi";
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || deep) { el.remove(); return; }
 
+  layerize(el.querySelector("svg"));
   html.classList.add("kake-on");
   let done = false, auto = 0;
   const finish = () => {
@@ -44,4 +45,32 @@ export function initKake() {
   auto = setTimeout(finish, 8200);
   el.addEventListener("click", finish);
   addEventListener("keydown", e => { if (!done && (e.key === "Escape" || e.key === "Enter" || e.key === " ")) { e.preventDefault(); finish(); } }, true);
+}
+
+// 動く部分を、それぞれ別の <svg>（別レイヤー）へ移す。
+// 一つの <svg> の中で動かすと、毎フレーム、全体（歪み・ぼかしのフィルター込み）を描き直すため、とても重い。
+// 動きは <svg> 要素そのものに付けるので、描き直さずに、位置と透明度だけで動く。
+function layerize(base) {
+  if (!base) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const make = (cls, ...nodes) => {
+    const s = document.createElementNS(NS, "svg");
+    for (const a of ["viewBox", "preserveAspectRatio", "focusable"]) if (base.hasAttribute(a)) s.setAttribute(a, base.getAttribute(a));
+    s.setAttribute("class", "k-layer " + cls);
+    nodes.forEach(n => n && s.append(n));
+    return s;
+  };
+  const order = [".k-sun", ".k-band-far", ".k-fuji", ".k-parade-place", ".k-band-m1", ".k-band-m2", ".k-puff-l", ".k-puff-r", ".k-puff-t", ".k-puff-b", ".k-puff-c"];
+  const layers = [];
+  for (const sel of order) {
+    const g = base.querySelector(sel);
+    if (!g) continue;
+    const cls = g.getAttribute("class") || "";
+    g.removeAttribute("class");                       // 動きは <svg> 側に付ける
+    layers.push(make(cls.replace("k-parade-place", "k-parade-layer"), g));
+  }
+  const fiber = base.querySelector(':scope > rect[filter]');
+  const mizu = base.querySelector(".k-mizu");
+  layers.push(make("k-fiber-layer", fiber), make("k-mizu-layer", mizu));
+  base.after(...layers);
 }
