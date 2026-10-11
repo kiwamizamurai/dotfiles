@@ -1,0 +1,34 @@
+/* 刻（とき）: 朝・昼・夕・夜で、紙と墨と畳の色が変わる */
+:root{
+  --serif:"Zen Old Mincho","Shippori Mincho","Yu Mincho","Hiragino Mincho ProN",serif;
+  --brush:"Yuji Syuku","Zen Old Mincho","Yu Mincho",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+[data-toki="hiru"]{ /* 昼: 和紙に墨 */
+  --table:#7a7752; --table2:#6c6948; --paper:#efe6d2; --paper2:#e3d8bf; --sumi:#1c1914; --sumi2:#52493c;
+  --shu:#b83a26; --line:#c9bc9d; --cover:#26405e; --cover2:#1a2f48; --wave:#35567c; --shadow:#0000004d; --tag:#f6efde; --top:#1c2a3a; --nav:#1c2a3a;
+}
+[data-toki="yoru"]{ /* 夜: 墨の地に、生成りの文字 */
+  --table:#16140f; --table2:#0f0e0b; --paper:#2b261e; --paper2:#231f18; --sumi:#e9e0cb; --sumi2:#a89f89;
+  --shu:#e0583b; --line:#4a4234; --cover:#14202e; --cover2:#0d1520; --wave:#223750; --shadow:#000000a0; --tag:#3a3428; --top:#d8d2bd; --nav:#d8d2bd;
+}
+[data-toki="yuu"]{ /* 夕: 茜がかった紙に、藍の墨 */
+  --table:#4b3027; --table2:#3c241d; --paper:#ecd3b1; --paper2:#dfc19a; --sumi:#2a2230; --sumi2:#5c4b5a;
+  --shu:#af2a1d; --line:#cfae83; --cover:#4a2f4f; --cover2:#392340; --wave:#664269; --shadow:#2a101066; --tag:#f3dfc2; --top:#f3dfc2; --nav:#2a1a2a;
+}
+[data-toki="asa"]{ /* 朝: 桜がかった紙に、鼠の墨 */
+  --table:#cfc4c6; --table2:#c1b5b8; --paper:#f4e7e4; --paper2:#e9d8d5; --sumi:#2a2829; --sumi2:#5f5659;
+  --shu:#b23a48; --line:#d9c0bf; --cover:#5a6a74; --cover2:#46555f; --wave:#76889380; --shadow:#00000033; --tag:#fbf2ef; --top:#2a2829; --nav:#2a2829;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100vh;color:var(--sumi);font:400 16px/1.9 var(--serif);letter-spacing:.04em;background-color:var(--k-sky3);
+  transition:background-color .8s,color .8s}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}

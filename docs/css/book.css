@@ -1,0 +1,108 @@
+/* 本の骨組み。広い画面では見開きで頁をめくり、狭い画面や JS なしでは、一丁ずつ縦に読む */
+
+/* ---- 共通: 上の帯 ---- */
+.top{position:fixed;top:0;left:0;right:0;height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 clamp(14px,3vw,28px);z-index:60;
+  color:var(--top);letter-spacing:.22em;font-size:14px}
+.top a{text-decoration:none}
+.brand{display:flex;align-items:center;gap:10px}
+.mon{display:inline-grid;place-items:center;width:24px;height:24px;background:var(--shu);color:var(--tag);font:400 15px/1 var(--brush);border-radius:2px;letter-spacing:0;text-shadow:none}
+.top .right{display:flex;align-items:center;gap:18px}
+.top button{letter-spacing:.2em}
+.top button:hover,.top a:hover{text-decoration:underline;text-underline-offset:5px}
+
+/* 栞（巻の見出し札） */
+.tabs{position:fixed;z-index:55;display:flex;gap:6px}
+.tabs a{display:block;background:var(--tag);color:var(--sumi);text-decoration:none;font-size:13px;line-height:1.2;letter-spacing:.3em;
+  border-bottom:3px solid var(--shu);padding:7px 10px;box-shadow:0 2px 6px var(--shadow);transition:transform .25s,background .25s}
+.tabs a[aria-current="true"]{background:var(--paper);transform:translateY(5px)}
+
+.stage{padding:112px 14px 120px}
+.book{max-width:560px;margin:0 auto}
+.sheet,.face{position:static}
+.face .leaf,.face .cover,.face .endpaper{aspect-ratio:.74/1;height:auto;margin-bottom:26px;box-shadow:0 6px 24px var(--shadow)}
+.face .leaf{min-height:0}
+.inner{position:static;display:block;padding:11cqw 9cqw 5cqw}
+.inner>*{direction:ltr}
+.hd,.prose{writing-mode:horizontal-tb;height:auto}
+.hd{font-size:9.5cqw;margin-bottom:3cqw}
+.hd small{margin:0;display:inline;margin-left:2cqw}
+.prose{font-size:4cqw;line-height:2;background-image:none;margin-bottom:3cqw}
+.plates{height:auto;overflow:visible;font-size:3.5cqw;margin-top:3cqw}
+.fuda h3{font-size:3.6cqw}
+.fuda code,.fuda pre{font-size:3.2cqw}
+.fuda td code{font-size:3.1cqw}
+.hanshin{position:static;writing-mode:horizontal-tb;flex-direction:row;width:auto;justify-content:center;gap:3.5cqw;padding:0 8cqw 7cqw;font-size:3cqw}
+.hanshin i{display:none}
+.kyo{inset:3.4cqw}
+.face.front .leaf,.face.back .leaf{box-shadow:0 6px 24px var(--shadow)}
+.daisen{right:12cqw}
+.nav{display:none}
+.tabs{top:52px;left:0;right:0;flex-direction:row;overflow-x:auto;padding:8px 14px 6px;background:var(--table2);box-shadow:0 2px 10px var(--shadow)}
+.tabs a{writing-mode:horizontal-tb;white-space:nowrap;letter-spacing:.2em;padding:6px 12px}
+.musubi{margin-top:2cqw}
+
+/* ---- 見開きの本（広い画面だけ） ---- */
+html.book-mode body{height:100vh;overflow:hidden}
+html.book-mode .stage{position:fixed;inset:52px 0 62px;padding:0;display:grid;place-items:center;perspective:2800px}
+html.book-mode .book{
+  --lw:min(560px, calc((100vh - 170px)*.74), calc((100vw - 170px)/2));
+  --lh:calc(var(--lw)/.74);
+  position:relative;max-width:none;margin:0;width:calc(var(--lw)*2);height:var(--lh);
+  transform-style:preserve-3d;transition:transform 1.05s cubic-bezier(.45,.05,.25,1)}
+html.book-mode .book::before{content:"";position:absolute;inset:1% 0 -1%;border-radius:.4cqw;box-shadow:0 3.4vh 5vh var(--shadow);pointer-events:none;
+  transition:opacity .8s}
+html.book-mode .book[data-s="0"]{transform:translateX(calc(var(--lw)/2))}
+html.book-mode .book[data-s="0"]::before{clip-path:inset(0 50% 0 0)}
+html.book-mode .book.at-end{transform:translateX(calc(var(--lw)/-2))}
+html.book-mode .book.at-end::before{clip-path:inset(0 0 0 50%)}
+
+html.book-mode .sheet{position:absolute;left:0;top:0;width:var(--lw);height:var(--lh);transform-origin:100% 50%;
+  transform-style:preserve-3d;transition:transform 1.05s cubic-bezier(.45,.05,.25,1)}
+html.book-mode .sheet.flipped{transform:rotateY(180deg)}
+html.book-mode .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+html.book-mode .face.back{transform:rotateY(180deg)}
+html.book-mode .face .leaf,html.book-mode .face .cover,html.book-mode .face .endpaper{aspect-ratio:auto;width:100%;height:100%;margin:0}
+html.book-mode .face .leaf{box-shadow:none}
+html.book-mode .face.front .leaf{box-shadow:inset -3.5cqw 0 5cqw -3cqw var(--shadow)}
+html.book-mode .face.back .leaf{box-shadow:inset 3.5cqw 0 5cqw -3cqw var(--shadow)}
+/* めくっている最中の影 */
+html.book-mode .face::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,#0000004a);opacity:0;transition:opacity .5s}
+html.book-mode .sheet.turning .face::after{opacity:1}
+
+html.book-mode .inner{position:absolute;inset:8.6cqw 7.6cqw 10.5cqw;display:grid;padding:0}
+html.book-mode .hd,html.book-mode .prose{writing-mode:vertical-rl;height:100%}
+html.book-mode .hd{font-size:8.6cqw;margin:0}
+html.book-mode .hd small{display:block;margin:2cqw 0 0}
+html.book-mode .prose{font-size:3.85cqw;margin:0;
+  background-image:repeating-linear-gradient(270deg,transparent 0 calc(7.7cqw - 1px),var(--line) calc(7.7cqw - 1px) 7.7cqw)}
+html.book-mode .plates{height:100%;overflow:hidden;font-size:3cqw;margin:0}
+html.book-mode .fuda h3{font-size:3.1cqw}
+html.book-mode .fuda code,html.book-mode .fuda pre{font-size:2.8cqw}
+html.book-mode .fuda td code{font-size:2.7cqw}
+html.book-mode .hanshin{position:absolute;writing-mode:vertical-rl;flex-direction:row;width:4.4cqw;padding:0;justify-content:space-between;font-size:2.6cqw;gap:0}
+html.book-mode .hanshin i{display:block}
+html.book-mode .kyo{inset:4.4cqw}
+html.book-mode .daisen{right:15cqw}
+
+/* 栞は右の小口に縦に並ぶ */
+html.book-mode .tabs{top:50%;left:auto;right:clamp(8px,1.6vw,22px);bottom:auto;transform:translateY(-50%);flex-direction:column;padding:0;background:none;box-shadow:none;overflow:visible}
+html.book-mode .tabs a{writing-mode:vertical-rl;border-bottom:0;border-left:4px solid var(--shu);padding:11px 7px;letter-spacing:.4em}
+html.book-mode .tabs a[aria-current="true"]{transform:translateX(-6px)}
+
+/* 下の操作帯。右綴じなので「次」は左 */
+html.book-mode .nav{position:fixed;left:0;right:0;bottom:0;height:62px;display:flex;justify-content:center;align-items:center;gap:clamp(14px,4vw,40px);z-index:55;color:var(--nav);
+  letter-spacing:.24em;font-size:14px}
+html.book-mode .nav button{padding:8px 14px;border:1px solid color-mix(in srgb,currentColor 45%,transparent);transition:background .2s}
+html.book-mode .nav button:hover:not(:disabled){background:color-mix(in srgb,currentColor 14%,transparent)}
+html.book-mode .nav button:disabled{opacity:.35;cursor:default}
+html.book-mode .nav .count{min-width:7em;text-align:center}
+html.book-mode .nav .hint{font-size:12px;opacity:.8;letter-spacing:.18em}
+
+/* 起動時や配置の切り替え時は、めくらずに一気に置く */
+html.book-mode .book.no-anim,html.book-mode .book.no-anim .sheet{transition:none!important}
+html{scroll-behavior:smooth}
+html.book-mode{scroll-behavior:auto}
+
+/* 下の操作表示: 富士の麓の墨点に重ならないよう、空の色で薄く受ける */
+html.book-mode .nav::before{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--k-sky3) 86%,transparent) 62%)}

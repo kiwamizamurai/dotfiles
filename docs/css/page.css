@@ -1,0 +1,71 @@
+/* 一丁（ひとつの頁）の版面: 匡郭・縦組みの本文・横組みの札・版心 */
+.leaf{position:relative;container-type:inline-size;background:var(--paper);color:var(--sumi);overflow:hidden;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,var(--paper),var(--paper2))}
+/* とじ目の影（内側ほど暗い） */
+.face.front .leaf{box-shadow:inset -3.5cqw 0 5cqw -3cqw var(--shadow)}
+.face.back .leaf{box-shadow:inset 3.5cqw 0 5cqw -3cqw var(--shadow)}
+
+/* 匡郭: 太い外罫と細い内罫 */
+.kyo{position:absolute;inset:4.4cqw;border:.7cqw solid var(--sumi);pointer-events:none;opacity:.85}
+.kyo::after{content:"";position:absolute;inset:.9cqw;border:.18cqw solid var(--sumi);opacity:.7}
+
+.inner{position:absolute;inset:8.6cqw 7.6cqw 10.5cqw;display:grid;grid-auto-flow:column;grid-template-columns:auto auto 1fr;
+  direction:rtl;gap:2.6cqw;min-height:0}
+.inner>*{direction:ltr;min-width:0;min-height:0}
+
+/* 見出し: 筆の書体、縦書き */
+.hd{writing-mode:vertical-rl;font:400 8.6cqw/1.25 var(--brush);letter-spacing:.14em;height:100%;color:var(--sumi);padding-top:.6cqw}
+.hd small{display:block;font:400 3.1cqw/1.6 var(--serif);letter-spacing:.2em;color:var(--sumi2);margin-top:2cqw}
+/* 本文: 縦組み、界線のように細い縦罫を引く */
+.prose{writing-mode:vertical-rl;text-orientation:mixed;font-size:3.85cqw;line-height:2;letter-spacing:.13em;height:100%;
+  background-image:repeating-linear-gradient(270deg,transparent 0 calc(7.7cqw - 1px),var(--line) calc(7.7cqw - 1px) 7.7cqw);
+  background-position:right top}
+.prose p{margin:0}
+.prose + .prose{margin-right:0}
+.prose .shu{color:var(--shu)}
+/* 朱の句点 */
+.prose .maru{color:var(--shu)}
+
+/* 札: 縦書きの流れに差し込む、横組みの板 */
+.plates{display:flex;flex-direction:column;gap:2.2cqw;height:100%;overflow:hidden;font-size:3cqw;line-height:1.7;letter-spacing:.03em}
+.fuda{writing-mode:horizontal-tb;background:var(--tag);border:.2cqw solid var(--line);border-top:.9cqw solid var(--shu);
+  padding:1.6cqw 2cqw;font-family:var(--serif);position:relative}
+.fuda h3{font:400 3.1cqw/1.5 var(--brush);letter-spacing:.2em;color:var(--sumi2);margin-bottom:.8cqw}
+.fuda dl{display:grid;grid-template-columns:auto 1fr;column-gap:2cqw;row-gap:.2cqw}
+.fuda dt{color:var(--sumi2)}
+.fuda dd{margin:0;overflow-wrap:anywhere}
+.fuda code,.fuda pre{font:400 2.8cqw/1.55 var(--mono);letter-spacing:0;overflow-wrap:anywhere;white-space:pre-wrap}
+.fuda.tree pre{white-space:pre}
+.fuda ul{list-style:none}
+.fuda li{display:flex;gap:1.6cqw}
+.fuda li b{font-weight:400;color:var(--sumi2);min-width:3.4em}
+.fuda table{border-collapse:collapse;width:100%}
+.fuda th,.fuda td{border-bottom:.15cqw solid var(--line);padding:.35cqw 1cqw .35cqw 0;text-align:left;font-weight:400;vertical-align:top}
+.fuda th{color:var(--sumi2);white-space:nowrap}
+.fuda td code{font-size:2.7cqw}
+.fuda a{color:var(--shu);text-decoration:underline;text-underline-offset:.5cqw}
+.fuda .sub{color:var(--sumi2)}
+
+/* 版心: とじ側の縁に、魚尾・書名・巻・丁数 */
+.hanshin{position:absolute;top:8.6cqw;bottom:10.5cqw;width:4.4cqw;writing-mode:vertical-rl;font-size:3cqw;letter-spacing:.3em;
+  color:var(--sumi2);display:flex;flex-direction:row;align-items:center;justify-content:space-between;pointer-events:none}
+.face.front .hanshin{right:1.2cqw}
+.face.back .hanshin{left:1.2cqw}
+.hanshin i{display:block;width:0;height:0;border-left:1.3cqw solid transparent;border-right:1.3cqw solid transparent;border-top:2.2cqw solid var(--sumi);opacity:.75}
+.hanshin b{font-weight:400;color:var(--sumi);letter-spacing:.1em}
+
+/* 目次の頁番号: 見出しの下に、朱で */
+.prose .pg{display:inline-block;color:var(--shu);margin-block-start:1.3em;letter-spacing:.05em}
+
+/* ファイルの木は、札の幅で折り返す（字下げは保つ） */
+.fuda.tree pre{white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* 筆: 枠と見出しの縁を、紙に擦れたように揺らす */
+.kyo{filter:url(#rough)}
+.hd{filter:url(#brush)}
+
+/* 頁の下に、薄墨の山と霞（掛け軸の下に流れる景色） */
+.leaf::after{content:"";position:absolute;left:5.6cqw;right:5.6cqw;bottom:5.6cqw;height:10cqw;background:var(--sumi);opacity:.14;pointer-events:none;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 50' preserveAspectRatio='none'%3E%3Cpath fill='%23000' fill-opacity='.45' d='M0 50V30C30 24 52 34 84 27C112 21 132 31 160 26L190 17 214 31C238 38 262 30 300 36V50Z'/%3E%3Cpath fill='%23000' d='M0 50V40C40 36 70 44 110 39C150 34 170 44 206 36L228 10Q236 3 244 10L262 36C278 38 290 36 300 38V50Z'/%3E%3C/svg%3E") no-repeat center bottom/100% 100%;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 50' preserveAspectRatio='none'%3E%3Cpath fill='%23000' fill-opacity='.45' d='M0 50V30C30 24 52 34 84 27C112 21 132 31 160 26L190 17 214 31C238 38 262 30 300 36V50Z'/%3E%3Cpath fill='%23000' d='M0 50V40C40 36 70 44 110 39C150 34 170 44 206 36L228 10Q236 3 244 10L262 36C278 38 290 36 300 38V50Z'/%3E%3C/svg%3E") no-repeat center bottom/100% 100%}

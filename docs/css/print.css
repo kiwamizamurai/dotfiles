@@ -1,0 +1,9 @@
+/* 印刷: 一丁ずつ縦に並べ、飾りを外す */
+@media print{
+  body{background:#fff!important;color:#000}
+  .top,.tabs,.nav{display:none!important}
+  .stage{padding:0!important}
+  .face .leaf,.face .cover,.face .endpaper{box-shadow:none!important;break-inside:avoid;margin-bottom:12mm;border:1px solid #999}
+  .cover,.endpaper{display:none}
+  .musubi .cord{stroke-dashoffset:0!important}.musubi .knot{opacity:1!important}
+}

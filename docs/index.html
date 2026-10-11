@@ -1,108 +1,591 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-toki="hiru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>dotfiles — macOS の開発環境</title>
-<meta name="description" content="macOS の開発環境。Stow で束ね、一行で入る。Neovim・WezTerm・Starship・Atuin・opencode の設定と、Brewfile。">
-<meta property="og:title" content="dotfiles — macOS の開発環境">
-<meta property="og:description" content="Stow で束ね、一行で入る。">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#15130f">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23c23a22'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23f1ece0' font-family='serif'%3E庵%3C/text%3E%3C/svg%3E">
+<title>庵の手引 — macOS の開発環境（dotfiles）</title>
+<meta name="description" content="macOS の開発環境。Stow で束ね、一行で入る。入れ方、七つの束、Brewfile の目録、Neovim の早見表。">
+<meta name="theme-color" content="#7a7752">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23b83a26'/%3E%3Ctext x='16' y='24' font-size='22' text-anchor='middle' fill='%23f6efde' font-family='serif'%3E庵%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/intro.css">
-<link rel="stylesheet" href="css/site.css">
-<link rel="stylesheet" href="css/responsive.css">
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Zen+Old+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/page.css">
+<link rel="stylesheet" href="css/motifs.css">
+<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="css/kake.css">
+<link rel="stylesheet" href="css/print.css">
+<script>document.documentElement.classList.add("js")</script>
 <script type="module" src="js/main.js"></script>
 </head>
 <body>
-<header>
-  <a class="brand" href="./"><span class="seal" aria-hidden="true">庵</span><span>dotfiles</span></a>
-  <div class="links"><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github</a></div>
+<!-- 掛け紙と背景が共有する、色・形・筆の質感（隠した svg） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+      <linearGradient id="k-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" style="stop-color:var(--k-sky1)"/><stop offset=".55" style="stop-color:var(--k-sky2)"/><stop offset="1" style="stop-color:var(--k-sky3)"/>
+      </linearGradient>
+      <linearGradient id="k-fuji" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" style="stop-color:var(--k-fuji1)"/><stop offset="1" style="stop-color:var(--k-fuji2)"/>
+      </linearGradient>
+      <linearGradient id="k-cloud" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff"/><stop offset="1" style="stop-color:var(--k-cloud2)"/>
+      </linearGradient>
+      <radialGradient id="k-glow"><stop offset="0" style="stop-color:var(--k-sun);stop-opacity:.9"/><stop offset="1" style="stop-color:var(--k-sun);stop-opacity:0"/></radialGradient>
+      <!-- もわっとした雲の縁: 揺らぎを動かし続ける -->
+      <filter id="k-soft"><feGaussianBlur stdDeviation="5"/></filter>
+    </defs>
+  <!-- 筆: かすれ（渇筆）。紙の目のノイズで、墨が乗らない筋を作る -->
+  <filter id="kasure" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="5" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="5" result="e"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".42" numOctaves="3" seed="12" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  8 0 0 0 -2.5" result="m"/>
+    <feComposite in="e" in2="m" operator="in"/>
+  </filter>
+  <filter id="kasure2" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="8" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="9" result="e"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".3" numOctaves="2" seed="3" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 0 0 0 -.7" result="m"/>
+    <feComposite in="e" in2="m" operator="in"/>
+  </filter>
+  <filter id="rough2" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="2" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9"/></filter>
+  <filter id="k-soft2" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="13"/></filter>
+  <filter id="k-soft3"><feGaussianBlur stdDeviation="4"/></filter>
+  <!-- 紙の目 -->
+  <filter id="fiber" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".8 .55" numOctaves="3" seed="6" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 .25  0 0 0 0 .2  0 0 0 0 .12  0 0 0 .2 -.05"/>
+  </filter>
+  <!-- 筆のかすれ: 枠線と見出しの縁を、わずかに揺らす -->
+  <filter id="rough" x="-2%" y="-2%" width="104%" height="104%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="3.4"/></filter>
+  <filter id="brush" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="9" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.2"/></filter>
+</svg>
+<!-- 背景: 掛け紙の景色が、本の後ろに残る（JS が複製する） -->
+<div id="sansui" aria-hidden="true"></div>
+
+<!-- 掛け紙: 雲の間から富士が立ちのぼる。はじめの一度だけ、紙が上へ外れて本が現れる -->
+<div id="kake" aria-hidden="true">
+  <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+    
+
+    <rect width="1200" height="800" fill="url(#k-sky)"/>
+    <!-- 星（夜だけ） -->
+    <g fill="#fff"><circle class="k-star" cx="140" cy="90" r="1.8"/><circle class="k-star" cx="320" cy="150" r="1.4"/><circle class="k-star" cx="470" cy="70" r="1.6"/><circle class="k-star" cx="700" cy="120" r="1.3"/>
+      <circle class="k-star" cx="880" cy="60" r="1.8"/><circle class="k-star" cx="1010" cy="170" r="1.4"/><circle class="k-star" cx="1120" cy="90" r="1.6"/><circle class="k-star" cx="60" cy="200" r="1.3"/><circle class="k-star" cx="760" cy="230" r="1.2"/></g>
+
+    <!-- 以下は、js/sumie.js が筆で描く -->
+    <g class="k-sun"></g>
+    <g class="k-band k-band-far" opacity=".6"><g></g></g>
+    <g class="k-fuji"></g>
+    <g class="k-band k-band-m1" opacity=".9"><g></g></g>
+    <g class="k-band k-band-m2" opacity=".95"><g></g></g>
+    <g class="k-puff k-puff-l"></g><g class="k-puff k-puff-r"></g><g class="k-puff k-puff-t"></g><g class="k-puff k-puff-b"></g><g class="k-puff k-puff-c"></g>
+    <rect width="1200" height="800" filter="url(#fiber)" style="mix-blend-mode:multiply;pointer-events:none"/>
+
+    <!-- 水引: 紅白の結び -->
+    <g class="k-mizu" fill="none" stroke-linecap="round" transform="translate(0 6)">
+      <g stroke="#c23a22" stroke-width="9">
+        <path pathLength="1" d="M600 722C540 676 478 726 532 756C568 774 596 740 600 722C604 740 632 774 668 756C722 726 660 676 600 722"/>
+        <path pathLength="1" d="M600 740C588 786 566 806 530 820"/><path pathLength="1" d="M600 740C612 786 634 806 670 820"/>
+      </g>
+      <g stroke="#fff" stroke-width="3.2" opacity=".95">
+        <path pathLength="1" d="M600 722C540 676 478 726 532 756C568 774 596 740 600 722C604 740 632 774 668 756C722 726 660 676 600 722"/>
+        <path pathLength="1" d="M600 740C588 786 566 806 530 820"/><path pathLength="1" d="M600 740C612 786 634 806 670 820"/>
+      </g>
+      <circle class="k-knot" cx="600" cy="730" r="9" fill="#c23a22" stroke="#fff" stroke-width="2.4" style="transform-box:fill-box;transform-origin:center"/>
+    </g>
+  </svg>
+  <div class="kake-seal">庵</div>
+  <div class="kake-title">庵の手引<small>macOS の開発環境</small></div>
+  <button type="button" class="kake-skip" id="kake-skip">はじめる ▸</button>
+</div>
+<canvas id="ambient" aria-hidden="true"></canvas>
+<canvas id="trail" aria-hidden="true"></canvas>
+
+<!-- 青海波（せいがいは）の千代紙。表紙と見返しで使う -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="sg-cover" width="48" height="24" patternUnits="userSpaceOnUse"><animateTransform attributeName="patternTransform" type="translate" from="0 0" to="48 0" dur="26s" repeatCount="indefinite"/>
+      <g fill="none" style="stroke:var(--tag)" stroke-width="1" opacity=".42">
+        <g style="fill:var(--cover)"><circle cx="0" cy="12" r="24"/><circle cx="0" cy="12" r="18"/><circle cx="0" cy="12" r="12"/><circle cx="0" cy="12" r="6"/>
+          <circle cx="48" cy="12" r="24"/><circle cx="48" cy="12" r="18"/><circle cx="48" cy="12" r="12"/><circle cx="48" cy="12" r="6"/></g>
+        <g style="fill:var(--cover)"><circle cx="24" cy="24" r="24"/><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="6"/></g>
+      </g>
+    </pattern>
+    <pattern id="sg-paper" width="48" height="24" patternUnits="userSpaceOnUse"><animateTransform attributeName="patternTransform" type="translate" from="0 0" to="48 0" dur="34s" repeatCount="indefinite"/>
+      <g fill="none" style="stroke:var(--sumi)" stroke-width="1" opacity=".3">
+        <g style="fill:var(--paper2)"><circle cx="0" cy="12" r="24"/><circle cx="0" cy="12" r="18"/><circle cx="0" cy="12" r="12"/><circle cx="0" cy="12" r="6"/>
+          <circle cx="48" cy="12" r="24"/><circle cx="48" cy="12" r="18"/><circle cx="48" cy="12" r="12"/><circle cx="48" cy="12" r="6"/></g>
+        <g style="fill:var(--paper2)"><circle cx="24" cy="24" r="24"/><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="6"/></g>
+      </g>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="brand" href="#hyoshi"><span class="mon" aria-hidden="true">庵</span><span>庵の手引</span></a>
+  <div class="right">
+    <button type="button" id="toki" aria-label="刻（配色）を替える">刻 ・ <span id="toki-name">昼</span></button>
+    <a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github</a>
+  </div>
 </header>
 
-<!-- 序 -->
-<section id="intro" aria-label="序">
-  <div class="editor">
-    <div class="hashira" id="hashira"><span id="hpath">序</span><span class="pos" id="pos"></span></div>
-    <div class="tanzaku" id="cmd" aria-live="polite"></div>
-    <div class="code" id="code"></div>
+<nav class="tabs" id="tabs" aria-label="巻の目次">
+  <a href="#jo">序</a><a href="#irekata">入れ方</a><a href="#tabane">束</a><a href="#dogu">道具</a><a href="#tebiki">手引き</a><a href="#toi">問い</a><a href="#batsu">跋</a>
+</nav>
+
+<main class="stage">
+<div class="book" id="book" data-s="0">
+
+<!-- ===== 〇 表紙 | 見返し ===== -->
+<section class="sheet" data-i="0">
+  <div class="face front">
+    <div class="cover front-cover" id="hyoshi" data-title="表紙">
+      <svg class="waves" aria-hidden="true"><rect width="100%" height="100%" fill="url(#sg-cover)"/></svg>
+      <div class="daisen"><h1>庵の手引</h1><p>macOS の開発環境</p></div>
+      <svg class="fuji-mark" viewBox="0 0 200 90" aria-hidden="true"><circle cx="100" cy="30" r="14" fill="var(--shu)" opacity=".9"/>
+        <path d="M6 82C56 74 86 40 100 26C114 40 144 74 194 82" fill="none" stroke="var(--tag)" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>
+        <path d="M84 40l8 5 8-7 8 7 8-5" fill="none" stroke="var(--tag)" stroke-width="1.2" opacity=".6"/>
+        <path d="M0 86h64M120 86h80M28 76h50M130 78h60" stroke="var(--tag)" stroke-width="1" opacity=".35"/></svg>
+      <p class="author">kiwamizamurai　著</p>
+      <a class="open" href="#jo" data-open>開く</a>
+      <svg class="stitch" viewBox="0 0 28 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M18 30V370"/><path d="M18 40h10M18 140h10M18 260h10M18 360h10"/>
+        <circle cx="18" cy="40" r="2.2"/><circle cx="18" cy="140" r="2.2"/><circle cx="18" cy="260" r="2.2"/><circle cx="18" cy="360" r="2.2"/>
+      </svg>
+    </div>
+  </div>
+  <div class="face back">
+    <div class="endpaper tenarai" id="mikaeshi" data-title="手習い">
+      <svg class="waves" aria-hidden="true"><rect width="100%" height="100%" fill="url(#sg-paper)"/></svg>
+      <canvas id="tenarai" role="img" aria-label="手習い。墨の眼がポインタを追い、キーを打つとかなが筆で書かれる"></canvas>
+      <p class="tcap">手習い　キーを打つと、かなが書かれる</p>
+    </div>
   </div>
 </section>
-<canvas id="eye" width="520" height="260" aria-hidden="true"></canvas>
-<div class="readout" id="ro" aria-hidden="true"></div>
 
-<!-- 破 -->
-<section id="site" aria-label="本編">
-  <canvas id="ink" aria-hidden="true"></canvas>
-  <div class="rail" id="rail"></div>
-  <div class="pointer" id="ptr"></div>
-  <div class="divider"></div>
-  <div class="term">
-    <div class="ttl">帳面 — dotfiles</div>
-    <div class="frame">
-      <div class="hd">七つの束が、ひとつの庭になる<small>一つの束 ＝ 一つの道具の設定</small></div>
-      <canvas id="ridge" aria-hidden="true"></canvas>
-      <div class="side">
-        <h4>断面 A–A <em>静けさの余韻</em></h4>
-        <div class="prof"><svg viewBox="0 0 290 80" preserveAspectRatio="none"><path id="prof" fill="var(--panel)" stroke="var(--ink)" stroke-width="1.2" d=""/></svg></div>
-        <div class="cuts">最終更新 二〇二六・十・三</div>
-        <table>
-          <tr class="h"><td colspan="2">数の写し</td></tr>
-          <tr><td>束</td><td id="n1">〇</td></tr>
-          <tr><td>道具</td><td id="n2">〇</td></tr>
-          <tr><td>アプリ</td><td id="n3">〇</td></tr>
-          <tr><td>書体</td><td id="n4">〇</td></tr>
-          <tr><td>設定</td><td id="gr">〇</td></tr>
-          <tr><td>星</td><td id="rc">〇</td></tr>
-        </table>
-        <div class="scale">
-          <div><span>packages/</span><span>七つの束</span></div>
-          <svg viewBox="0 0 280 60" fill="none" stroke="var(--ink)" stroke-width="1" color="var(--ink)"><g id="fam"></g></svg>
+<!-- ===== 一 序 | 目次 ===== -->
+<section class="sheet" data-i="1">
+  <div class="face front">
+    <article class="leaf" id="jo" data-title="序">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">序</h2>
+        <div class="prose">
+          <p>机の上を、整える<span class="maru">。</span>道具は束ねて、ひとつの庭にする<span class="maru">。</span></p>
+          <p>ここには、わたしの macOS の環境がある<span class="maru">。</span>設定は束にして、Stow で家に結ぶ<span class="maru">。</span>一行で入り、同じ手順で、何度でも元に戻せる<span class="maru">。</span></p>
+          <p>迷わない、という優しさのために<span class="maru">。</span></p>
+        </div>
+        <div class="plates"><div class="fuda"><h3>この本について</h3>
+          <dl><dt>書名</dt><dd>庵の手引</dd><dt>題材</dt><dd>dotfiles（kiwamizamurai）</dd><dt>対象</dt><dd>macOS</dd><dt>言語</dt><dd>Lua ほか</dd></dl></div>
+          <div class="fuda"><h3>読み方</h3>
+          <ul><li><b>めくる</b><span>← キー・左の端・左から右へなぞる</span></li><li><b>戻る</b><span>→ キー・右の端</span></li><li><b>栞</b><span>右の札で巻へ飛ぶ</span></li><li><b>刻</b><span>朝昼夕夜で紙の色が変わる</span></li></ul></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>序</span><b>一</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="mokuji" data-title="目次">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">目次</h2>
+        <div class="prose">
+          <p><a href="#jo">序</a><span class="pg">一</span></p>
+          <p><a href="#irekata">巻之一　入れ方</a><span class="pg">五</span></p>
+          <p><a href="#tabane">巻之二　束</a><span class="pg">七</span></p>
+          <p><a href="#dogu">巻之三　道具</a><span class="pg">十五</span></p>
+          <p><a href="#tebiki">巻之四　手引き</a><span class="pg">十七</span></p>
+          <p><a href="#toi">問い</a><span class="pg">十九</span></p>
+          <p><a href="#batsu">跋・奥付</a><span class="pg">二十一</span></p>
         </div>
       </div>
-      <div class="axis"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
-    </div>
-    <div class="prompt" id="prompt"></div>
-  </div>
-  <div class="bar">
-    <p class="bar-id"><span class="bar-title">dotfiles</span><span class="bar-sub" id="cwd"></span></p>
-    <div class="bar-cols" id="cols"></div>
-    <button class="den" id="den" aria-label="目を閉じる"><span class="seal" aria-hidden="true">印</span></button>
-    <p class="bar-graph"><span class="label">言語</span><span class="value" id="vis">Lua</span></p>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>目次</span><b>二</b></div>
+    </article>
   </div>
 </section>
 
-<div id="deck" aria-hidden="true">
-  <div id="keys"></div>
-  <canvas id="hands" width="1280" height="500"></canvas>
+<!-- ===== 二 入れ方 ===== -->
+<section class="sheet" data-i="2">
+  <div class="face front">
+    <article class="leaf" id="irekata" data-title="巻之一 入れ方">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">巻之一<small>入れ方</small></h2>
+        <div class="prose">
+          <p>一行で、すべてが入る<span class="maru">。</span></p>
+          <p>macOS 専用<span class="maru">。</span>もう一度走らせても、同じ結果になる<span class="maru">。</span></p>
+        </div>
+        <div class="plates">
+          <button type="button" class="fuda cmd" data-copy='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"'>
+            <h3>これを端末に</h3><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"</code></button>
+          <div class="fuda"><h3>入る場所</h3><dl><dt>取得先</dt><dd><code>~/dotfiles</code></dd><dt>設定</dt><dd><code>~/.config</code> ほか</dd></dl></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之一</span><b>三</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="tejun" data-title="入れ方の手順">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">八つの手順</h2>
+        <div class="prose">
+          <p><span class="shu">一</span>　macOS か、確かめる</p>
+          <p><span class="shu">二</span>　Homebrew がなければ入れる</p>
+          <p><span class="shu">三</span>　zsh を既定のシェルにする</p>
+          <p><span class="shu">四</span>　設定の置き場をつくる</p>
+          <p><span class="shu">五</span>　dotfiles を取ってくる</p>
+          <p><span class="shu">六</span>　macOS の設定を整える</p>
+          <p><span class="shu">七</span>　道具をまとめて入れる</p>
+          <p><span class="shu">八</span>　Stow で束を結ぶ</p>
+        </div>
+        <div class="plates"><div class="fuda"><h3>それぞれの実体</h3>
+          <dl><dt>四</dt><dd><code>~/.config</code></dd><dt>五</dt><dd><code>~/dotfiles</code></dd><dt>六</dt><dd><code>bin/defaults.sh</code></dd><dt>七</dt><dd><code>brew bundle</code></dd><dt>八</dt><dd><code>stow</code>、そのあと Neovim のプラグイン</dd></dl></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之一</span><b>四</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 三 束 ===== -->
+<section class="sheet" data-i="3">
+  <div class="face front">
+    <article class="leaf" id="tabane" data-title="巻之二 束">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">巻之二<small>束</small></h2>
+        <div class="prose"><p>設定は、束にする<span class="maru">。</span></p><p>七つの束を、Stow で家へ結ぶ<span class="maru">。</span></p></div>
+        <div class="plates">
+          <svg class="musubi" viewBox="0 0 340 330" role="img" aria-label="七つの束が、水引で家に結ばれる図">
+            <g class="bundle">
+              <rect x="6" y="6" width="38" height="44" rx="2"/><text x="25" y="32">nvim</text>
+              <rect x="53" y="6" width="38" height="44" rx="2"/><text x="72" y="32">wez</text>
+              <rect x="100" y="6" width="38" height="44" rx="2"/><text x="119" y="32">zsh</text>
+              <rect x="147" y="6" width="38" height="44" rx="2"/><text x="166" y="32">star</text>
+              <rect x="194" y="6" width="38" height="44" rx="2"/><text x="213" y="32">atuin</text>
+              <rect x="241" y="6" width="38" height="44" rx="2"/><text x="260" y="32">open</text>
+              <rect x="288" y="6" width="38" height="44" rx="2"/><text x="307" y="32">git</text>
+            </g>
+            <path class="cord" d="M25 50 C25 140 40 170 40 250"/><path class="cord" d="M72 50 C72 140 90 170 90 250"/>
+            <path class="cord" d="M119 50 C119 140 140 170 140 250"/><path class="cord" d="M166 50 C166 150 170 170 170 250"/>
+            <path class="cord" d="M213 50 C213 140 200 170 200 250"/><path class="cord" d="M260 50 C260 140 250 170 250 250"/>
+            <path class="cord" d="M307 50 C307 140 290 170 290 250"/>
+            <circle class="knot" cx="40" cy="250" r="5"/><circle class="knot" cx="90" cy="250" r="5"/><circle class="knot" cx="140" cy="250" r="5"/>
+            <circle class="knot" cx="170" cy="250" r="5"/><circle class="knot" cx="200" cy="250" r="5"/><circle class="knot" cx="250" cy="250" r="5"/><circle class="knot" cx="290" cy="250" r="5"/>
+            <g class="home"><rect x="8" y="262" width="324" height="56" rx="2"/><text class="ja" x="170" y="294">家 ・ ~</text><text x="170" y="310">$HOME</text></g>
+          </svg>
+          <div class="fuda"><h3>結ぶと</h3><dl><dt>家に</dt><dd><code>~/.zshrc</code></dd><dt>実体は</dt><dd><code>dotfiles/packages/zsh/.zshrc</code></dd></dl>
+            <p class="sub">家に置かれるのは、束の中のファイルへの「結び目」（symlink）。直すのは、束の中だけでよい。</p></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之二</span><b>五</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="tabane-ichiran" data-title="束の一覧">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">七つの束</h2>
+        <div class="prose"><p>束は <span class="shu">packages/</span> の中にある<span class="maru">。</span>ひとつの束は、ひとつの道具の設定<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><table>
+          <tr><th>束</th><th>役目</th><th>設定</th></tr>
+          <tr><td><a href="#nvim">nvim</a></td><td>エディタ</td><td>25</td></tr>
+          <tr><td><a href="#wezterm">wezterm</a></td><td>端末</td><td>1</td></tr>
+          <tr><td><a href="#zsh">zsh</a></td><td>シェル</td><td>1</td></tr>
+          <tr><td><a href="#starship">starship</a></td><td>プロンプト</td><td>1</td></tr>
+          <tr><td><a href="#atuin">atuin</a></td><td>履歴</td><td>1</td></tr>
+          <tr><td><a href="#opencode">opencode</a></td><td>AI の道具</td><td>5</td></tr>
+          <tr><td><a href="#github">github</a></td><td>git の設定</td><td>1</td></tr>
+        </table></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之二</span><b>六</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 四 nvim | wezterm ===== -->
+<section class="sheet" data-i="4">
+  <div class="face front">
+    <article class="leaf" id="nvim" data-title="束 nvim">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">筆<small>nvim</small></h2>
+        <div class="prose"><p>LSP と Treesitter と Telescope を備えた Neovim<span class="maru">。</span>起動は init.lua から<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>設定</dt><dd>25 ファイル</dd><dt>言語</dt><dd>Lua</dd><dt>部屋</dt><dd>lua/ に 23</dd><dt>鍵</dt><dd>Leader は Space</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ nvim"><h3>結ぶ</h3><code>stow -d packages -t ~ nvim</code></button>
+          <div class="fuda tree"><pre>init.lua
+lazy-lock.json
+lua/
+ ├ options keybindings plugins
+ ├ lsp (cmp language_servers)
+ ├ telescope treesitter nvim-tree
+ └ lualine bufferline zen-mode …</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>七</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="wezterm" data-title="束 wezterm">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">窓<small>wezterm</small></h2>
+        <div class="prose"><p>GPU で描く端末<span class="maru">。</span>設定は、すべて Lua で書く<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>配色</dt><dd>Builtin Dark</dd><dt>透明</dt><dd>0.97（背景ぼかし 20）</dd><dt>文字</dt><dd>14 pt</dd><dt>窓</dt><dd>枠なし（RESIZE）</dd><dt>タブ</dt><dd>下端。一枚なら隠す</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ wezterm"><h3>結ぶ</h3><code>stow -d packages -t ~ wezterm</code></button>
+          <div class="fuda tree"><pre>.wezterm.lua</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>八</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 五 zsh | starship ===== -->
+<section class="sheet" data-i="5">
+  <div class="face front">
+    <article class="leaf" id="zsh" data-title="束 zsh">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">殻<small>zsh</small></h2>
+        <div class="prose"><p>既定のシェル<span class="maru">。</span>補完と色づけを足し、道具は別名で呼ぶ<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>履歴</dt><dd>10,000（保存は 100,000）</dd><dt>別名</dt><dd>vim → nvim<br>ls → eza　cat → bat<br>ll　la</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ zsh"><h3>結ぶ</h3><code>stow -d packages -t ~ zsh</code></button>
+          <div class="fuda tree"><pre>.zshrc</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>九</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="starship" data-title="束 starship">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">標<small>starship</small></h2>
+        <div class="prose"><p>速くて軽いプロンプト<span class="maru">。</span>配色は gruvbox の暗い色<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>配色</dt><dd>gruvbox_dark</dd><dt>並び</dt><dd>gcloud・aws・directory・git・python・docker・time</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ starship"><h3>結ぶ</h3><code>stow -d packages -t ~ starship</code></button>
+          <div class="fuda tree"><pre>.config/starship.toml</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 六 atuin | opencode ===== -->
+<section class="sheet" data-i="6">
+  <div class="face front">
+    <article class="leaf" id="atuin" data-title="束 atuin">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">記<small>atuin</small></h2>
+        <div class="prose"><p>シェルの履歴を SQLite に残し、あいまいに探す<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>役目</dt><dd>履歴の検索と、機械をまたぐ同期</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ atuin"><h3>結ぶ</h3><code>stow -d packages -t ~ atuin</code></button>
+          <div class="fuda tree"><pre>.config/atuin/config.toml</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十一</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="opencode" data-title="束 opencode">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">智<small>opencode</small></h2>
+        <div class="prose"><p>端末の中で使う AI の道具<span class="maru">。</span>手元のモデルにもつながる<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>手元</dt><dd>oMLX（127.0.0.1:8000）<br>llama-server（127.0.0.1:11444）</dd><dt>許し</dt><dd>読む・書くは許可。bash は都度たずねる</dd><dt>部品</dt><dd>agents/reviewer　commands/commit・test</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ opencode"><h3>結ぶ</h3><code>stow -d packages -t ~ opencode</code></button>
+          <div class="fuda tree"><pre>.config/opencode/
+ ├ opencode.json tui.json
+ ├ agents/reviewer.md
+ └ commands/commit.md test.md</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十二</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 七 github | 道具(一) ===== -->
+<section class="sheet" data-i="7">
+  <div class="face front">
+    <article class="leaf" id="github" data-title="束 github">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">縁<small>github</small></h2>
+        <div class="prose"><p>git の設定をひとつだけ入れた、小さな束<span class="maru">。</span></p></div>
+        <div class="plates">
+          <div class="fuda"><dl><dt>役目</dt><dd>git の名前と、日々の既定</dd></dl></div>
+          <button type="button" class="fuda cmd" data-copy="stow --restow --adopt -d packages -t ~ github"><h3>結ぶ</h3><code>stow -d packages -t ~ github</code></button>
+          <div class="fuda tree"><pre>.gitconfig</pre></div>
+        </div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>束</span><b>十三</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="dogu" data-title="巻之三 道具">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">巻之三<small>道具の目録</small></h2>
+        <div class="prose"><p>Brewfile には、道具が <span class="shu">78</span>、アプリが <span class="shu">41</span>、tap が <span class="shu">4</span><span class="maru">。</span>部に分けて記す<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><dl>
+          <dt>シェル</dt><dd>zsh starship atuin zoxide eza bat fd ripgrep tree</dd>
+          <dt>git</dt><dd>git gh git-delta gitleaks git-lfs onefetch</dd>
+          <dt>基盤</dt><dd>k3d k9s kubernetes-cli awscli wrangler cloudflared</dd>
+          <dt>監視</dt><dd>bottom btop glances sniffnet</dd>
+          <dt>開発</dt><dd>neovim mise uv cmake rust go-task hugo d2 stylua shfmt</dd></dl></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十四</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 八 道具(二) | 手引き ===== -->
+<section class="sheet" data-i="8">
+  <div class="face front">
+    <article class="leaf" id="dogu2" data-title="道具の目録（続き）">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">目録　続<small>道具の部</small></h2>
+        <div class="prose"><p>全体は Brewfile に<span class="maru">。</span>書体は、五つ入れてある<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><dl>
+          <dt>知恵</dt><dd>opencode llama.cpp gemini-cli llm whisper-cpp</dd>
+          <dt>文書</dt><dd>typst pandoc imagemagick vhs freeze tectonic</dd>
+          <dt>画面</dt><dd>wezterm cursor visual-studio-code orbstack helium-browser zen</dd>
+          <dt>書体</dt><dd>hack-nerd dotgothic16 maple-mono-nf hackgen hackgen-nerd</dd></dl>
+          <p class="sub" style="margin-top:1.4cqw"><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/Brewfile" target="_blank" rel="noopener">Brewfile を開く</a></p></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之三</span><b>十五</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="tebiki" data-title="巻之四 手引き">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">巻之四<small>Neovim 早見表</small></h2>
+        <div class="prose"><p>はじめての人のための、Neovim の覚え書き<span class="maru">。</span>Leader は Space<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><table>
+          <tr><th>キー</th><th>はたらき</th></tr>
+          <tr><td><code>i</code></td><td>挿入モードへ</td></tr>
+          <tr><td><code>jk</code> <code>kj</code></td><td>ノーマルへ戻る</td></tr>
+          <tr><td><code>v</code></td><td>選ぶ（ビジュアル）</td></tr>
+          <tr><td><code>:</code></td><td>命令を打つ</td></tr>
+          <tr><td><code>gg</code> <code>G</code></td><td>先頭・末尾へ</td></tr>
+          <tr><td><code>dd</code> <code>yy</code> <code>p</code></td><td>消す・写す・貼る</td></tr>
+          <tr><td><code>u</code> <code>Ctrl-r</code></td><td>取り消し・やり直し</td></tr>
+          <tr><td><code>Ctrl-h j k l</code></td><td>窓の間を移る</td></tr>
+        </table></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十六</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 九 手引き(章) | 問い ===== -->
+<section class="sheet" data-i="9">
+  <div class="face front">
+    <article class="leaf" id="tebiki-sho" data-title="手引きの章">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">手引きの章<small>USAGE.md</small></h2>
+        <div class="prose"><p>くわしくは、リポジトリの <span class="shu">USAGE.md</span> に<span class="maru">。</span>六つの章がある<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><ul>
+          <li><b>一</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#introduction" target="_blank" rel="noopener">はじめに</a></li>
+          <li><b>二</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#basic-concepts" target="_blank" rel="noopener">基本の考え方</a></li>
+          <li><b>三</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#essential-keybindings" target="_blank" rel="noopener">大事なキー</a></li>
+          <li><b>四</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#plugin-guide" target="_blank" rel="noopener">プラグインの案内</a></li>
+          <li><b>五</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#common-workflows" target="_blank" rel="noopener">よくある流れ</a></li>
+          <li><b>六</b><a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md#troubleshooting" target="_blank" rel="noopener">困ったとき</a></li></ul></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>巻之四</span><b>十七</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="toi" data-title="問い">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">問い<small>なぜ Nix ではないか</small></h2>
+        <div class="prose"><p>単純で、手入れがしやすいから<span class="maru">。</span></p><p>道具は Homebrew、結ぶのは Stow<span class="maru">。</span>覚えることを、少なくしておく<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><h3>参考</h3><p><a href="https://jade.fyi/blog/use-nix-less/" target="_blank" rel="noopener">You don't have to use nix to manage your dotfiles</a></p></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>問い</span><b>十八</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 十 跋 | 奥付 ===== -->
+<section class="sheet" data-i="10">
+  <div class="face front">
+    <article class="leaf" id="batsu" data-title="跋">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">跋<small>検証のこと</small></h2>
+        <div class="prose"><p>入れ方は、そのまま信じず、毎回たしかめる<span class="maru">。</span></p></div>
+        <div class="plates"><div class="fuda"><dl>
+          <dt>macOS</dt><dd>入れ方を、まっさらな環境で通し直す</dd>
+          <dt>shell</dt><dd>shellcheck でスクリプトを見張る</dd>
+          <dt>整形</dt><dd>shfmt と stylua で形をそろえる</dd>
+          <dt>依存</dt><dd>dependabot が見守る</dd></dl>
+          <p class="sub" style="margin-top:1.4cqw">docs や文書だけの変更では、動かさない。</p></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>跋</span><b>十九</b></div>
+    </article>
+  </div>
+  <div class="face back">
+    <article class="leaf" id="okuzuke" data-title="奥付">
+      <div class="kyo"></div>
+      <div class="inner">
+        <h2 class="hd">奥付</h2>
+        <div class="prose"><p>庵の手引<br>macOS の開発環境</p></div>
+        <div class="plates"><div class="fuda"><dl>
+          <dt>著</dt><dd>kiwamizamurai</dd><dt>初版</dt><dd>2022 年 3 月</dd><dt>最終更新</dt><dd>2026 年 10 月</dd>
+          <dt>言語</dt><dd>Lua ほか</dd><dt>置き場</dt><dd><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github.com/kiwamizamurai/dotfiles</a></dd></dl></div></div>
+      </div>
+      <div class="hanshin"><i></i><span>庵の手引</span><span>奥付</span><b>二十</b></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 十一 裏見返し | 裏表紙 ===== -->
+<section class="sheet" data-i="11">
+  <div class="face front">
+    <div class="endpaper" id="owari" data-title="了">
+      <svg class="waves" aria-hidden="true"><rect width="100%" height="100%" fill="url(#sg-paper)"/></svg>
+      <div class="inkan" aria-hidden="true">了</div>
+    </div>
+  </div>
+  <div class="face back">
+    <div class="cover back-cover" id="ura" data-title="裏表紙">
+      <svg class="waves" aria-hidden="true"><rect width="100%" height="100%" fill="url(#sg-cover)"/></svg>
+      <a class="open" href="#hyoshi" data-open>はじめへ戻る</a>
+      <svg class="stitch" viewBox="0 0 28 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M10 30V370"/><path d="M0 40h10M0 140h10M0 260h10M0 360h10"/>
+        <circle cx="10" cy="40" r="2.2"/><circle cx="10" cy="140" r="2.2"/><circle cx="10" cy="260" r="2.2"/><circle cx="10" cy="360" r="2.2"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
 </div>
-<canvas id="line" aria-hidden="true"></canvas>
+</main>
 
-<footer>
-  <span>Stow で結び、一行で入る。</span>
-  <div class="hint"><button id="themeBtn">彩 ・ 色替え</button><button class="kbd" id="enter">入る ↵</button></div>
-</footer>
-
-<!-- JavaScript が使えない場合・検索エンジン向けの、飾りのない本文 -->
-<noscript>
-  <main class="plain">
-    <h1>dotfiles</h1>
-    <p>macOS の開発環境。Stow で束ね、一行で入る。</p>
-    <h2>入れ方</h2>
-    <pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"</pre>
-    <h2>中身</h2>
-    <ul>
-      <li>packages/: nvim・wezterm・zsh・starship・atuin・opencode・github（Stow で結ぶ）</li>
-      <li>Brewfile: brew 78・cask 41・tap 4</li>
-      <li>USAGE.md: Neovim 設定の手引き</li>
-    </ul>
-    <p><a href="https://github.com/kiwamizamurai/dotfiles">GitHub のリポジトリ</a></p>
-  </main>
-</noscript>
+<div class="nav" id="nav">
+  <button type="button" id="next" aria-label="次の丁へ（左へ進む）">← 次へ</button>
+  <span class="count" id="count">表紙</span>
+  <button type="button" id="prev" aria-label="前の丁へ">前へ →</button>
+</div>
+<script>setTimeout(function(){var k=document.getElementById("kake");if(k)k.classList.add("out")},12000)</script>
 </body>
 </html>

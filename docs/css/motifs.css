@@ -1,0 +1,117 @@
+/* 表紙・見返し・裏表紙・結び図・押印・刻の札 */
+
+/* 帙の布目と、青海波 */
+.cover{position:relative;width:100%;height:100%;overflow:hidden;color:var(--tag);
+  background:linear-gradient(135deg,var(--cover),var(--cover2))}
+.cover .waves{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.cover::before{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.5;
+  background:repeating-linear-gradient(0deg,#ffffff14 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,#00000022 0 1px,transparent 1px 3px)}
+.cover.front-cover{box-shadow:inset -3cqw 0 4cqw -2cqw #000000aa}
+.cover.back-cover{box-shadow:inset 3cqw 0 4cqw -2cqw #000000aa}
+
+/* 題簽: 表紙に貼る、縦長の紙 */
+.daisen{position:absolute;top:9cqw;right:15cqw;width:17cqw;height:62cqw;background:var(--tag);color:#1c1914;border:.4cqw solid #00000040;
+  display:flex;justify-content:center;padding:4cqw 0;writing-mode:vertical-rl;box-shadow:.6cqw .8cqw 1.8cqw #00000066}
+.daisen h1{font:400 9.6cqw/1.2 var(--brush);letter-spacing:.22em}
+.daisen p{position:absolute;left:1.6cqw;bottom:3cqw;font-size:2.7cqw;letter-spacing:.3em;color:#52493c}
+.cover .author{position:absolute;left:8cqw;bottom:9cqw;writing-mode:vertical-rl;font-size:3.2cqw;letter-spacing:.35em;color:var(--tag);opacity:.9}
+.cover .open{position:absolute;left:7cqw;top:9cqw;writing-mode:vertical-rl;font-size:3.2cqw;letter-spacing:.35em;color:var(--tag);
+  border:.2cqw solid #ffffff55;padding:2.4cqw 1.2cqw;opacity:.95}
+.cover .open:hover{background:#ffffff1a}
+
+/* 四つ目綴じ: 背に朱の糸 */
+.stitch{position:absolute;top:0;bottom:0;width:7cqw;pointer-events:none}
+.front-cover .stitch{right:0}.back-cover .stitch{left:0}
+.stitch path{fill:none;stroke:var(--shu);stroke-width:2.4;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.stitch circle{fill:var(--shu)}
+
+/* 見返し: 青海波の千代紙 */
+.endpaper{position:relative;width:100%;height:100%;overflow:hidden;background:var(--paper2)}
+.endpaper .waves{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.endpaper .inkan{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg);width:15cqw;height:15cqw;background:var(--shu);color:var(--paper);
+  display:grid;place-items:center;font:400 9cqw/1 var(--brush);border-radius:.6cqw;box-shadow:0 0 0 1.4cqw var(--paper2)}
+
+/* 結び図: 七つの束から、家へ結ぶ水引 */
+.musubi{width:100%;height:auto;display:block;color:var(--sumi)}
+.musubi .bundle rect{fill:var(--tag);stroke:var(--sumi);stroke-width:1}
+.musubi .bundle text,.musubi .home text{font:400 10px var(--mono);fill:var(--sumi);text-anchor:middle}
+.musubi .home rect{fill:none;stroke:var(--sumi);stroke-width:1.4}
+.musubi .home .ja{font:400 15px var(--brush);letter-spacing:.3em}
+.musubi .cord{fill:none;stroke:var(--shu);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420}
+.musubi .knot{fill:var(--paper);stroke:var(--shu);stroke-width:1.4;opacity:0;transform-box:fill-box;transform-origin:center}
+.is-open .musubi .cord{animation:draw 1.6s cubic-bezier(.4,.1,.2,1) forwards}
+.is-open .musubi .knot{animation:pop .5s ease-out forwards}
+.is-open .musubi .cord:nth-of-type(1){animation-delay:.1s}.is-open .musubi .cord:nth-of-type(2){animation-delay:.2s}
+.is-open .musubi .cord:nth-of-type(3){animation-delay:.3s}.is-open .musubi .cord:nth-of-type(4){animation-delay:.4s}
+.is-open .musubi .cord:nth-of-type(5){animation-delay:.5s}.is-open .musubi .cord:nth-of-type(6){animation-delay:.6s}
+.is-open .musubi .cord:nth-of-type(7){animation-delay:.7s}
+.is-open .musubi .knot{animation-delay:1.3s}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+/* JS が無い場合は、最初から結んだ状態で見せる */
+html:not(.js) .musubi .cord{stroke-dashoffset:0}
+html:not(.js) .musubi .knot{opacity:1}
+
+/* 押印: コマンドの札を押すと、朱印が押されて写しが取れる */
+button.fuda.cmd{display:block;width:100%;text-align:left;cursor:copy;transition:transform .15s}
+button.fuda.cmd::after{content:"押して写す";position:absolute;right:1.4cqw;top:1.2cqw;font:400 2.4cqw var(--serif);color:var(--shu);letter-spacing:.2em}
+button.fuda.cmd:hover{transform:translateY(-.4cqw)}
+.stamp{position:absolute;width:11cqw;height:11cqw;background:var(--shu);color:var(--paper);display:grid;place-items:center;
+  font:400 6.6cqw/1 var(--brush);border-radius:.6cqw;pointer-events:none;mix-blend-mode:multiply;
+  animation:stamp 1.9s ease-out forwards}
+@keyframes stamp{0%{opacity:0;transform:scale(1.9) rotate(-10deg)}12%{opacity:.95;transform:scale(1) rotate(-6deg)}85%{opacity:.9}100%{opacity:0;transform:scale(1) rotate(-6deg)}}
+
+/* cqw の基準にするため、表紙と見返しも「入れ物」にする */
+.cover,.endpaper{container-type:inline-size}
+
+
+/* ====== 動き ====== */
+
+/* 層: 舞い（本の後ろ）と筆跡（本の前） */
+#ambient,#trail{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none}
+#ambient{z-index:1}
+#trail{z-index:58}
+.stage{position:relative;z-index:2}
+
+/* 手習いの頁 */
+.tenarai canvas{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.tenarai .waves{opacity:.35}
+.tenarai .tcap{position:absolute;left:0;right:0;bottom:4.2cqw;text-align:center;font-size:3cqw;letter-spacing:.3em;color:var(--sumi2);pointer-events:none}
+
+/* 表紙: 絹のような光が、ときどき渡る。朱の糸は、引かれるように流れる */
+.cover::after{content:"";position:absolute;inset:-20% -60%;pointer-events:none;
+  background:linear-gradient(105deg,transparent 42%,#ffffff26 50%,transparent 58%);transform:translateX(-60%);animation:sheen 9s ease-in-out 1.5s infinite}
+@keyframes sheen{0%,55%{transform:translateX(-60%)}100%{transform:translateX(60%)}}
+.stitch path:first-child{stroke-dasharray:7 5;animation:march 2.6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-24}}
+
+/* 本が、静かに呼吸する */
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+html.book-mode .stage{animation:breathe 7s ease-in-out infinite}
+
+/* 栞: 触れると、すっと出る */
+html.book-mode .tabs a:hover{transform:translateX(-9px)}
+
+/* 墨が、上から流れるように現れる（頁が開くたびに） */
+html.book-mode .face:not(.is-open) .prose p,html.book-mode .face:not(.is-open) .hd,html.book-mode .face:not(.is-open) .fuda{opacity:0}
+html.js .face.is-open .hd{animation:fude 1.15s cubic-bezier(.3,.1,.2,1) .15s backwards}
+html.js .face.is-open .prose p{animation:sumi 1.7s cubic-bezier(.3,.1,.2,1) calc(.45s + var(--i,0)*.34s) backwards}
+html.js .face.is-open .fuda{animation:fuda-in .8s ease-out calc(1s + var(--k,0)*.2s) backwards}
+@keyframes fude{from{clip-path:inset(0 0 100% 0);opacity:.15;filter:blur(3px)}60%{opacity:1;filter:blur(1px)}to{clip-path:inset(0);filter:none}}
+@keyframes sumi{0%{clip-path:inset(0 0 100% 0);opacity:.1;filter:blur(4px)}55%{opacity:1;filter:blur(1.2px)}100%{clip-path:inset(0);filter:none}}
+@keyframes fuda-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* 結び図: 結んだあとも、束がゆるく揺れ、結び目が光る */
+.is-open .musubi .bundle{transform-origin:170px 0;animation:sway 5.5s ease-in-out 2s infinite alternate}
+@keyframes sway{from{transform:rotate(-.9deg)}to{transform:rotate(.9deg)}}
+.is-open .musubi .knot{animation:pop .5s ease-out 1.3s forwards,glint 3.4s ease-in-out 2.4s infinite}
+@keyframes glint{50%{stroke-width:3;fill:var(--shu)}}
+
+/* 印刷では、動きを外す */
+@media print{
+  html.js .face .prose p,html.js .face .hd,html.js .face .fuda{opacity:1!important;animation:none!important;clip-path:none!important}
+  #ambient,#trail,.cover::after{display:none!important}
+}
+
+/* 表紙の細い富士と、朱の日 */
+.cover .fuji-mark{position:absolute;left:50%;bottom:13cqw;width:56cqw;transform:translateX(-52%);color:var(--tag);pointer-events:none}
