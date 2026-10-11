@@ -1,0 +1,54 @@
+/* breakpoints: desktop · ≤1100 (tablet) · ≤1000 (hide section panel) · phone ≤700 · short screens */
+
+@media (max-width:1100px){
+  :root{--rl:28px}
+  .col.x{display:none}
+  #ink,body.site #ro,body.site #line{display:none}
+  .bar-cols{margin-left:12px}
+}
+@media (max-width:1000px){
+  .side{display:none}
+  #ridge{width:calc(100% - 32px)}
+  .axis{right:16px}
+}
+
+/* ---------- phone: single column, scrolls ---------- */
+@media (max-width:700px){
+  body,body.site{--pad:16px}
+  header{top:16px}
+  body.site header{top:0;height:48px;background:var(--bg)}
+  footer{bottom:14px;font-size:12px}
+  footer>span{display:none}
+  .hint{width:100%;justify-content:space-between}
+  .editor{top:60px;width:calc(100vw - 32px);grid-template-columns:30px 52px 1fr;column-gap:8px}
+  .code{font-size:15px}
+  #deck{bottom:48px}
+  body.site #deck,body.site #eye,body.site #ro,body.site #line,#ink,.pointer,.divider,.hintline,.rail::before{display:none}
+
+  #site{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  .rail,.term,.divider,.pointer,#ink{opacity:1}
+  .rail{position:relative;left:auto;top:auto;width:auto;height:auto;min-height:0;display:flex;gap:10px;overflow-x:auto;padding:64px 16px 10px;scroll-snap-type:x proximity}
+  .tile,.tile.sel{position:relative!important;top:auto!important;left:auto;transform:none!important;opacity:1!important;flex:0 0 141px;width:141px;height:90px;scroll-snap-align:center}
+  .term{position:relative;left:auto;right:auto;top:auto;height:440px;margin:6px 16px 0;overflow:visible}
+  .term .ttl{padding-left:0}
+  .frame{left:0;right:0}
+  .prompt{left:0;right:0}
+  .bar{position:static;height:auto;display:grid;grid-template-columns:1fr;gap:14px;padding:16px 16px 28px;margin-top:8px}
+  .bar-id{width:auto}
+  .bar-sub{white-space:normal}
+  .bar-cols{margin-left:0;flex-wrap:wrap;gap:14px 24px}
+  .col.x{display:flex}
+  .den{display:none}
+  .bar-graph{margin-left:0;width:auto;max-width:260px}
+  .spark{justify-content:flex-start}
+}
+
+/* ---------- short screens ---------- */
+@media (max-height:640px) and (min-width:701px){
+  body.site #deck{display:none}
+  :root{--bar-bottom:16px}
+}
+@media (max-height:520px) and (min-width:701px){
+  header{top:16px}
+  .editor{top:56px}
+}

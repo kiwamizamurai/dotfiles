@@ -1,0 +1,55 @@
+/* 序: a vertical page — hashira (margin title), tanzaku (slip), brush-written columns, mask, kana keys */
+#intro{position:absolute;inset:0;z-index:1;transition:opacity .9s,transform .9s}
+body.site #intro{opacity:0;pointer-events:none;transform:scale(1.02)}
+
+.editor{position:absolute;left:var(--pad);width:min(760px,calc(100vw - 48px));top:96px;
+  display:grid;grid-template-columns:44px 74px 1fr;column-gap:14px;align-items:start}
+
+/* 柱: vertical running title in the page margin */
+.hashira{writing-mode:vertical-rl;height:var(--page-h);color:var(--dim);font-size:12px;letter-spacing:.3em;
+  border-right:1px solid var(--line);padding-right:10px;display:flex;justify-content:space-between;opacity:0;transition:opacity .6s}
+.hashira.on{opacity:1}
+.hashira .pos{color:var(--mid)}
+
+/* 短冊: a slip of paper that receives short commands */
+.tanzaku{writing-mode:vertical-rl;height:var(--page-h);width:46px;justify-self:center;border:1px solid var(--line);
+  background:linear-gradient(180deg,#ffffff08,transparent);padding:12px 0;font-size:14px;letter-spacing:.35em;color:var(--ink);
+  opacity:0;transition:opacity .6s;overflow:hidden;position:relative}
+.tanzaku::after{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--hot);opacity:.8}
+.tanzaku.on{opacity:1}
+
+/* the page: columns run right → left; a new column appears on the left of the last one */
+.code{--page-h:clamp(220px,calc(100dvh - 200px - 230px*var(--s)),300px);height:var(--page-h);
+  writing-mode:vertical-rl;text-orientation:mixed;overflow:hidden;position:relative;font-size:17px;line-height:2.1;letter-spacing:.22em}
+.editor{--page-h:clamp(220px,calc(100dvh - 200px - 230px*var(--s)),300px)}
+.ln{margin-left:6px;color:var(--dim);opacity:0;transform:translateX(6px);transition:opacity .9s,transform .9s,color .6s,filter .9s;filter:blur(3px);white-space:nowrap}
+.ln.on{opacity:1;transform:none;filter:none}
+.ln.typed{color:var(--ink)}
+.ln.cur{color:var(--mid)}
+.ln .t .hk{color:var(--hot)}
+.caret{display:inline-block;width:1.1em;height:.16em;background:var(--hot);vertical-align:baseline;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* a chain of four seals replaces one column for a moment (春夏秋冬) */
+.chain{writing-mode:horizontal-tb;display:flex;flex-direction:column;align-items:center;gap:0;height:100%}
+.chain i{display:block;width:1px;height:14px;border-left:1px dashed var(--dim);flex:none}
+.chain b{font-weight:400;border:1px solid var(--dim);color:var(--hot);width:34px;height:34px;display:grid;place-items:center;border-radius:2px;background:var(--bg);transition:border-color .3s,color .3s}
+.chain b.act{border-color:var(--ink);color:var(--ink)}
+.chain .spin{color:var(--dim);margin-bottom:4px}
+
+#eye,#line{position:absolute;pointer-events:none}
+#line{inset:0;width:100%;height:100%;z-index:15}
+#eye{z-index:6;transition:left .9s cubic-bezier(.2,.8,.2,1),top .9s cubic-bezier(.2,.8,.2,1),opacity .6s}
+#eye.closed{opacity:.18!important}
+body.site #eye{z-index:1}
+.readout{position:absolute;z-index:7;color:var(--mid);font-size:11px;line-height:1.5;pointer-events:none;white-space:pre;opacity:0;letter-spacing:.12em}
+
+#deck{position:absolute;left:50%;bottom:54px;width:640px;height:230px;z-index:5;pointer-events:none;
+  transform:translateX(-50%) scale(var(--s));transform-origin:50% 100%;
+  transition:bottom .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s}
+body.site #deck{bottom:6px;transform:translateX(-50%) scale(calc(var(--s)*.72));opacity:.85}
+#keys{position:absolute;inset:0;color:var(--dim);text-align:center;font-size:15px;letter-spacing:.1em}
+#keys div{margin-bottom:12px;white-space:pre;word-spacing:.5em}
+#keys span{display:inline-block;min-width:2.1ch;transition:color .12s}
+#keys span.p{color:var(--hot)}
+#hands{position:absolute;inset:0;width:100%;height:100%}

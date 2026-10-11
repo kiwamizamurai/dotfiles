@@ -1,576 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kiwamizamurai/dotfiles - macOS Development Environment</title>
-    <meta name="description" content="A modern, opinionated macOS development environment with Neovim, Wezterm, Starship, and more.">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/animejs@4.3.0/dist/bundles/anime.umd.min.js"></script>
-
-    <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>dotfiles — macOS の開発環境</title>
+<meta name="description" content="macOS の開発環境。Stow で束ね、一行で入る。Neovim・WezTerm・Starship・Atuin・opencode の設定と、Brewfile。">
+<meta property="og:title" content="dotfiles — macOS の開発環境">
+<meta property="og:description" content="Stow で束ね、一行で入る。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#15130f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23c23a22'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23f1ece0' font-family='serif'%3E庵%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/intro.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/responsive.css">
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo">
-            <span class="logo-icon">.</span>
-            dotfiles
-        </a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-        </button>
-        <ul class="nav-links" id="nav-menu">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#preview">Preview</a></li>
-            <li><a href="#stack">Stack</a></li>
-            <li><a href="#quickstart">Quickstart</a></li>
-            <li><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank">GitHub</a></li>
-        </ul>
-    </nav>
+<header>
+  <a class="brand" href="./"><span class="seal" aria-hidden="true">庵</span><span>dotfiles</span></a>
+  <div class="links"><a href="https://github.com/kiwamizamurai/dotfiles" target="_blank" rel="noopener">github</a></div>
+</header>
 
-    <div class="morphing-bg">
-        <div class="morph-blob" id="blob-1" style="background: var(--accent-sakura); top: 20%; left: 60%;"></div>
-        <div class="morph-blob" id="blob-2" style="background: var(--accent-indigo); top: 60%; left: 20%;"></div>
-        <div class="morph-blob" id="blob-3" style="background: var(--accent-matcha); top: 40%; left: 70%;"></div>
+<!-- 序 -->
+<section id="intro" aria-label="序">
+  <div class="editor">
+    <div class="hashira" id="hashira"><span id="hpath">序</span><span class="pos" id="pos"></span></div>
+    <div class="tanzaku" id="cmd" aria-live="polite"></div>
+    <div class="code" id="code"></div>
+  </div>
+</section>
+<canvas id="eye" width="520" height="260" aria-hidden="true"></canvas>
+<div class="readout" id="ro" aria-hidden="true"></div>
+
+<!-- 破 -->
+<section id="site" aria-label="本編">
+  <canvas id="ink" aria-hidden="true"></canvas>
+  <div class="rail" id="rail"></div>
+  <div class="pointer" id="ptr"></div>
+  <div class="divider"></div>
+  <div class="term">
+    <div class="ttl">帳面 — dotfiles</div>
+    <div class="frame">
+      <div class="hd">七つの束が、ひとつの庭になる<small>一つの束 ＝ 一つの道具の設定</small></div>
+      <canvas id="ridge" aria-hidden="true"></canvas>
+      <div class="side">
+        <h4>断面 A–A <em>静けさの余韻</em></h4>
+        <div class="prof"><svg viewBox="0 0 290 80" preserveAspectRatio="none"><path id="prof" fill="var(--panel)" stroke="var(--ink)" stroke-width="1.2" d=""/></svg></div>
+        <div class="cuts">最終更新 二〇二六・十・三</div>
+        <table>
+          <tr class="h"><td colspan="2">数の写し</td></tr>
+          <tr><td>束</td><td id="n1">〇</td></tr>
+          <tr><td>道具</td><td id="n2">〇</td></tr>
+          <tr><td>アプリ</td><td id="n3">〇</td></tr>
+          <tr><td>書体</td><td id="n4">〇</td></tr>
+          <tr><td>設定</td><td id="gr">〇</td></tr>
+          <tr><td>星</td><td id="rc">〇</td></tr>
+        </table>
+        <div class="scale">
+          <div><span>packages/</span><span>七つの束</span></div>
+          <svg viewBox="0 0 280 60" fill="none" stroke="var(--ink)" stroke-width="1" color="var(--ink)"><g id="fam"></g></svg>
+        </div>
+      </div>
+      <div class="axis"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
     </div>
+    <div class="prompt" id="prompt"></div>
+  </div>
+  <div class="bar">
+    <p class="bar-id"><span class="bar-title">dotfiles</span><span class="bar-sub" id="cwd"></span></p>
+    <div class="bar-cols" id="cols"></div>
+    <button class="den" id="den" aria-label="目を閉じる"><span class="seal" aria-hidden="true">印</span></button>
+    <p class="bar-graph"><span class="label">言語</span><span class="value" id="vis">Lua</span></p>
+  </div>
+</section>
 
-    <section class="hero">
-        <div class="floating-shapes">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
-        </div>
+<div id="deck" aria-hidden="true">
+  <div id="keys"></div>
+  <canvas id="hands" width="1280" height="500"></canvas>
+</div>
+<canvas id="line" aria-hidden="true"></canvas>
 
-        <div class="hero-badge" id="hero-badge">
-            <span class="hero-badge-dot"></span>
-            macOS Development Environment
-        </div>
+<footer>
+  <span>Stow で結び、一行で入る。</span>
+  <div class="hint"><button id="themeBtn">彩 ・ 色替え</button><button class="kbd" id="enter">入る ↵</button></div>
+</footer>
 
-        <h1 class="hero-title" id="hero-title">
-            Beautifully crafted<br>
-            <span class="hero-title-accent animated-gradient">development environment.</span>
-        </h1>
-
-        <p class="hero-description" id="hero-description">
-            A modern, opinionated dotfiles setup featuring Neovim, Wezterm, Starship, and a curated collection of developer tools. One command to get started.
-        </p>
-
-        <div class="terminal-box glow-border" id="terminal-box">
-            <div class="terminal-header">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <span class="terminal-title">Terminal</span>
-            </div>
-            <div class="terminal-command">
-                <span class="terminal-prompt">$</span>
-                <span class="typing-text" id="typing-command"></span>
-                <span class="cursor"></span>
-            </div>
-        </div>
-
-        <div class="cta-group" id="cta-group">
-            <a href="https://github.com/kiwamizamurai/dotfiles" class="btn btn-primary btn-magnetic" target="_blank" id="btn-github">
-                <span class="btn-text">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    View on GitHub
-                </span>
-            </a>
-            <a href="#quickstart" class="btn btn-secondary btn-magnetic" id="btn-start">
-                <span class="btn-text">Get Started</span>
-            </a>
-        </div>
-
-        <div class="scroll-indicator" id="scroll-indicator">
-            <span class="scroll-indicator-text">SCROLL</span>
-            <div class="scroll-indicator-line">
-                <div class="scroll-indicator-dot"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="features" id="features">
-        <div class="section-header">
-            <div class="section-emoji">🎋</div>
-            <p class="section-label">Features</p>
-            <h2 class="section-title">Everything you need</h2>
-            <p class="section-description">
-                A carefully curated development environment that just works.
-            </p>
-        </div>
-
-        <div class="features-controls">
-            <div class="controls-group display-controls">
-                <button class="layout-toggle is-active" data-layout="grid">Grid</button>
-                <button class="layout-toggle" data-layout="list">List</button>
-                <button class="layout-toggle" data-layout="stripes">Stripes</button>
-                <button class="layout-toggle" data-layout="stack">Stack</button>
-                <button class="layout-toggle" data-layout="chaos">Chaos</button>
-            </div>
-            <div class="controls-group action-controls">
-                <button class="layout-action" data-action="shuffle">Shuffle</button>
-            </div>
-        </div>
-
-        <div class="features-container" id="features-root" data-layout="grid">
-            <div class="feature-card" data-color="1">
-                <div class="feature-card-image">
-                    <div class="feature-card-grid"></div>
-                    <img src="https://cdn.simpleicons.org/neovim/57A143" alt="Neovim" class="feature-card-icon">
-                </div>
-                <div class="feature-card-text">
-                    <h3 class="feature-card-title">Neovim</h3>
-                    <span class="feature-card-type">Editor</span>
-                    <p class="feature-card-intro">Hyperextensible text editor with LSP, Treesitter, and 40+ plugins.</p>
-                    <div class="feature-card-details">
-                        <ul><li>lazy.nvim</li><li>Mason LSP</li><li>Telescope</li><li>nvim-cmp</li></ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-card" data-color="2">
-                <div class="feature-card-image">
-                    <div class="feature-card-grid"></div>
-                    <img src="https://cdn.simpleicons.org/wezterm/4E49EE" alt="Wezterm" class="feature-card-icon">
-                </div>
-                <div class="feature-card-text">
-                    <h3 class="feature-card-title">Wezterm</h3>
-                    <span class="feature-card-type">Terminal</span>
-                    <p class="feature-card-intro">GPU-accelerated terminal emulator with multiplexing and Lua config.</p>
-                    <div class="feature-card-details">
-                        <ul><li>GPU Rendering</li><li>Multiplexer</li><li>Ligatures</li><li>Lua Config</li></ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-card" data-color="3">
-                <div class="feature-card-image">
-                    <div class="feature-card-grid"></div>
-                    <img src="https://cdn.simpleicons.org/starship/DD0B78" alt="Starship" class="feature-card-icon">
-                </div>
-                <div class="feature-card-text">
-                    <h3 class="feature-card-title">Starship</h3>
-                    <span class="feature-card-type">Prompt</span>
-                    <p class="feature-card-intro">Minimal, blazing-fast, and infinitely customizable cross-shell prompt.</p>
-                    <div class="feature-card-details">
-                        <ul><li>Git Status</li><li>Languages</li><li>Fast</li><li>Cross-shell</li></ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-card" data-color="5">
-                <div class="feature-card-image">
-                    <div class="feature-card-grid"></div>
-                    <img src="https://unpkg.com/lucide-static@latest/icons/history.svg" alt="Atuin" class="feature-card-icon">
-                </div>
-                <div class="feature-card-text">
-                    <h3 class="feature-card-title">Atuin</h3>
-                    <span class="feature-card-type">Shell History</span>
-                    <p class="feature-card-intro">Magical shell history with SQLite backend and cross-machine sync.</p>
-                    <div class="feature-card-details">
-                        <ul><li>SQLite</li><li>Fuzzy Search</li><li>Sync</li><li>Statistics</li></ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-card" data-color="6">
-                <div class="feature-card-image">
-                    <div class="feature-card-grid"></div>
-                    <img src="https://unpkg.com/lucide-static@latest/icons/link.svg" alt="GNU Stow" class="feature-card-icon">
-                </div>
-                <div class="feature-card-text">
-                    <h3 class="feature-card-title">GNU Stow</h3>
-                    <span class="feature-card-type">Symlinks</span>
-                    <p class="feature-card-intro">Symlink farm manager for organizing and deploying dotfiles effortlessly.</p>
-                    <div class="feature-card-details">
-                        <ul><li>Modular</li><li>Idempotent</li><li>Portable</li><li>Simple</li></ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <dialog id="feature-overlay" class="feature-overlay" aria-label="Feature details"></dialog>
-    </section>
-
-    <section class="preview" id="preview">
-        <div class="section-header">
-            <div class="section-emoji">🖥️</div>
-            <p class="section-label">Preview</p>
-            <h2 class="section-title">See it in action</h2>
-            <p class="section-description">
-                Explore the different tools included in this dotfiles setup.
-            </p>
-        </div>
-
-        <div class="preview-container">
-            <div class="preview-particles" id="preview-particles"></div>
-            <div class="carousel-wrapper">
-                <div class="carousel-slides" id="carousel-slides">
-                    <div class="carousel-slide active" data-title="nvim ~/.config/nvim/init.lua" data-name="Neovim">
-                        <div class="preview-window" id="preview-window">
-                            <div class="preview-titlebar">
-                                <div class="terminal-dots">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                </div>
-                                <div class="preview-titlebar-title">nvim ~/.config/nvim/init.lua</div>
-                                <div style="width: 52px;"></div>
-                            </div>
-                            <div class="preview-content">
-                                <pre class="preview-ascii"><span class="preview-line"><span class="hl-blue">┌──────────────────────────────────────────────────────────────┐</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  nvim-tree                                     Editor        <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">┌──────────────────────┐</span>     <span class="hl-green">┌────────────────────────────┐</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span> <span class="hl-yellow">📁</span> ~/project         <span class="hl-pink">│</span>     <span class="hl-green">│</span> init.lua                   <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  ├─ <span class="hl-yellow">📁</span> src           <span class="hl-pink">│</span>     <span class="hl-green">│</span>                            <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  │  ├─ <span class="hl-green">📄</span> index.js   <span class="hl-pink">│</span>────▶<span class="hl-green">│</span> <span class="hl-blue">require</span>(<span class="hl-yellow">"options"</span>)         <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  │  ├─ <span class="hl-green">📄</span> api.js  <span class="hl-mauve">●</span>  <span class="hl-pink">│</span>     <span class="hl-green">│</span> <span class="hl-blue">require</span>(<span class="hl-yellow">"keybindings"</span>)     <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  │  └─ <span class="hl-yellow">📁</span> utils      <span class="hl-pink">│</span>     <span class="hl-green">│</span> <span class="hl-blue">require</span>(<span class="hl-yellow">"plugins"</span>)         <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  ├─ <span class="hl-yellow">📁</span> tests         <span class="hl-pink">│</span>     <span class="hl-green">│</span>                            <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">│</span>  └─ <span class="hl-green">📄</span> README.md     <span class="hl-pink">│</span>     <span class="hl-green">│</span> <span class="hl-mauve">●</span> Modified  <span class="hl-green">+</span> Untracked    <span class="hl-green">│</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-pink">└──────────────────────┘</span>     <span class="hl-green">└────────────────────────────┘</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>     Press <span class="hl-yellow">&lt;Space&gt;+e</span>                 Your code               <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├──────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-green">NORMAL</span> │ <span class="hl-mauve">󰊢 main</span> │ <span class="hl-yellow">󰈚 init.lua</span> │ utf-8 │ lua │ 85%│42:15 <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">└──────────────────────────────────────────────────────────────┘</span></span></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-slide" data-title="wezterm :: Catppuccin Mocha" data-name="Wezterm">
-                        <div class="preview-window">
-                            <div class="preview-titlebar">
-                                <div class="terminal-dots">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                </div>
-                                <div class="preview-titlebar-title">wezterm :: Catppuccin Mocha</div>
-                                <div style="width: 52px;"></div>
-                            </div>
-                            <div class="preview-content">
-                                <pre class="preview-ascii"><span class="preview-line"><span class="hl-blue">┌─────────────────────────────────────────────────────────────┐</span></span>
-<span class="preview-line"><span class="hl-blue">│</span> <span class="hl-mauve">~/.wezterm.lua</span>                    <span class="hl-green">GPU-accelerated terminal</span> <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├─────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">config</span>.color_scheme = <span class="hl-yellow">"Catppuccin Mocha"</span>                   <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">config</span>.font = <span class="hl-green">wezterm</span>.font(<span class="hl-yellow">"Hack Nerd Font"</span>)                <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">config</span>.window_background_opacity = <span class="hl-mauve">0.90</span>                    <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">config</span>.max_fps = <span class="hl-mauve">120</span>                                       <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">-- Keybindings</span>                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Cmd+D</span>       Split horizontal    <span class="hl-yellow">Cmd+W</span>    Close pane       <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Cmd+Shift+D</span> Split vertical      <span class="hl-yellow">Cmd+Z</span>    Toggle zoom      <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Ctrl+Shift</span>  <span class="hl-mauve">h/j/k/l</span> Navigate panes (vim-style)              <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">└─────────────────────────────────────────────────────────────┘</span></span></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-slide" data-title="starship prompt :: gruvbox" data-name="Starship">
-                        <div class="preview-window">
-                            <div class="preview-titlebar">
-                                <div class="terminal-dots">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                </div>
-                                <div class="preview-titlebar-title">starship prompt :: gruvbox</div>
-                                <div style="width: 52px;"></div>
-                            </div>
-                            <div class="preview-content">
-                                <pre class="preview-ascii"><span class="preview-line"><span class="hl-blue">┌─────────────────────────────────────────────────────────────┐</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Powerline-style prompt with rich context</span>                  <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├─────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span style="background:#d65d0e;color:#fbf1c7;padding:0 4px;">☁ aws-prod</span><span style="background:#d79921;color:#fbf1c7;padding:0 4px;">󰲋 ~/Developer/project</span><span style="background:#689d6a;color:#fbf1c7;padding:0 4px;"> main +2/-1</span>  <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span style="background:#458588;color:#fbf1c7;padding:0 4px;"> 3.11</span><span style="background:#665c54;color:#83a598;padding:0 4px;"> docker</span><span style="background:#3c3836;color:#fbf1c7;padding:0 4px;">  14:32</span>                        <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">❯</span> _                                                        <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">Features:</span>                                                  <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">•</span> Git branch & status  <span class="hl-green">•</span> Python virtualenv                 <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">•</span> AWS/GCloud context   <span class="hl-green">•</span> Docker context                    <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">•</span> Directory icons      <span class="hl-green">•</span> Vim mode indicator                <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">└─────────────────────────────────────────────────────────────┘</span></span></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-slide" data-title="zsh :: shell config" data-name="Zsh">
-                        <div class="preview-window">
-                            <div class="preview-titlebar">
-                                <div class="terminal-dots">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                </div>
-                                <div class="preview-titlebar-title">zsh :: shell config</div>
-                                <div style="width: 52px;"></div>
-                            </div>
-                            <div class="preview-content">
-                                <pre class="preview-ascii"><span class="preview-line"><span class="hl-blue">┌─────────────────────────────────────────────────────────────┐</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Modern shell with smart defaults</span>                          <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├─────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green"># Modern replacements</span>                                     <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">alias</span> vim=<span class="hl-yellow">"nvim"</span>     <span class="hl-green"># Neovim everywhere</span>                   <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">alias</span> ls=<span class="hl-yellow">"eza"</span>       <span class="hl-green"># Better ls with icons</span>                <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">alias</span> cat=<span class="hl-yellow">"bat"</span>      <span class="hl-green"># Syntax highlighting</span>                 <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green"># Tools auto-loaded</span>                                       <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">mise</span>      <span class="hl-green">→</span> Runtime version manager                       <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">atuin</span>     <span class="hl-green">→</span> Magical shell history                         <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">zoxide</span>    <span class="hl-green">→</span> Smarter cd (z command)                        <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">starship</span>  <span class="hl-green">→</span> Beautiful prompt                              <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">└─────────────────────────────────────────────────────────────┘</span></span></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-slide" data-title="atuin :: shell history" data-name="Atuin">
-                        <div class="preview-window">
-                            <div class="preview-titlebar">
-                                <div class="terminal-dots">
-                                    <div class="terminal-dot red"></div>
-                                    <div class="terminal-dot yellow"></div>
-                                    <div class="terminal-dot green"></div>
-                                </div>
-                                <div class="preview-titlebar-title">atuin :: shell history</div>
-                                <div style="width: 52px;"></div>
-                            </div>
-                            <div class="preview-content">
-                                <pre class="preview-ascii"><span class="preview-line"><span class="hl-blue">┌─────────────────────────────────────────────────────────────┐</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-yellow">Magical shell history with fuzzy search</span>                   <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├─────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-mauve">Search:</span> docker<span class="hl-green">█</span>                                            <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-green">▸</span> docker compose up -d                    <span class="hl-yellow">2m ago</span>         <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>    docker ps -a                            <span class="hl-yellow">15m ago</span>        <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>    docker build -t myapp .                 <span class="hl-yellow">1h ago</span>         <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>    docker logs -f api                      <span class="hl-yellow">2h ago</span>         <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>    docker exec -it db psql                 <span class="hl-yellow">yesterday</span>      <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>                                                             <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">├─────────────────────────────────────────────────────────────┤</span></span>
-<span class="preview-line"><span class="hl-blue">│</span>  <span class="hl-pink">↑↓</span> Navigate  <span class="hl-pink">Enter</span> Execute  <span class="hl-pink">Tab</span> Edit  <span class="hl-pink">Ctrl+R</span> Toggle    <span class="hl-blue">│</span></span>
-<span class="preview-line"><span class="hl-blue">└─────────────────────────────────────────────────────────────┘</span></span></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-nav">
-                    <button class="carousel-btn" id="carousel-prev" aria-label="Previous slide">‹</button>
-                    <div class="carousel-dots" id="carousel-dots"></div>
-                    <span class="carousel-label" id="carousel-label">Neovim</span>
-                    <button class="carousel-btn" id="carousel-next" aria-label="Next slide">›</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stack" id="stack">
-        <div class="section-header">
-            <div class="section-emoji">🧰</div>
-            <p class="section-label">Stack</p>
-            <h2 class="section-title">The complete toolkit</h2>
-            <p class="section-description">
-                Every tool you need, carefully selected and configured.
-            </p>
-        </div>
-
-        <div class="stack-controls">
-            <button class="stack-toggle is-active" data-layout="grid">Grid</button>
-            <button class="stack-toggle" data-layout="sphere">Sphere</button>
-            <button class="stack-toggle" data-layout="helix">Helix</button>
-        </div>
-
-        <div class="stack-scene" id="stack-scene">
-            <div class="stack-grid" id="stack-grid" data-layout="grid">
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/folder-tree.svg" alt="eza"></div>
-                    <div class="stack-name">eza</div>
-                    <div class="stack-category">ls replacement</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://cdn.simpleicons.org/bat/6A9955" alt="bat"></div>
-                    <div class="stack-name">bat</div>
-                    <div class="stack-category">cat replacement</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/terminal.svg" alt="ripgrep"></div>
-                    <div class="stack-name">ripgrep</div>
-                    <div class="stack-category">grep replacement</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/compass.svg" alt="zoxide"></div>
-                    <div class="stack-name">zoxide</div>
-                    <div class="stack-category">cd replacement</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/search.svg" alt="fd"></div>
-                    <div class="stack-name">fd</div>
-                    <div class="stack-category">find replacement</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/blocks.svg" alt="mise"></div>
-                    <div class="stack-name">mise</div>
-                    <div class="stack-category">Runtime Manager</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/git-branch.svg" alt="delta"></div>
-                    <div class="stack-name">git-delta</div>
-                    <div class="stack-category">Better Diffs</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/ship.svg" alt="k9s"></div>
-                    <div class="stack-name">k9s</div>
-                    <div class="stack-category">Kubernetes TUI</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/container.svg" alt="OrbStack"></div>
-                    <div class="stack-name">OrbStack</div>
-                    <div class="stack-category">Docker & VM</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/search.svg" alt="Sol"></div>
-                    <div class="stack-name">Sol</div>
-                    <div class="stack-category">Launcher</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/globe.svg" alt="Helium Browser"></div>
-                    <div class="stack-name">Helium Browser</div>
-                    <div class="stack-category">Privacy Browser</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/database.svg" alt="TablePlus"></div>
-                    <div class="stack-name">TablePlus</div>
-                    <div class="stack-category">Database GUI</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/activity.svg" alt="btop"></div>
-                    <div class="stack-name">btop</div>
-                    <div class="stack-category">System Monitor</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://cdn.simpleicons.org/anthropic/D4A27F" alt="Claude Code"></div>
-                    <div class="stack-name">Claude Code</div>
-                    <div class="stack-category">AI Coding Agent</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/cpu.svg" alt="llama.cpp"></div>
-                    <div class="stack-name">llama.cpp</div>
-                    <div class="stack-category">Local LLM</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://cdn.simpleicons.org/typst/239DAD" alt="typst"></div>
-                    <div class="stack-name">typst</div>
-                    <div class="stack-category">Modern LaTeX</div>
-                </div>
-                <div class="stack-item">
-                    <div class="stack-icon"><img src="https://unpkg.com/lucide-static@latest/icons/clapperboard.svg" alt="vhs"></div>
-                    <div class="stack-name">vhs</div>
-                    <div class="stack-category">Terminal GIF</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="quickstart" id="quickstart">
-        <div class="section-header">
-            <div class="section-emoji">⚡</div>
-            <p class="section-label">Quickstart</p>
-            <h2 class="section-title">Up and running in minutes</h2>
-            <p class="section-description">
-                One command to bootstrap your entire development environment.
-            </p>
-        </div>
-
-        <div class="quickstart-container">
-            <div class="quickstart-steps">
-                <div class="quickstart-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Run the installer</h3>
-                        <p class="step-description">
-                            This will install Homebrew, clone the dotfiles, and set everything up.
-                        </p>
-                        <div class="step-code">
-                            <span class="step-code-prompt">$</span>
-                            <span>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"</span>
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quickstart-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Restart your terminal</h3>
-                        <p class="step-description">
-                            Close and reopen your terminal to load all the new configurations.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="quickstart-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Launch Neovim</h3>
-                        <p class="step-description">
-                            Plugins will auto-install on first launch. Wait for completion.
-                        </p>
-                        <div class="step-code">
-                            <span class="step-code-prompt">$</span>
-                            <span>nvim</span>
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="quickstart-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3 class="step-title">You're all set!</h3>
-                        <p class="step-description">
-                            Press <code>&lt;Space&gt;</code> in Neovim to see all available commands via Which Key.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="callout">
-                <div class="callout-icon">💡</div>
-                <div class="callout-content">
-                    <strong>Tip:</strong> Check out <a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md" target="_blank" style="color: var(--accent-indigo);">USAGE.md</a> for detailed keybindings and plugin documentation.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-left">
-                Made with 🍵 by <a href="https://github.com/kiwamizamurai" target="_blank">@kiwamizamurai</a>
-            </div>
-            <div class="footer-links">
-                <a href="https://github.com/kiwamizamurai/dotfiles" target="_blank">GitHub</a>
-                <a href="https://github.com/kiwamizamurai/dotfiles/issues" target="_blank">Issues</a>
-                <a href="https://github.com/kiwamizamurai/dotfiles/blob/main/USAGE.md" target="_blank">Documentation</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<!-- JavaScript が使えない場合・検索エンジン向けの、飾りのない本文 -->
+<noscript>
+  <main class="plain">
+    <h1>dotfiles</h1>
+    <p>macOS の開発環境。Stow で束ね、一行で入る。</p>
+    <h2>入れ方</h2>
+    <pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kiwamizamurai/dotfiles/refs/heads/main/install.sh)"</pre>
+    <h2>中身</h2>
+    <ul>
+      <li>packages/: nvim・wezterm・zsh・starship・atuin・opencode・github（Stow で結ぶ）</li>
+      <li>Brewfile: brew 78・cask 41・tap 4</li>
+      <li>USAGE.md: Neovim 設定の手引き</li>
+    </ul>
+    <p><a href="https://github.com/kiwamizamurai/dotfiles">GitHub のリポジトリ</a></p>
+  </main>
+</noscript>
 </body>
 </html>
