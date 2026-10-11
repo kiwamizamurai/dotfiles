@@ -3,9 +3,14 @@ name: Check shellscript
 on:
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "**/*.md", "pic.png", ".github/dependabot.yml"]
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   shellcheck:
