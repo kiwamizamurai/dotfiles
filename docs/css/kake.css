@@ -6,19 +6,19 @@ html[data-toki="asa"]{--k-ink:#2a2a36;--k-fline:#2a2a36;--k-cfill:#fffaf4;--k-sk
 html[data-toki="yuu"]{--k-ink:#2a1c30;--k-fline:#c8a8b0;--k-cfill:#f6dcc6;--k-snow:#f4e0d0;--k-sky1:#5e4478;--k-sky2:#c76f6a;--k-sky3:#f2b06c;--k-sun:#e0442c;--k-sunop:.9;--k-fuji1:#271f40;--k-fuji2:#573a68;--k-cloud2:#e6a98c}
 html[data-toki="yoru"]{--k-ink:#0a1020;--k-fline:#aebadb;--k-cfill:#8e9bbd;--k-snow:#d9e0f2;--k-sky1:#080f1f;--k-sky2:#17264a;--k-sky3:#2c4470;--k-sun:#f0ead0;--k-sunop:.9;--k-fuji1:#0c162c;--k-fuji2:#27395c;--k-cloud2:#3a4d77;--k-star:1}
 #kake.out{opacity:0;pointer-events:none}
-#kake svg{position:absolute;inset:0;width:100%;height:100%}
+#kake svg,#kake img.k-layer{position:absolute;inset:0;width:100%;height:100%}
+#kake img.k-layer{object-fit:cover;pointer-events:none;user-select:none;-webkit-user-drag:none}
 #kake:not(.go) *{animation-play-state:paused}
 
 /* 掛け紙らしい、細い内枠 */
 #kake::after{content:"";position:absolute;inset:clamp(10px,2vw,22px);border:1px solid #ffffffa6;outline:1px solid #ffffff40;outline-offset:5px;pointer-events:none}
 
 /* 太陽（夜は月）: 富士の後ろから昇る */
-#kake svg.k-layer{will-change:transform,opacity}
-#kake svg.k-fiber-layer{will-change:auto;mix-blend-mode:multiply}
 .k-sun{animation:k-sun 3.8s cubic-bezier(.2,.7,.2,1) .7s backwards}
 @keyframes k-sun{from{transform:translateY(160px);opacity:0}to{transform:none;opacity:1}}
-.k-star{opacity:calc(var(--k-star)*.9);animation:k-twinkle 3.2s ease-in-out infinite alternate}
-.k-star:nth-child(2n){animation-delay:-1.1s}.k-star:nth-child(3n){animation-delay:-2.2s}
+.k-star{opacity:calc(var(--k-star)*.9)}
+html[data-toki="yoru"] #kake .k-star{animation:k-twinkle 3.2s ease-in-out infinite alternate}   /* 星が見えるのは夜だけ */
+html #kake .k-star:nth-child(2n){animation-delay:-1.1s}html #kake .k-star:nth-child(3n){animation-delay:-2.2s}
 @keyframes k-twinkle{to{opacity:calc(var(--k-star)*.25)}}
 
 /* 富士: 霞のなかから、じわっと立ちのぼる */
@@ -44,8 +44,10 @@ html[data-toki="yoru"]{--k-ink:#0a1020;--k-fline:#aebadb;--k-cfill:#8e9bbd;--k-s
 @keyframes k-drift{from{transform:translateX(-40px)}to{transform:translateX(50px)}}
 
 /* 表書き（題）と、水引 */
-.kake-title{filter:url(#brush);position:absolute;right:clamp(34px,10vw,150px);top:clamp(86px,18vh,160px);writing-mode:vertical-rl;color:#fff;
+.kake-title{position:absolute;right:clamp(34px,10vw,150px);top:clamp(86px,18vh,160px);writing-mode:vertical-rl;color:#fff;
   font:400 clamp(34px,6.2vw,74px)/1.25 var(--brush);letter-spacing:.28em;text-shadow:0 2px 18px #0006;animation:k-up 1.6s ease-out 3.6s backwards}
+/* 筆の揺らぎ（SVG フィルター）は内側に。外側だけを動かせば、フィルターは一度描くだけで済む */
+.kake-ink{filter:url(#brush)}
 .kake-title small{display:block;font:400 clamp(11px,1.3vw,15px)/1.6 var(--serif);letter-spacing:.5em;margin-top:1.4em;opacity:.9}
 .kake-seal{position:absolute;right:calc(clamp(34px,10vw,150px) + .12em);top:calc(clamp(86px,18vh,160px) - clamp(34px,4vw,46px));width:clamp(26px,3vw,36px);height:clamp(26px,3vw,36px);
   background:#c23a22;color:#fff;display:grid;place-items:center;font:400 clamp(15px,1.8vw,21px)/1 var(--brush);border-radius:2px;animation:k-up 1.4s ease-out 4.1s backwards}
@@ -74,8 +76,10 @@ html:not(.js) #kake{display:none}
 
 
 /* 行列: 富士の麓を、うさぎと蛙が、右から左へ横切る（姿勢を二つ、交互に見せる） */
-.k-parade{transform:translateX(1500px);animation:k-walk 10s linear 3.4s forwards}
-@keyframes k-walk{to{transform:translateX(-620px)}}
+/* 横へ歩く動きは、外側の <svg>（レイヤー）に付ける。SVG の中の <g> を動かすと、毎コマ layout と描き直しが走る */
+/* --ks: viewBox の 1 単位が、画面で何 px か（slice なので、縦横の大きいほうの倍率） */
+.k-parade-layer{transform:translateX(calc(1500px * var(--ks,1)));animation:k-walk 10s linear 3.4s forwards}
+@keyframes k-walk{to{transform:translateX(calc(-620px * var(--ks,1)))}}
 .k-walker .k-pose-a{animation:k-posa .38s steps(1) infinite}
 .k-walker .k-pose-b{animation:k-posb .38s steps(1) infinite}
 @keyframes k-posa{0%{opacity:1}50%{opacity:0}}
@@ -84,5 +88,6 @@ html:not(.js) #kake{display:none}
 .k-walker-frog{animation-duration:.76s}
 @keyframes k-hop{from{transform:translateY(0)}to{transform:translateY(-7px)}}
 
-/* 掛け紙が上にあるあいだ、後ろの背景は描かない */
+/* 掛け紙が上にあるあいだ、後ろの背景は描かず、本の中の動きも止めておく */
 html.kake-on #sansui{visibility:hidden}
+html.kake-cover .book *,html.kake-cover .book *::before,html.kake-cover .book *::after{animation-play-state:paused}

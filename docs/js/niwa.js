@@ -169,7 +169,7 @@ function stone(s, si) {
 }
 
 // ---- 一コマ: 基の紙 + 熊手の跡 + 名札 ----
-const visible = () => face && face.classList.contains("is-open") && !document.hidden;
+const visible = () => face && face.classList.contains("is-open") && !document.hidden && !document.documentElement.classList.contains("kake-cover");
 
 function frame(now) {
   requestAnimationFrame(frame);

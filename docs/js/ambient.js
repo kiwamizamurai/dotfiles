@@ -65,7 +65,7 @@ function glow(c, x, y, r, rgb, a) {
 let last = performance.now();
 function frame(now) {
   requestAnimationFrame(frame);
-  if (document.hidden) { last = now; return; }
+  if (document.hidden || root.classList.contains("kake-cover")) { last = now; return; }
   const dt = Math.min(.05, (now - last) / 1000); last = now;
   drawBg(now / 1000, dt);
   drawTrail(now, dt);

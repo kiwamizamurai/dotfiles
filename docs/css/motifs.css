@@ -3,7 +3,9 @@
 /* 帙の布目と、青海波 */
 .cover{position:relative;width:100%;height:100%;overflow:hidden;color:var(--tag);
   background:linear-gradient(135deg,var(--cover),var(--cover2))}
-.cover .waves{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+/* 青海波は、模様そのものではなく、<svg> を一柄ぶん（48px）横へ流す。模様を動かすと、毎コマ、頁全体を描き直すため */
+@keyframes sg-flow{to{transform:translateX(48px)}}
+.cover .waves{position:absolute;inset:0 auto 0 -48px;width:calc(100% + 48px);height:100%;opacity:.9;animation:sg-flow 26s linear infinite}
 .cover::before{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.5;
   background:repeating-linear-gradient(0deg,#ffffff14 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,#00000022 0 1px,transparent 1px 3px)}
 .cover.front-cover{box-shadow:inset -3cqw 0 4cqw -2cqw #000000aa}
@@ -27,7 +29,8 @@
 
 /* 見返し: 青海波の千代紙 */
 .endpaper{position:relative;width:100%;height:100%;overflow:hidden;background:var(--paper2)}
-.endpaper .waves{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.endpaper .waves{position:absolute;inset:0 auto 0 -48px;width:calc(100% + 48px);height:100%;opacity:.55;animation:sg-flow 34s linear infinite}
+@media (prefers-reduced-motion:reduce){.cover .waves,.endpaper .waves{animation:none}}
 .endpaper .inkan{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg);width:15cqw;height:15cqw;background:var(--shu);color:var(--paper);
   display:grid;place-items:center;font:400 9cqw/1 var(--brush);border-radius:.6cqw;box-shadow:0 0 0 1.4cqw var(--paper2)}
 

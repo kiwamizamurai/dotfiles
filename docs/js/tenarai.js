@@ -11,7 +11,8 @@ const root = document.documentElement;
 
 let W = 0, H = 0, dpr = 1;
 const pointer = { x: -1, y: -1 };
-addEventListener("pointermove", e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+let rect = null;                    // canvas の位置は、ポインタが動いたときだけ測り直す（毎コマ測ると、毎コマ layout が走る）
+addEventListener("pointermove", e => { pointer.x = e.clientX; pointer.y = e.clientY; rect = null; }, { passive: true });
 
 // ---- 色 ----
 let C = {}, colorAge = 0;
@@ -35,7 +36,7 @@ function layout() {
   KEYS.forEach(k => { k.w = kw; k.h = kh; k.x = m + k.c * (kw + gap); k.y = y0 + k.r * (kh + gap); });
 }
 function fit() {
-  W = host.clientWidth; H = host.clientHeight;
+  W = host.clientWidth; H = host.clientHeight; rect = null;
   if (!W || !H) return;
   dpr = Math.min(2, devicePixelRatio || 1);
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -85,7 +86,7 @@ function write(ch, user) {
   reach[h][tip[2]] = { k, start: now, hit: false };
 }
 
-function visible() { return face && face.classList.contains("is-open") && !document.hidden; }
+function visible() { return face && face.classList.contains("is-open") && !document.hidden && !root.classList.contains("kake-cover"); }
 
 addEventListener("keydown", e => {
   if (!visible() || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -196,7 +197,8 @@ function frame(now) {
   ctx.clearRect(0, 0, W, H);
 
   // 眼と、ポインタへの糸
-  const r = cv.getBoundingClientRect(), s = r.width / W || 1;
+  if (pointer.x >= 0 && !rect) rect = cv.getBoundingClientRect();
+  const r = rect || { left: 0, top: 0, width: W }, s = r.width / W || 1;
   const mx = (pointer.x - r.left) / s, my = (pointer.y - r.top) / s;
   const ecx = W * .5, ecy = H * .16, ew = W * .6;
   let px = 0, py = 0;

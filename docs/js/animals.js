@@ -164,7 +164,7 @@ export function paintParade(svg) {
 
 // ============ 組み込み ============
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const docVisible = () => !document.hidden;
+const docVisible = () => !document.hidden && !document.documentElement.classList.contains("kake-cover");
 
 // ---- 下の道: 進み具合。うさぎは頁に合わせて右から左へ走り、蛙が少し遅れて跳ねてついてくる ----
 export function initRoad() {
