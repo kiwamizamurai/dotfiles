@@ -31,7 +31,16 @@ local P = {
 }
 local VARIETIES = { { "kohaku", 3 }, { "sanke", 2 }, { "tancho", 1 } }
 
-local S = { koi = {}, pellets = {}, ripples = {}, bites = {}, avoid = {}, time = 0, acc = 0 }
+local S = {
+  koi = {},
+  pellets = {},
+  ripples = {},
+  bites = {},
+  avoid = {},
+  time = 0,
+  acc = 0,
+  pointer = { x = 0, y = 0, speed = 0, active = false, seen = 0 },
+}
 
 -- math helpers -------------------------------------------------------------
 
@@ -151,6 +160,10 @@ local function seed()
       next_burst = rand(0, 3),
       fin_phase = rand(0, TAU),
       gulp = 0,
+      curiosity = rand(0.35, 1),
+      startle = 0,
+      flee_x = 0,
+      flee_y = 0,
     })
   end
 end
@@ -214,13 +227,36 @@ local function step_koi(k, dt)
   cx, cy = cx + 0.6 * cos(k.heading + k.wander), cy + 0.6 * sin(k.heading + k.wander)
 
   local food = pick_food(k, hx, hy, max(1.6 * n + 220, k.rush > 0 and 650 or 0))
-  local eating, closeness = false, 0
-  if food then
+  local ptr = S.pointer
+  local fed_recently = t - (S.last_feed or -math.huge) < 2
+  if not food and not fed_recently and ptr.active and ptr.speed > 1100 and hypot(ptr.x - hx, ptr.y - hy) < 0.9 * n then
+    k.startle, k.flee_x, k.flee_y = 1, ptr.x, ptr.y
+  end
+  k.startle = max(0, k.startle - 0.6 * dt)
+  local fleeing = k.startle > 0.3 and not food
+  local eating, curious, closeness = false, false, 0
+  if fleeing then
+    local dx, dy = hx - k.flee_x, hy - k.flee_y
+    local d = hypot(dx, dy)
+    d = d > 0 and d or 1
+    cx, cy = cx + dx / d * 4 * k.startle, cy + dy / d * 4 * k.startle
+  elseif food then
     local dx, dy = food.x - hx, food.y - hy
     local d = hypot(dx, dy)
     d = d > 0 and d or 1
     cx, cy = cx + dx / d * 3, cy + dy / d * 3
     eating, closeness = true, clamp(1 - d / (1.2 * n), 0, 1)
+  elseif ptr.active then
+    -- drift over to the pointer, then circle it
+    local dx, dy = ptr.x - hx, ptr.y - hy
+    local d = hypot(dx, dy)
+    d = d > 0 and d or 1
+    if d < 300 then
+      local pull, toward = k.curiosity * (1 - d / 300) * 2.2, clamp(d / (0.6 * n), 0, 1)
+      cx = cx + (dx / d * toward - dy / d * (1 - toward)) * pull
+      cy = cy + (dy / d * toward + dx / d * (1 - toward)) * pull
+      curious = true
+    end
   end
 
   -- keep a little distance from the others, loosely school with them
@@ -260,7 +296,8 @@ local function step_koi(k, dt)
       ax, ay = ax + dx / l * (1 - d / reach), ay + dy / l * (1 - d / reach)
     end
   end
-  cx, cy = cx + ax * (eating and 0.5 or 1.8), cy + ay * (eating and 0.5 or 1.8)
+  local avoid = (eating or curious) and 0.5 or 1.8
+  cx, cy = cx + ax * avoid, cy + ay * avoid
 
   -- turn back before the walls
   local out = max(-hx, hx - w, -hy, hy - h)
@@ -272,7 +309,8 @@ local function step_koi(k, dt)
     cx, cy = cx + dx / d * f, cy + dy / d * f
   end
 
-  local rate = (1 + 0.6 * k.rush) * min(eating and 1.9 + closeness or 0.7, k.speed / n * 4) * dt
+  local agility = fleeing and 3 or eating and 1.9 + closeness or curious and 1.2 or 0.7
+  local rate = (1 + 0.6 * k.rush) * min(agility, k.speed / n * 4) * dt
   local turn = clamp(angdiff(k.heading, math.atan2(cy, cx)), -rate, rate)
   k.heading = k.heading + turn
   k.turn = k.turn + (turn / dt - k.turn) * min(1, 3 * dt)
@@ -281,7 +319,7 @@ local function step_koi(k, dt)
     k.burst_until = t + rand(0.7, 1.6)
     k.next_burst = k.burst_until + rand(1.2, 4)
   end
-  local active = eating or t < k.burst_until
+  local active = fleeing or eating or t < k.burst_until
   k.beat = k.beat + ((active and 1 or 0) - k.beat) * min(1, 3 * dt)
   if k.beat > 0.6 and k.depth > 0.65 and t > k.next_wake then
     ripple(k.nx[18], k.ny[18], 0.25 + 0.2 * k.depth)
@@ -291,7 +329,12 @@ local function step_koi(k, dt)
 
   local cruise = 12 + 0.05 * n
   local target = (1 + 0.8 * k.rush)
-    * (eating and cruise * (1.9 + closeness) or active and cruise * 1.35 or 0.45 * cruise)
+    * (
+      fleeing and 3.2 * cruise
+      or eating and cruise * (1.9 + closeness)
+      or active and cruise * (curious and 1.6 or 1.35)
+      or 0.45 * cruise
+    )
   k.speed = k.speed + (target - k.speed) * min(1, dt * (active and 1.6 + 3 * k.rush or 0.35))
   k.phase = k.phase + dt * (0.6 + k.beat * (2.2 + k.speed / 11))
   k.fin_phase = k.fin_phase + 2.4 * dt
@@ -329,6 +372,11 @@ end
 
 local function step(dt)
   S.time = S.time + dt
+  local ptr = S.pointer
+  ptr.speed = ptr.speed * math.exp(-8 * dt)
+  if ptr.active and S.time - ptr.seen > 4 then
+    ptr.active = false
+  end
   for _, k in ipairs(S.koi) do
     step_koi(k, dt)
   end
@@ -548,7 +596,7 @@ local function rasterize(k)
       else
         local flag, across, s, v, tx, ty = hit.flag, hit.across, R.s, R.v, R.tx, R.ty
         local covered = inside and 1 or 0
-        local ox, oy = 0, 0
+        local ox, oy, top, bot = 0, 0, 0, 0
         local solid = inside
           and flag ~= "fin"
           and flag ~= "whisker"
@@ -562,6 +610,11 @@ local function rasterize(k)
           for e = 1, #SUPER, 2 do
             if sample(px + SUPER[e] * CW, py + SUPER[e + 1] * CH, len, lo, hi) then
               ox, oy = ox + (SUPER[e] - 0.5) * CW, oy + (SUPER[e + 1] - 0.5) * CH
+              if SUPER[e + 1] < 0.5 then
+                top = top + 1
+              else
+                bot = bot + 1
+              end
               if covered == 0 then
                 flag, across, s, v, tx, ty = hit.flag, hit.across, R.s, R.v, R.tx, R.ty
               end
@@ -582,7 +635,10 @@ local function rasterize(k)
             tile, tile_a, glyph, fg = mix(S.bg, P.eye, 0.85), alpha, "o", mix(S.bg, P.white, 0.9)
           elseif flag == "fin" then
             tile, tile_a = mix(S.bg, P.fin, 0.55), 0.45 * alpha * q
-            if j % 2 == 0 then
+            if covered < 5 and (top == 0) ~= (bot == 0) then
+              -- half block: a sub-cell edge instead of a ragged full cell
+              glyph, fg, fg_a, tile, tile_a = top > 0 and "▀" or "▄", tile, 0.6 * alpha, nil, 0
+            elseif j % 2 == 0 then
               glyph, fg_a = ".", fg_a * 0.6 * q
             end
           else
@@ -612,8 +668,11 @@ local function rasterize(k)
                   tile = mix(tile, S.bg, 0.45)
                 end
               end
+            elseif (top == 0) ~= (bot == 0) then
+              glyph, fg, fg_a, tile, tile_a =
+                top > 0 and "▀" or "▄", tile, alpha * (0.55 + 0.2 * (top + bot)), nil, 0
             else
-              tile_a = alpha * q * 0.55
+              tile_a = alpha * (0.55 + 0.45 * q)
               if hypot(ox, oy) > 0.2 * CW and j % 3 == 0 then
                 glyph, fg = ".", scale(tile, P.ink)
               end
@@ -641,6 +700,41 @@ local function cell_at(x, y)
     return
   end
   return r * S.cols + c
+end
+
+-- wake: tails and the pointer stir the water, which spreads out and settles
+local function wake(dt)
+  local cols, rows = S.cols, S.rows
+  local energy = S.energy
+  for _, k in ipairs(S.koi) do
+    for i = 17, N do
+      local idx = floor(k.ny[i] / CH) * cols + floor(k.nx[i] / CW)
+      if k.nx[i] >= 0 and k.ny[i] >= 0 and k.nx[i] < S.w and k.ny[i] < S.h then
+        energy[idx] = min(1.5, (energy[idx] or 0) + 0.035 + 0.0012 * k.speed)
+      end
+    end
+  end
+  local ptr = S.pointer
+  if ptr.active then
+    local idx = floor(ptr.y / CH) * cols + floor(ptr.x / CW)
+    energy[idx] = min(1.5, (energy[idx] or 0) + 0.12)
+  end
+  local decay, next = math.exp(-1.1 * dt), {}
+  for row = 0, rows - 1 do
+    for col = 0, cols - 1 do
+      local idx = row * cols + col
+      local e = energy[idx] or 0
+      local l = col > 0 and (energy[idx - 1] or 0) or e
+      local r = col < cols - 1 and (energy[idx + 1] or 0) or e
+      local u = row > 0 and (energy[idx - cols] or 0) or e
+      local d = row < rows - 1 and (energy[idx + cols] or 0) or e
+      local v = (4 * e + l + r + u + d) * 0.125 * decay
+      if v > 0.01 then
+        next[idx] = v
+      end
+    end
+  end
+  S.energy = next
 end
 
 local function draw_effects()
@@ -702,6 +796,11 @@ local function draw_effects()
       put(idx, ":", P.shadow, P.shadow_alpha)
     end
   end
+  for idx, e in pairs(S.energy) do
+    if e >= 0.22 then
+      put(idx, e > 0.5 and "-" or ".", P.water, 0.35 * min(1, (e - 0.22) * 1.4))
+    end
+  end
 end
 
 -- terminal output ----------------------------------------------------------
@@ -719,7 +818,7 @@ local function hl(fg, bg)
   local name = hl_cache[key]
   if not name then
     name = "DashboardPond" .. fg:sub(2) .. (bg and bg:sub(2) or "")
-    vim.api.nvim_set_hl(0, name, { fg = fg, bg = bg or S.bg_hex })
+    vim.api.nvim_set_hl(0, name, { fg = fg, bg = bg or S.bg_hex, bold = true })
     hl_cache[key] = name
   end
   return name
@@ -852,7 +951,7 @@ local function frame()
   end
   local cols, rows = vim.api.nvim_win_get_width(win), vim.api.nvim_win_get_height(win)
   if cols ~= S.cols or rows ~= S.rows then
-    S.cols, S.rows, S.w, S.h = cols, rows, cols * CW, rows * CH
+    S.cols, S.rows, S.w, S.h, S.energy = cols, rows, cols * CW, rows * CH, {}
     S.stats_col, S.stats_row = floor(cols * 0.8), 1
     S.pellets, S.ripples, S.bites = {}, {}, {}
     seed()
@@ -865,7 +964,8 @@ local function frame()
   end
 
   local now = vim.uv.hrtime() / 1e9
-  S.acc = S.acc + min(0.1, now - (S.last or now))
+  local dt = min(0.1, now - (S.last or now))
+  S.acc = S.acc + dt
   S.last = now
   local steps = 0
   while S.acc >= STEP and steps < 4 do
@@ -876,6 +976,7 @@ local function frame()
     S.acc = 0
   end
 
+  wake(dt)
   cells, shadow = {}, {}
   local order = vim.list_slice(S.koi)
   table.sort(order, function(a, b)
@@ -933,6 +1034,20 @@ function M.attach(buf, links)
     return ""
   end, { buffer = buf, expr = true, desc = "Feed the koi" })
 
+  -- the koi notice the mouse: they come over to circle it and bolt when it moves fast
+  vim.keymap.set({ "n", "i" }, "<MouseMove>", function()
+    local mouse = vim.fn.getmousepos()
+    local ptr, now = S.pointer, vim.uv.hrtime() / 1e9
+    if mouse.winid ~= vim.fn.bufwinid(S.buf) then
+      ptr.active = false
+      return
+    end
+    local x, y = (mouse.wincol - 1) * CW + CW / 2, (mouse.winrow - 1) * CH + CH / 2
+    local speed = hypot(x - ptr.x, y - ptr.y) / max(0.001, now - (ptr.moved or 0))
+    ptr.speed = ptr.speed + (min(speed, 5000) - ptr.speed) * 0.5
+    ptr.x, ptr.y, ptr.moved, ptr.seen, ptr.active = x, y, now, S.time, true
+  end, { buffer = buf, desc = "Koi follow the mouse" })
+
   if S.timer then
     return
   end
@@ -941,6 +1056,24 @@ function M.attach(buf, links)
   S.augroup = vim.api.nvim_create_augroup("dashboard_pond", { clear = true })
   vim.api.nvim_create_autocmd("ColorScheme", { group = S.augroup, callback = set_hls })
   vim.api.nvim_create_autocmd({ "BufWipeout", "BufDelete" }, { group = S.augroup, buffer = buf, callback = M.stop })
+  -- mouse move events only while the pond is in front
+  S.mousemove = vim.o.mousemoveevent
+  vim.o.mousemoveevent = true
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = S.augroup,
+    buffer = buf,
+    callback = function()
+      vim.o.mousemoveevent = true
+    end,
+  })
+  vim.api.nvim_create_autocmd("BufLeave", {
+    group = S.augroup,
+    buffer = buf,
+    callback = function()
+      vim.o.mousemoveevent = S.mousemove
+      S.pointer.active = false
+    end,
+  })
 end
 
 function M.stop()
@@ -952,7 +1085,9 @@ function M.stop()
   if S.augroup then
     pcall(vim.api.nvim_del_augroup_by_id, S.augroup)
     S.augroup = nil
+    vim.o.mousemoveevent = S.mousemove
   end
+  S.pointer.active = false
   S.koi, S.pellets, S.ripples, S.bites, S.cols, S.rows, S.last = {}, {}, {}, {}, nil, nil, nil
 end
 
