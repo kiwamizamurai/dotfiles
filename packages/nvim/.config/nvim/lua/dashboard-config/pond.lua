@@ -4,6 +4,8 @@
 -- `virt_text_win_col` overlays that leave the dashboard text untouched. Click to drop food.
 local M = {}
 
+local portrait = require("dashboard-config.portrait")
+
 local ns = vim.api.nvim_create_namespace("dashboard_pond")
 local TICK_MS = 50
 local STEP = 1 / 60
@@ -875,6 +877,63 @@ local function draw()
       })
     end
   end
+  local pt = S.portrait
+  if pt then
+    -- she glances toward the nearest koi
+    local cx, look, best = (pt.col + portrait.width / 2) * CW, 0, math.huge
+    for _, k in ipairs(S.koi) do
+      local d = hypot(k.nx[1] - cx, k.ny[1] - (pt.row + portrait.height / 2) * CH)
+      if d < best then
+        best, look = d, abs(k.nx[1] - cx) < 4 * CW and 0 or k.nx[1] < cx and -1 or 1
+      end
+    end
+    local canvas, _, height = portrait.frame(S.time, look)
+    for row = 0, math.ceil(height / 2) - 1 do
+      local top, bot = canvas[row * 2] or {}, canvas[row * 2 + 1] or {}
+      local start, chunks = nil, {}
+      local function flush()
+        if start and pt.row + row < lines then
+          vim.api.nvim_buf_set_extmark(S.buf, ns, pt.row + row, 0, {
+            virt_text = chunks,
+            virt_text_win_col = pt.col + start,
+            priority = 200,
+          })
+        end
+        start, chunks = nil, {}
+      end
+      for col = 0, portrait.width - 1 do
+        local t, b = top[col], bot[col]
+        if t or b then
+          local text, group
+          if t and b then
+            text, group = t == b and "█" or "▀", hl(t, t ~= b and b or nil)
+          else
+            text, group = t and "▀" or "▄", hl(t or b)
+          end
+          start = start or col
+          local last = chunks[#chunks]
+          if last and last[2] == group then
+            last[1] = last[1] .. text
+          else
+            chunks[#chunks + 1] = { text, group }
+          end
+        else
+          flush()
+        end
+      end
+      flush()
+    end
+    for _, z in ipairs(portrait.marks(S.time)) do
+      local row = pt.row + z.row
+      if row >= 0 and row < lines then
+        vim.api.nvim_buf_set_extmark(S.buf, ns, row, 0, {
+          virt_text = { { z.char, hl(hex(mix(S.bg, P.water, 0.7 * z.alpha))) } },
+          virt_text_win_col = pt.col + z.col,
+          priority = 200,
+        })
+      end
+    end
+  end
   if S.cursor and floor(S.time * 1.8) % 2 == 0 then
     vim.api.nvim_buf_set_extmark(S.buf, ns, S.cursor[1], 0, {
       virt_text = { { "█", "DashboardPondDim" } },
@@ -914,6 +973,22 @@ local function measure()
     boxes,
     { left = S.stats_col * CW, right = (S.stats_col + 4) * CW, top = S.stats_row * CH, bottom = (S.stats_row + 2) * CH }
   )
+  local pt = S.portrait
+  if pt then
+    -- koi pass behind her, not through the gaps in her hair
+    for row = pt.row, pt.row + portrait.height - 1 do
+      S.text_mask[row] = S.text_mask[row] or {}
+      for col = pt.col, pt.col + portrait.width - 1 do
+        S.text_mask[row][col] = true
+      end
+    end
+    table.insert(boxes, {
+      left = pt.col * CW,
+      right = (pt.col + portrait.width) * CW,
+      top = pt.row * CH,
+      bottom = (pt.row + portrait.height) * CH,
+    })
+  end
   -- merge nearby boxes, like paragraphs
   for _, b in ipairs(boxes) do
     local merged = false
@@ -953,6 +1028,16 @@ local function frame()
   if cols ~= S.cols or rows ~= S.rows then
     S.cols, S.rows, S.w, S.h, S.energy = cols, rows, cols * CW, rows * CH, {}
     S.stats_col, S.stats_row = floor(cols * 0.8), 1
+    -- the dozing portrait sits in the lower right, or the upper right when the quote is in the way
+    local pc = cols - portrait.width - max(2, floor(cols * 0.05))
+    local text_right = floor((cols - max(50, floor(cols * 0.6))) / 2) + 46
+    if pc > text_right + 2 and rows >= portrait.height + 6 then
+      S.portrait = { row = rows - portrait.height - 3, col = pc }
+    elseif pc >= 0 and rows >= portrait.height + 12 then
+      S.portrait = { row = 3, col = pc }
+    else
+      S.portrait = nil
+    end
     S.pellets, S.ripples, S.bites = {}, {}, {}
     seed()
     S.measured = nil
