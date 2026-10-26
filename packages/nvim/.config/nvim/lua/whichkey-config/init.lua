@@ -17,18 +17,11 @@ wk.setup({
   },
 })
 
-local Terminal = require("toggleterm.terminal").Terminal
-local toggle_float = function()
-  local float = Terminal:new({ direction = "float" })
-  return float:toggle()
-end
 local toggle_vertical = function()
-  local vertical = Terminal:new({ direction = "vertical", size = 80 })
-  return vertical:toggle()
+  Snacks.terminal.toggle(nil, { count = 2, win = { position = "right", width = 80 } })
 end
-local toggle_lazygit = function()
-  local lazygit = Terminal:new({ cmd = "lazygit", direction = "float" })
-  return lazygit:toggle()
+local toggle_float = function()
+  Snacks.terminal.toggle(nil, { count = 3, win = { position = "float" } })
 end
 
 wk.add({
@@ -36,29 +29,115 @@ wk.add({
   { "<leader>q", ":q<cr>", desc = "Quit" },
   { "<leader>Q", ":wq<cr>", desc = "Save & Quit" },
   { "<leader>w", ":w<cr>", desc = "Save" },
-  { "<leader>x", ":bdelete<cr>", desc = "Close" },
+  {
+    "<leader>x",
+    function()
+      Snacks.bufdelete()
+    end,
+    desc = "Close",
+  },
   { "<leader>E", ":e ~/.config/nvim/init.lua<cr>", desc = "Edit config" },
 
   -- Find group
   { "<leader>f", group = "Find" },
-  { "<leader>ff", ":Telescope find_files<cr>", desc = "Find Files" },
-  { "<leader>fg", ":Telescope live_grep<cr>", desc = "Live Grep" },
-  { "<leader>fb", ":Telescope buffers<cr>", desc = "Buffers" },
-  { "<leader>fh", ":Telescope help_tags<cr>", desc = "Help Tags" },
-  { "<leader>fr", ":Telescope oldfiles<cr>", desc = "Recent Files" },
-  { "<leader>fd", ":Telescope diagnostics<cr>", desc = "Diagnostics" },
-  { "<leader>fs", ":Telescope git_status<cr>", desc = "Git Status" },
-  { "<leader>fc", ":Telescope git_commits<cr>", desc = "Git Commits" },
+  {
+    "<leader>ff",
+    function()
+      Snacks.picker.files()
+    end,
+    desc = "Find Files",
+  },
+  {
+    "<leader>fg",
+    function()
+      Snacks.picker.grep()
+    end,
+    desc = "Live Grep",
+  },
+  {
+    "<leader>fb",
+    function()
+      Snacks.picker.buffers()
+    end,
+    desc = "Buffers",
+  },
+  {
+    "<leader>fh",
+    function()
+      Snacks.picker.help()
+    end,
+    desc = "Help Tags",
+  },
+  {
+    "<leader>fr",
+    function()
+      Snacks.picker.recent()
+    end,
+    desc = "Recent Files",
+  },
+  {
+    "<leader>fd",
+    function()
+      Snacks.picker.diagnostics()
+    end,
+    desc = "Diagnostics",
+  },
+  {
+    "<leader>fs",
+    function()
+      Snacks.picker.git_status()
+    end,
+    desc = "Git Status",
+  },
+  {
+    "<leader>fc",
+    function()
+      Snacks.picker.git_log()
+    end,
+    desc = "Git Commits",
+  },
+  {
+    "<leader>fp",
+    function()
+      Snacks.picker.projects()
+    end,
+    desc = "Projects",
+  },
+  {
+    "<leader>fn",
+    function()
+      Snacks.picker.notifications()
+    end,
+    desc = "Notification History",
+  },
 
   -- Quick live grep
-  { "<leader>r", ":Telescope live_grep<cr>", desc = "Live Grep (quick)" },
+  {
+    "<leader>r",
+    function()
+      Snacks.picker.grep()
+    end,
+    desc = "Live Grep (quick)",
+  },
 
   -- Terminal group
   { "<leader>t", group = "Terminal" },
-  { "<leader>th", ":ToggleTerm<cr>", desc = "Horizontal (bottom)" },
+  {
+    "<leader>th",
+    function()
+      Snacks.terminal.toggle(nil, { win = { position = "bottom", height = 13 } })
+    end,
+    desc = "Horizontal (bottom)",
+  },
   { "<leader>tv", toggle_vertical, desc = "Vertical (right)" },
   { "<leader>tf", toggle_float, desc = "Floating (center)" },
-  { "<leader>tl", toggle_lazygit, desc = "LazyGit" },
+  {
+    "<leader>tl",
+    function()
+      Snacks.lazygit()
+    end,
+    desc = "LazyGit",
+  },
 
   -- LSP group
   { "<leader>l", group = "LSP" },
@@ -79,6 +158,18 @@ wk.add({
 
   -- Zen mode (nested under LSP for now)
   { "<leader>lz", group = "Focus" },
-  { "<leader>lzz", ":ZenMode<cr>", desc = "Toggle Zen Mode" },
-  { "<leader>lzt", ":Twilight<cr>", desc = "Toggle Twilight" },
+  {
+    "<leader>lzz",
+    function()
+      Snacks.zen()
+    end,
+    desc = "Toggle Zen Mode",
+  },
+  {
+    "<leader>lzt",
+    function()
+      Snacks.toggle.dim():toggle()
+    end,
+    desc = "Toggle Dim",
+  },
 })

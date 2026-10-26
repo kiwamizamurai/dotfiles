@@ -7,7 +7,9 @@ map("n", "<C-k>", "<C-w>k", { noremap = true, silent = false })
 map("i", "jk", "<ESC>", { noremap = true, silent = false })
 map("i", "kj", "<ESC>", { noremap = true, silent = false })
 
-map("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", function()
+  Snacks.explorer()
+end, { silent = true, desc = "Explorer" })
 
 map("v", "<", "<gv", { noremap = true, silent = false })
 map("v", ">", ">gv", { noremap = true, silent = false })
