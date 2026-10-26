@@ -1,94 +1,79 @@
-local dashboard = require("dashboard")
+-- snacks.nvim dashboard: a koi pond with a nav row on top and a quote in the lower left, after daoho.dev
+local pond = require("dashboard-config.pond")
 
-dashboard.setup({
-  theme = "doom",
-  config = {
-    header = {
-      "",
-      " ⣿⠟⣽⣿⣿⣿⣿⣿⢣⠟⠋⡜⠄⢸⣿⣿⡟⣬⢁⠠⠁⣤⠄⢰⠄⠇⢻⢸ ",
-      " ⢏⣾⣿⣿⣿⠿⣟⢁⡴⡀⡜⣠⣶⢸⣿⣿⢃⡇⠂⢁⣶⣦⣅⠈⠇⠄⢸⢸ ",
-      " ⣹⣿⣿⣿⡗⣾⡟⡜⣵⠃⣴⣿⣿⢸⣿⣿⢸⠘⢰⣿⣿⣿⣿⡀⢱⠄⠨⢸ ",
-      " ⣿⣿⣿⣿⡇⣿⢁⣾⣿⣾⣿⣿⣿⣿⣸⣿⡎⠐⠒⠚⠛⠛⠿⢧⠄⠄⢠⣼ ",
-      " ⣿⣿⣿⣿⠃⠿⢸⡿⠭⠭⢽⣿⣿⣿⢂⣿⠃⣤⠄⠄⠄⠄⠄⠄⠄⠄⣿⡾ ",
-      " ⣼⠏⣿⡏⠄⠄⢠⣤⣶⣶⣾⣿⣿⣟⣾⣾⣼⣿⠒⠄⠄⠄⡠⣴⡄⢠⣿⣵ ",
-      " ⣳⠄⣿⠄⠄⢣⠸⣹⣿⡟⣻⣿⣿⣿⣿⣿⣿⡿⡻⡖⠦⢤⣔⣯⡅⣼⡿⣹ ",
-      " ⡿⣼⢸⠄⠄⣷⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣕⡜⡌⡝⡸⠙⣼⠟⢱⠏ ",
-      " ⡇⣿⣧⡰⡄⣿⣿⣿⣿⡿⠿⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣋⣪⣥⢠⠏⠄ ",
-      " ⣧⢻⣿⣷⣧⢻⣿⣿⣿⡇⠄⢀⣀⣀⡙⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠂⠄⠄ ",
-      " ⢹⣼⣿⣿⣿⣧⡻⣿⣿⣇⣴⣿⣿⣿⣷⢸⣿⣿⣿⣿⣿⣿⣿⣿⣰⠄⠄⠄ ",
-      " ⣼⡟⡟⣿⢸⣿⣿⣝⢿⣿⣾⣿⣿⣿⢟⣾⣿⣿⣿⣿⣿⣿⣿⣿⠟⠄⡀⡀ ",
-      " ⣿⢰⣿⢹⢸⣿⣿⣿⣷⣝⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠉⠄⠄⣸⢰⡇ ",
-      " ⣿⣾⣹⣏⢸⣿⣿⣿⣿⣿⣷⣍⡻⣛⣛⣛⡉⠁⠄⠄⠄⠄⠄⠄⢀⢇⡏⠄ ",
-      "",
-      "",
-    },
-    center = {
-      {
-        icon = "  ",
-        icon_hl = "Title",
-        desc = "Find File           ",
-        desc_hl = "String",
-        key = "f",
-        keymap = "SPC f f",
-        key_hl = "Number",
-        key_format = " %s",
-        action = "Telescope find_files",
-      },
-      {
-        icon = "  ",
-        desc = "Recent Files",
-        key = "r",
-        keymap = "SPC f r",
-        key_format = " %s",
-        action = "Telescope oldfiles",
-      },
-      {
-        icon = "  ",
-        desc = "Search Text",
-        key = "s",
-        keymap = "SPC f g",
-        key_format = " %s",
-        action = "Telescope live_grep",
-      },
-      {
-        icon = "  ",
-        desc = "Config",
-        key = "c",
-        keymap = "SPC f c",
-        key_format = " %s",
-        action = "edit ~/.config/nvim/init.lua",
-      },
-      {
-        icon = "  ",
-        desc = "Update Plugins",
-        key = "u",
-        keymap = "SPC p u",
-        key_format = " %s",
-        action = "Lazy update",
-      },
-      {
-        icon = "󰩈  ",
-        desc = "Quit",
-        key = "q",
-        keymap = "SPC q",
-        key_format = " %s",
-        action = "qa",
-      },
-    },
-    footer = {
-      "",
-      "Made with ❤️ by kiwamizamurai",
-      "",
-    },
-  },
-})
+local keys = {
+  { key = "f", label = "files", action = ":lua Snacks.picker.files()" },
+  { key = "r", label = "recent", action = ":lua Snacks.picker.recent()" },
+  { key = "g", label = "grep", action = ":lua Snacks.picker.grep()" },
+  { key = "p", label = "projects", action = ":lua Snacks.picker.projects()" },
+  { key = "c", label = "config", action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })" },
+  { key = "l", label = "lazy", action = ":Lazy" },
+  { key = "q", label = "quit", action = ":qa" },
+}
+local GAP = "    "
+local QUOTE = { "in an ocean of gluttony,", "cast a fine net" }
 
--- Set colorscheme after dashboard loads
-vim.api.nvim_create_autocmd("User", {
-  pattern = "DashboardReady",
-  callback = function()
-    vim.cmd("highlight DashboardHeader guifg=#9ece6a")
-    vim.cmd("highlight DashboardCenter guifg=#7aa2f7")
-    vim.cmd("highlight DashboardFooter guifg=#bb9af7")
+local function nav()
+  local text = {}
+  for i, item in ipairs(keys) do
+    table.insert(text, { item.label:sub(1, 1), hl = "DashboardPondKey" })
+    table.insert(text, { item.label:sub(2) .. (i < #keys and GAP or ""), hl = "DashboardPondDim" })
+  end
+  return {
+    text = text,
+    align = "center",
+    render = function(self, pos)
+      pond.attach(
+        self.buf,
+        vim.tbl_map(function(item)
+          return {
+            row = pos[1] - 1,
+            label = item.label,
+            action = function()
+              self:action(item.action)
+            end,
+          }
+        end, keys)
+      )
+    end,
+  }
+end
+
+local function about()
+  local stats = require("lazy.stats").stats()
+  local version = vim.version()
+  return {
+    { "neovim " .. version.major .. "." .. version.minor .. "." .. version.patch, hl = "DashboardPondText" },
+    { " — " .. vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ":~")) .. "\n", hl = "DashboardPondDim" },
+    { "loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in ", hl = "DashboardPondText" },
+    { (math.floor(stats.startuptime * 100 + 0.5) / 100) .. "ms", hl = "DashboardPondText" },
+  }
+end
+
+return {
+  enabled = true,
+  sections = function(self)
+    local width, height = self._size.width, vim.api.nvim_win_get_height(self.win)
+    -- left edge of the text at 20% of the window, nav centered in the remaining width
+    self.opts.width = math.max(50, math.floor(width * 0.6))
+    self.opts.row = 1
+    local bottom = 3
+    local used = 1 + #QUOTE + 1 + 2 + bottom
+    local spacer = math.max(1, height - 1 - used)
+    return {
+      nav(),
+      { text = { { (" \n"):rep(spacer - 1) .. " " } } },
+      {
+        text = { { table.concat(QUOTE, "\n"), hl = "DashboardPondDim" } },
+        padding = 1,
+        render = function(_, pos)
+          pond.set_cursor(pos[1] - 1 + #QUOTE - 1, pos[2] + 2 + #QUOTE[#QUOTE])
+        end,
+      },
+      { text = about(), padding = bottom },
+      unpack(vim.tbl_map(function(item)
+        return vim.tbl_extend("force", item, { hidden = true })
+      end, keys)),
+    }
   end,
-})
+}

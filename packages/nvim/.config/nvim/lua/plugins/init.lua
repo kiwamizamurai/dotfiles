@@ -9,6 +9,16 @@ return {
     end,
   },
 
+  -- Pickers, explorer, dashboard, notifier, terminal, zen, indent guides
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("snacks-config")
+    end,
+  },
+
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -38,15 +48,6 @@ return {
     event = "BufWinEnter",
     config = function()
       require("bufferline-config")
-    end,
-  },
-
-  {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = "nvim-tree/nvim-web-devicons",
-    cmd = "NvimTreeToggle",
-    config = function()
-      require("nvim-tree-config")
     end,
   },
 
@@ -130,15 +131,6 @@ return {
     event = "BufWinEnter",
     config = function()
       require("whichkey-config")
-    end,
-  },
-
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = "Telescope",
-    config = function()
-      require("telescope-config")
     end,
   },
 
@@ -230,24 +222,6 @@ return {
 
   -- Editor enhancements
   {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
-    config = function()
-      require("dashboard-config")
-    end,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    event = "BufRead",
-    config = function()
-      require("ibl").setup()
-    end,
-  },
-
-  {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
@@ -289,13 +263,6 @@ return {
   },
 
   {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("toggleterm-config")
-    end,
-  },
-
-  {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
@@ -306,20 +273,6 @@ return {
     "nvimtools/none-ls.nvim",
     config = function()
       require("null-ls-config")
-    end,
-  },
-
-  {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode-config")
-    end,
-  },
-
-  {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight-config")
     end,
   },
 
@@ -492,8 +445,20 @@ return {
       },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+      {
+        "<leader>st",
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = "Todo",
+      },
+      {
+        "<leader>sT",
+        function()
+          Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+        end,
+        desc = "Todo/Fix/Fixme",
+      },
     },
   },
 
@@ -519,29 +484,7 @@ return {
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        "rcarriga/nvim-notify",
-        config = function()
-          require("notify").setup({
-            background_colour = "#000000",
-            stages = "fade_in_slide_out",
-            timeout = 3000,
-            render = "default",
-            minimum_width = 50,
-            icons = {
-              ERROR = "",
-              WARN = "",
-              INFO = "",
-              DEBUG = "",
-              TRACE = "✎",
-            },
-          })
-          vim.notify = require("notify")
-        end,
-      },
-    },
+    dependencies = { "MunifTanjim/nui.nvim" },
   },
 
   -- Markdown preview in browser
