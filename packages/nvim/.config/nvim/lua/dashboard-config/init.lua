@@ -1,4 +1,4 @@
--- snacks.nvim dashboard: a koi pond with a nav row on top and a quote in the lower left, after daoho.dev
+-- snacks.nvim dashboard: a koi pond with a nav row on top and stats in the lower left, after daoho.dev
 local pond = require("dashboard-config.pond")
 
 local keys = {
@@ -11,7 +11,6 @@ local keys = {
   { key = "q", label = "quit", action = ":qa" },
 }
 local GAP = "    "
-local QUOTE = { "in an ocean of gluttony,", "cast a fine net" }
 
 local function nav()
   local text = {}
@@ -58,18 +57,11 @@ return {
     self.opts.width = math.max(50, math.floor(width * 0.6))
     self.opts.row = 1
     local bottom = 3
-    local used = 1 + #QUOTE + 1 + 2 + bottom
+    local used = 1 + 2 + bottom
     local spacer = math.max(1, height - 1 - used)
     return {
       nav(),
       { text = { { (" \n"):rep(spacer - 1) .. " " } } },
-      {
-        text = { { table.concat(QUOTE, "\n"), hl = "DashboardPondDim" } },
-        padding = 1,
-        render = function(_, pos)
-          pond.set_cursor(pos[1] - 1 + #QUOTE - 1, pos[2] + 2 + #QUOTE[#QUOTE])
-        end,
-      },
       { text = about(), padding = bottom },
       unpack(vim.tbl_map(function(item)
         return vim.tbl_extend("force", item, { hidden = true })
