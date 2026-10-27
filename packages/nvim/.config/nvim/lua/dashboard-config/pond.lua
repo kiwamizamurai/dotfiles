@@ -875,13 +875,6 @@ local function draw()
       })
     end
   end
-  if S.cursor and floor(S.time * 1.8) % 2 == 0 then
-    vim.api.nvim_buf_set_extmark(S.buf, ns, S.cursor[1], 0, {
-      virt_text = { { "█", "DashboardPondDim" } },
-      virt_text_win_col = S.cursor[2],
-      priority = 200,
-    })
-  end
 end
 
 -- text on the dashboard: mask it out, dim fish around it, and steer koi away from it
@@ -1004,11 +997,6 @@ local function set_hls()
 end
 
 -- dashboard integration ----------------------------------------------------
-
---- Remember where the blinking cursor goes (end of the quote)
-function M.set_cursor(row, col)
-  S.cursor = { row, col }
-end
 
 ---@param buf number
 ---@param links? {row:number, col:number, width:number, action:fun()}[] clickable nav labels
