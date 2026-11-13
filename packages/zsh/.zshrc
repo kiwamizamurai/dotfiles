@@ -95,9 +95,7 @@ if type brew &>/dev/null; then
   fi
 fi
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.lmstudio/bin"
-# End of LM Studio CLI section
-
 # Added for pipx-installed CLI tools (e.g. platformio)
 export PATH="$HOME/.local/bin:$PATH"
+
+alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
