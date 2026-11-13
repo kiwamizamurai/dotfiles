@@ -111,7 +111,6 @@ brew "tw93/tap/mole", trusted: true # macOS cleanup and optimization tool
 brew "rclone"                      # Cloud storage sync tool
 brew "toilet"                      # ASCII art text generator
 brew "tty-clock"                   # Terminal clock
-brew "tailscale"                   # Zero-config VPN
 brew "changie"                     # Automated changelog tool for preparing releases
 brew "hey"                         # HTTP load generator, ApacheBench (ab) replacement
 brew "oha"                         # HTTP load generator with tui animation
@@ -140,7 +139,6 @@ cask "discord"                     # Voice/text chat for communities
 # Browsers
 cask "helium-browser"              # Privacy-focused Chromium fork (ungoogled-chromium based)
 cask "google-chrome"               # Google Chrome browser
-cask "zen"                         # Gecko based web browser
 
 # Media
 cask "iina"                        # Modern media player for macOS
@@ -160,6 +158,7 @@ cask "crystalfetch"                # Windows VM image downloader for UTM
 
 # System
 cask "cloudflare-warp"             # Cloudflare VPN client
+cask "tailscale-app"               # Zero-config VPN (WireGuard mesh)
 cask "flux-app"                    # Screen color temperature adjuster
 cask "pronotes"                    # Note-taking app
 cask "utm"                         # Virtual machine app for macOS
