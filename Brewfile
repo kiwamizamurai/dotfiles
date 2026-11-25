@@ -139,6 +139,7 @@ cask "discord"                     # Voice/text chat for communities
 # Browsers
 cask "helium-browser"              # Privacy-focused Chromium fork (ungoogled-chromium based)
 cask "google-chrome"               # Google Chrome browser
+cask "ladybird"                    # Independent browser with its own engine (pre-alpha)
 
 # Media
 cask "iina"                        # Modern media player for macOS
