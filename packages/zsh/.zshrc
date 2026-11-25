@@ -98,4 +98,3 @@ fi
 # Added for pipx-installed CLI tools (e.g. platformio)
 export PATH="$HOME/.local/bin:$PATH"
 alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work CLAUDE_CODE_RESUME_HINT_COMMAND=claude-work claude'
-
